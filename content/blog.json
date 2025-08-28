@@ -1,0 +1,34 @@
+{
+  "ar": {
+    "nav": { "home": "الرئيسية", "services": "الخدمات", "cases": "دراسات الحالة", "blog": "المدونة", "contact": "اتصل بنا" },
+    "hero": { "title": "مدونة عمق", "subtitle": "آخر الأخبار والمقالات والمقالات في عالم الأعمال والتطوير", "backToHome": "العودة للرئيسية", "searchPlaceholder": "ابحث في المقالات..." },
+    "categories": { "all": "الكل", "strategy": "الاستراتيجية", "digital": "التحول الرقمي", "leadership": "القيادة", "innovation": "الابتكار", "trends": "الاتجاهات" },
+    "readMore": "اقرأ المزيد",
+    "readTime": "دقائق قراءة",
+    "featured": "مقال مميز",
+    "latest": "أحدث المقالات",
+    "posts": [
+      { "id": 1, "title": "مستقبل التحول الرقمي في الشرق الأوسط", "excerpt": "نظرة شاملة على التوجهات الحديثة في التحول الرقمي وتأثيرها على الأعمال في المنطقة، مع التركيز على التقنيات الناشئة والفرص المتاحة.", "content": "يشهد الشرق الأوسط تطوراً متسارعاً في مجال التحول الرقمي...", "author": "د. أحمد محمد", "date": "15 يناير 2024", "readTime": "8", "category": "digital", "tags": ["التحول الرقمي", "التكنولوجيا", "الشرق الأوسط"], "featured": true, "imageUrl": "" },
+      { "id": 2, "title": "استراتيجيات النمو للشركات الناشئة", "excerpt": "كيف يمكن للشركات الناشئة وضع استراتيجيات نمو فعالة...", "content": "تواجه الشركات الناشئة تحديات كبيرة...", "author": "سارة العلي", "date": "10 يناير 2024", "readTime": "6", "category": "strategy", "tags": ["الاستراتيجية", "الشركات الناشئة", "النمو"], "featured": false, "imageUrl": "" },
+      { "id": 3, "title": "أهمية القيادة التحويلية في العصر الرقمي", "excerpt": "دور القيادة التحويلية...", "content": "في عصر التطور التكنولوجي...", "author": "محمد الشمري", "date": "5 يناير 2024", "readTime": "7", "category": "leadership", "tags": ["القيادة", "الإدارة", "التطوير"], "featured": false, "imageUrl": "" }
+    ],
+    "cta": { "title": "هل تريد المزيد من المقالات؟", "subtitle": "اشترك في نشرتنا الإخبارية للحصول على أحدث المقالات والمقالات", "button": "اشترك الآن", "emailPlaceholder": "أدخل بريدك الإلكتروني" }
+  },
+  "en": {
+    "nav": { "home": "Home", "services": "Services", "cases": "Case Studies", "blog": "Blog", "contact": "Contact" },
+    "hero": { "title": "Depth Blog", "subtitle": "Latest news, articles, and articles in the world of business and development", "backToHome": "Back to Home", "searchPlaceholder": "Search articles..." },
+    "categories": { "all": "All", "strategy": "Strategy", "digital": "Digital Transformation", "leadership": "Leadership", "innovation": "Innovation", "trends": "Trends" },
+    "readMore": "Read More",
+    "readTime": "min read",
+    "featured": "Featured Article",
+    "latest": "Latest Articles",
+    "posts": [
+      { "id": 1, "title": "The Future of Digital Transformation in the Middle East", "excerpt": "A comprehensive look at modern trends...", "content": "The Middle East is experiencing rapid development...", "author": "Dr. Ahmed Mohammed", "date": "January 15, 2024", "readTime": "8", "category": "digital", "tags": ["Digital Transformation", "Technology", "Middle East"], "featured": true, "imageUrl": "" },
+      { "id": 2, "title": "Growth Strategies for Startups", "excerpt": "How startups can develop effective growth strategies...", "content": "Startups face significant challenges...", "author": "Sarah Al-Ali", "date": "January 10, 2024", "readTime": "6", "category": "strategy", "tags": ["Strategy", "Startups", "Growth"], "featured": false, "imageUrl": "" },
+      { "id": 3, "title": "The Importance of Transformational Leadership in the Digital Age", "excerpt": "The role of transformational leadership...", "content": "In the age of rapid technological development...", "author": "Mohammed Al-Shamri", "date": "January 5, 2024", "readTime": "7", "category": "leadership", "tags": ["Leadership", "Management", "Development"], "featured": false, "imageUrl": "" }
+    ],
+    "cta": { "title": "Want More Articles?", "subtitle": "Subscribe to our newsletter to get the latest articles and articles", "button": "Subscribe Now", "emailPlaceholder": "Enter your email" }
+  }
+}
+
+

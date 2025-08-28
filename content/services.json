@@ -1,0 +1,86 @@
+{
+  "ar": {
+    "nav": { "home": "الرئيسية", "services": "الخدمات", "cases": "دراسات الحالة", "blog": "المدونة", "contact": "اتصل بنا" },
+    "hero": { "title": "خدماتنا المتخصصة", "subtitle": "نقدم مجموعة شاملة من الحلول المبتكرة لتطوير أعمالكم وتحقيق النمو المستدام", "backToHome": "العودة للرئيسية" },
+    "services": {
+      "items": [
+        { "title": "الاستشارات الإدارية", "description": "استشارات متخصصة لتطوير استراتيجيات العمل وتحسين الأداء التشغيلي", "features": ["تحليل الوضع الحالي للشركة", "وضع استراتيجيات التطوير", "تحسين العمليات التشغيلية", "إدارة التغيير والتطوير", "قياس الأداء والنتائج"], "price": "يبدأ من 15,000 ريال", "duration": "3-6 أشهر", "imageUrl": "" },
+        { "title": "التخطيط الاستراتيجي", "description": "وضع خطط استراتيجية محكمة لضمان نمو مستدام وتحقيق الأهداف طويلة المدى", "features": ["تحليل السوق والمنافسين", "وضع الرؤية والرسالة", "تحديد الأهداف الاستراتيجية", "خطط التنفيذ التفصيلية", "متابعة وتقييم النتائج"], "price": "يبدأ من 20,000 ريال", "duration": "4-8 أشهر", "imageUrl": "" },
+        { "title": "التحول الرقمي", "description": "مساعدة الشركات في التحول الرقمي وتطبيق أحدث التقنيات لتحسين الكفاءة", "features": ["تقييم الوضع التقني الحالي", "وضع استراتيجية التحول الرقمي", "تطبيق الحلول التقنية", "تدريب الفرق على التقنيات الجديدة", "الدعم والصيانة المستمرة"], "price": "يبدأ من 25,000 ريال", "duration": "6-12 شهر", "imageUrl": "" },
+        { "title": "التدريب والتطوير", "description": "برامج تدريبية متخصصة لتطوير قدرات فرق العمل ورفع مستوى الأداء", "features": ["تحليل احتياجات التدريب", "تصميم البرامج التدريبية", "التدريب العملي والنظري", "ورش العمل التفاعلية", "شهادات معتمدة"], "price": "يبدأ من 5,000 ريال", "duration": "1-3 أشهر", "imageUrl": "" }
+      ],
+      "consulting": {
+        "title": "الاستشارات الإدارية",
+        "description": "استشارات متخصصة لتطوير استراتيجيات العمل وتحسين الأداء التشغيلي",
+        "features": ["تحليل الوضع الحالي للشركة", "وضع استراتيجيات التطوير", "تحسين العمليات التشغيلية", "إدارة التغيير والتطوير", "قياس الأداء والنتائج"],
+        "price": "يبدأ من 15,000 ريال",
+        "duration": "3-6 أشهر"
+      },
+      "strategy": {
+        "title": "التخطيط الاستراتيجي",
+        "description": "وضع خطط استراتيجية محكمة لضمان نمو مستدام وتحقيق الأهداف طويلة المدى",
+        "features": ["تحليل السوق والمنافسين", "وضع الرؤية والرسالة", "تحديد الأهداف الاستراتيجية", "خطط التنفيذ التفصيلية", "متابعة وتقييم النتائج"],
+        "price": "يبدأ من 20,000 ريال",
+        "duration": "4-8 أشهر"
+      },
+      "digital": {
+        "title": "التحول الرقمي",
+        "description": "مساعدة الشركات في التحول الرقمي وتطبيق أحدث التقنيات لتحسين الكفاءة",
+        "features": ["تقييم الوضع التقني الحالي", "وضع استراتيجية التحول الرقمي", "تطبيق الحلول التقنية", "تدريب الفرق على التقنيات الجديدة", "الدعم والصيانة المستمرة"],
+        "price": "يبدأ من 25,000 ريال",
+        "duration": "6-12 شهر"
+      },
+      "training": {
+        "title": "التدريب والتطوير",
+        "description": "برامج تدريبية متخصصة لتطوير قدرات فرق العمل ورفع مستوى الأداء",
+        "features": ["تحليل احتياجات التدريب", "تصميم البرامج التدريبية", "التدريب العملي والنظري", "ورش العمل التفاعلية", "شهادات معتمدة"],
+        "price": "يبدأ من 5,000 ريال",
+        "duration": "1-3 أشهر"
+      }
+    },
+    "cta": { "title": "هل أنت مستعد لبدء رحلة التطوير؟", "subtitle": "تواصل معنا اليوم للحصول على استشارة مجانية", "button": "احجز استشارة مجانية" }
+  },
+  "en": {
+    "nav": { "home": "Home", "services": "Services", "cases": "Case Studies", "blog": "Blog", "contact": "Contact" },
+    "hero": { "title": "Our Specialized Services", "subtitle": "We offer a comprehensive range of innovative solutions to develop your business and achieve sustainable growth", "backToHome": "Back to Home" },
+    "services": {
+      "items": [
+        { "title": "Management Consulting", "description": "Specialized consulting to develop business strategies and improve operational performance", "features": ["Current company situation analysis", "Development strategy formulation", "Operational process improvement", "Change management and development", "Performance measurement and results"], "price": "Starting from SAR 15,000", "duration": "3-6 months", "imageUrl": "" },
+        { "title": "Strategic Planning", "description": "Developing robust strategic plans to ensure sustainable growth and achieve long-term goals", "features": ["Market and competitor analysis", "Vision and mission development", "Strategic objectives definition", "Detailed implementation plans", "Follow-up and results evaluation"], "price": "Starting from SAR 20,000", "duration": "4-8 months", "imageUrl": "" },
+        { "title": "Digital Transformation", "description": "Helping companies in digital transformation and implementing latest technologies to improve efficiency", "features": ["Current technical situation assessment", "Digital transformation strategy", "Technical solutions implementation", "Team training on new technologies", "Ongoing support and maintenance"], "price": "Starting from SAR 25,000", "duration": "6-12 months", "imageUrl": "" },
+        { "title": "Training & Development", "description": "Specialized training programs to develop team capabilities and enhance performance levels", "features": ["Training needs analysis", "Training program design", "Practical and theoretical training", "Interactive workshops", "Certified certificates"], "price": "Starting from SAR 5,000", "duration": "1-3 months", "imageUrl": "" }
+      ],
+      "consulting": {
+        "title": "Management Consulting",
+        "description": "Specialized consulting to develop business strategies and improve operational performance",
+        "features": ["Current company situation analysis", "Development strategy formulation", "Operational process improvement", "Change management and development", "Performance measurement and results"],
+        "price": "Starting from SAR 15,000",
+        "duration": "3-6 months"
+      },
+      "strategy": {
+        "title": "Strategic Planning",
+        "description": "Developing robust strategic plans to ensure sustainable growth and achieve long-term goals",
+        "features": ["Market and competitor analysis", "Vision and mission development", "Strategic objectives definition", "Detailed implementation plans", "Follow-up and results evaluation"],
+        "price": "Starting from SAR 20,000",
+        "duration": "4-8 months"
+      },
+      "digital": {
+        "title": "Digital Transformation",
+        "description": "Helping companies in digital transformation and implementing latest technologies to improve efficiency",
+        "features": ["Current technical situation assessment", "Digital transformation strategy", "Technical solutions implementation", "Team training on new technologies", "Ongoing support and maintenance"],
+        "price": "Starting from SAR 25,000",
+        "duration": "6-12 months"
+      },
+      "training": {
+        "title": "Training & Development",
+        "description": "Specialized training programs to develop team capabilities and enhance performance levels",
+        "features": ["Training needs analysis", "Training program design", "Practical and theoretical training", "Interactive workshops", "Certified certificates"],
+        "price": "Starting from SAR 5,000",
+        "duration": "1-3 months"
+      }
+    },
+    "cta": { "title": "Ready to Start Your Development Journey?", "subtitle": "Contact us today for a free consultation", "button": "Book Free Consultation" }
+  }
+}
+
+

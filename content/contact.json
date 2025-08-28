@@ -1,0 +1,62 @@
+{
+  "ar": {
+    "nav": { "home": "الرئيسية", "services": "الخدمات", "cases": "دراسات الحالة", "blog": "المدونة", "contact": "اتصل بنا" },
+    "hero": { "title": "تواصل معنا", "subtitle": "نحن هنا لمساعدتك في تحقيق أهدافك وتطوير أعمالك", "backToHome": "العودة للرئيسية" },
+    "form": {
+      "title": "أرسل لنا رسالة",
+      "subtitle": "املأ النموذج وسنتواصل معك في أقرب وقت ممكن",
+      "name": "الاسم الكامل",
+      "email": "البريد الإلكتروني",
+      "phone": "رقم الهاتف",
+      "company": "اسم الشركة",
+      "service": "الخدمة المطلوبة",
+      "message": "الرسالة",
+      "send": "إرسال الرسالة",
+      "services": { "consulting": "الاستشارات الإدارية", "strategy": "التخطيط الاستراتيجي", "digital": "التحول الرقمي", "training": "التدريب والتطوير", "other": "أخرى" }
+    },
+    "contact": {
+      "title": "معلومات التواصل",
+      "subtitle": "تواصل معنا عبر القنوات التالية",
+      "office": { "title": "المكتب الرئيسي", "address": "شارع الملك فهد، الرياض 12345، المملكة العربية السعودية", "phone": "+966 11 123 4567", "email": "info@depth-solutions.com" },
+      "hours": { "title": "ساعات العمل", "weekdays": "الأحد - الخميس: 9:00 ص - 6:00 م", "weekend": "الجمعة - السبت: مغلق" },
+      "response": { "title": "وقت الاستجابة", "email": "البريد الإلكتروني: خلال 24 ساعة", "phone": "الهاتف: فوري خلال ساعات العمل" }
+    },
+    "faq": { "title": "الأسئلة الشائعة", "subtitle": "إجابات على أكثر الأسئلة شيوعاً", "questions": [
+      { "question": "كم تستغرق مدة تنفيذ المشاريع؟", "answer": "تختلف مدة التنفيذ حسب نوع وحجم المشروع، وتتراوح عادة من 3 إلى 12 شهراً." },
+      { "question": "هل تقدمون استشارة مجانية؟", "answer": "نعم، نقدم استشارة مجانية أولية لمدة ساعة لمناقشة احتياجاتكم وكيفية مساعدتكم." }
+    ] },
+    "cta": { "title": "مستعد لبدء مشروعك؟", "subtitle": "احجز استشارة مجانية اليوم ودعنا نساعدك في تحقيق أهدافك", "button": "احجز استشارة مجانية" }
+  },
+  "en": {
+    "nav": { "home": "Home", "services": "Services", "cases": "Case Studies", "blog": "Blog", "contact": "Contact" },
+    "hero": { "title": "Contact Us", "subtitle": "We are here to help you achieve your goals and develop your business", "backToHome": "Back to Home" },
+    "form": {
+      "title": "Send Us a Message",
+      "subtitle": "Fill out the form and we will contact you as soon as possible",
+      "name": "Full Name",
+      "email": "Email Address",
+      "phone": "Phone Number",
+      "company": "Company Name",
+      "service": "Required Service",
+      "message": "Message",
+      "send": "Send Message",
+      "services": { "consulting": "Management Consulting", "strategy": "Strategic Planning", "digital": "Digital Transformation", "training": "Training & Development", "other": "Other" }
+    },
+    "contact": {
+      "title": "Contact Information",
+      "subtitle": "Reach us through the following channels",
+      "office": { "title": "Main Office", "address": "King Fahd Street, Riyadh 12345, Saudi Arabia", "phone": "+966 11 123 4567", "email": "info@depth-solutions.com" },
+      "hours": { "title": "Working Hours", "weekdays": "Sunday - Thursday: 9:00 AM - 6:00 PM", "weekend": "Friday - Saturday: Closed" },
+      "response": { "title": "Response Time", "email": "Email: Within 24 hours", "phone": "Phone: Immediate during working hours" }
+    },
+    "faq": { "title": "Frequently Asked Questions", "subtitle": "Answers to the most common questions", "questions": [
+      { "question": "How long do projects take to complete?", "answer": "Project duration varies depending on type and size, typically ranging from 3 to 12 months." },
+      { "question": "Do you offer free consultation?", "answer": "Yes, we offer a free initial consultation for one hour to discuss your needs and how we can help." }
+    ] },
+    "cta": { "title": "Ready to Start Your Project?", "subtitle": "Book a free consultation today and let us help you achieve your goals", "button": "Book Free Consultation" }
+  }
+}
+
+
+
+
