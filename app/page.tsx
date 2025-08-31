@@ -6,7 +6,7 @@ import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/com
 import { Input } from "@/components/ui/input"
 import { Textarea } from "@/components/ui/textarea"
 import { Badge } from "@/components/ui/badge"
-import { Globe, Menu, X, ChevronRight, Users, Target, TrendingUp, Award, Mail, Phone, MapPin } from "lucide-react"
+import { Globe, Menu, X, ChevronRight, Users, Target, TrendingUp, Award, Mail, Phone, MapPin, MessageSquare, Send } from "lucide-react"
 import Link from "next/link"
 
 export default function DepthBusinessWebsite() {
@@ -475,40 +475,90 @@ export default function DepthBusinessWebsite() {
 
           <div className="grid lg:grid-cols-2 gap-12 max-w-6xl mx-auto">
             {/* Contact Form */}
-            <Card className="card-glow border-[#4a90a4]/20 bg-white relative">
+            <Card className="card-glow border-[#4a90a4]/20 bg-white relative overflow-hidden">
+              <div className="h-2 bg-gradient-to-r from-[#1e3a5f] to-[#4a90a4]"></div>
               <CardHeader>
-                <CardTitle className="text-2xl text-[#1e3a5f]">{currentContent.contact.title}</CardTitle>
+                <CardTitle className="text-2xl text-[#1e3a5f] flex items-center">
+                  <MessageSquare className="h-6 w-6 mr-3 rtl:mr-0 rtl:ml-3 text-[#4a90a4]" />
+                  {currentContent.contact.title}
+                </CardTitle>
+                <p className="text-gray-600">{language === "ar" ? "املأ النموذج وسنتواصل معك في أقرب وقت ممكن" : "Fill out the form and we will contact you as soon as possible"}</p>
               </CardHeader>
               <CardContent className="space-y-6">
-                <div>
-                  <label className="block text-sm font-medium mb-2 text-[#1e3a5f]">{currentContent.contact.name}</label>
-                  <Input
-                    placeholder={currentContent.contact.name}
-                    className="border-[#4a90a4]/30 focus:border-[#4a90a4]"
-                  />
+                <div className="grid md:grid-cols-2 gap-4">
+                  <div>
+                    <label className="block text-sm font-medium mb-2 text-[#1e3a5f]">
+                      {language === "ar" ? "الاسم الكامل" : "Full Name"} *
+                    </label>
+                    <Input
+                      placeholder={language === "ar" ? "الاسم الكامل" : "Full Name"}
+                      className="border-[#4a90a4]/30 focus:border-[#4a90a4]"
+                      required
+                    />
+                  </div>
+                  <div>
+                    <label className="block text-sm font-medium mb-2 text-[#1e3a5f]">
+                      {language === "ar" ? "البريد الإلكتروني" : "Email Address"} *
+                    </label>
+                    <Input
+                      type="email"
+                      placeholder={language === "ar" ? "البريد الإلكتروني" : "Email Address"}
+                      className="border-[#4a90a4]/30 focus:border-[#4a90a4]"
+                      required
+                    />
+                  </div>
                 </div>
+
+                <div className="grid md:grid-cols-2 gap-4">
+                  <div>
+                    <label className="block text-sm font-medium mb-2 text-[#1e3a5f]">
+                      {language === "ar" ? "رقم الهاتف" : "Phone Number"}
+                    </label>
+                    <Input
+                      placeholder={language === "ar" ? "رقم الهاتف" : "Phone Number"}
+                      className="border-[#4a90a4]/30 focus:border-[#4a90a4]"
+                    />
+                  </div>
+                  <div>
+                    <label className="block text-sm font-medium mb-2 text-[#1e3a5f]">
+                      {language === "ar" ? "اسم الشركة" : "Company Name"}
+                    </label>
+                    <Input
+                      placeholder={language === "ar" ? "اسم الشركة" : "Company Name"}
+                      className="border-[#4a90a4]/30 focus:border-[#4a90a4]"
+                    />
+                  </div>
+                </div>
+
                 <div>
                   <label className="block text-sm font-medium mb-2 text-[#1e3a5f]">
-                    {currentContent.contact.email}
+                    {language === "ar" ? "الخدمة المطلوبة" : "Required Service"}
                   </label>
-                  <Input
-                    type="email"
-                    placeholder={currentContent.contact.email}
-                    className="border-[#4a90a4]/30 focus:border-[#4a90a4]"
-                  />
+                  <select className="w-full px-3 py-2 border border-[#4a90a4]/30 rounded-md focus:outline-none focus:ring-2 focus:ring-[#4a90a4] focus:border-[#4a90a4]">
+                    <option value="">{language === "ar" ? "الخدمة المطلوبة" : "Required Service"}</option>
+                    <option value="consulting">{language === "ar" ? "الاستشارات الإدارية" : "Management Consulting"}</option>
+                    <option value="strategy">{language === "ar" ? "التخطيط الاستراتيجي" : "Strategic Planning"}</option>
+                    <option value="digital">{language === "ar" ? "التحول الرقمي" : "Digital Transformation"}</option>
+                    <option value="training">{language === "ar" ? "التدريب والتطوير" : "Training & Development"}</option>
+                    <option value="other">{language === "ar" ? "أخرى" : "Other"}</option>
+                  </select>
                 </div>
+
                 <div>
                   <label className="block text-sm font-medium mb-2 text-[#1e3a5f]">
-                    {currentContent.contact.message}
+                    {language === "ar" ? "الرسالة" : "Message"} *
                   </label>
                   <Textarea
-                    placeholder={currentContent.contact.message}
+                    placeholder={language === "ar" ? "الرسالة" : "Message"}
                     rows={5}
                     className="border-[#4a90a4]/30 focus:border-[#4a90a4]"
+                    required
                   />
                 </div>
+
                 <Button className="w-full bg-gradient-to-r from-[#1e3a5f] to-[#4a90a4] hover:from-[#1e3a5f]/90 hover:to-[#4a90a4]/90 text-white border-0 shadow-lg">
-                  {currentContent.contact.send}
+                  <Send className="h-4 w-4 mr-2 rtl:mr-0 rtl:ml-2" />
+                  {language === "ar" ? "إرسال الرسالة" : "Send Message"}
                 </Button>
               </CardContent>
             </Card>
