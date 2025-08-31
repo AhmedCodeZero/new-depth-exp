@@ -5,6 +5,9 @@ import { Button } from "@/components/ui/button"
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card"
 import { Input } from "@/components/ui/input"
 import { Textarea } from "@/components/ui/textarea"
+import ServicesManager from "./components/ServicesManager"
+import CasesManager from "./components/CasesManager"
+import BlogManager from "./components/BlogManager"
 
 type PageKey = "home" | "services" | "cases" | "blog" | "contact"
 
@@ -532,8 +535,44 @@ export default function AdminPage() {
                   </div>
                 )}
 
+                {/* Services Tab */}
+                {activeTab === "services" && (
+                  <ServicesManager
+                    services={servicesItems}
+                    onSave={(services) => {
+                      setServicesItems(services)
+                      setIsDirty(true)
+                    }}
+                    lang={lang}
+                  />
+                )}
+
+                {/* Cases Tab */}
+                {activeTab === "cases" && (
+                  <CasesManager
+                    cases={casesItems}
+                    onSave={(cases) => {
+                      setCasesItems(cases)
+                      setIsDirty(true)
+                    }}
+                    lang={lang}
+                  />
+                )}
+
+                {/* Blog Tab */}
+                {activeTab === "blog" && (
+                  <BlogManager
+                    posts={blogPosts}
+                    onSave={(posts) => {
+                      setBlogPosts(posts)
+                      setIsDirty(true)
+                    }}
+                    lang={lang}
+                  />
+                )}
+
                 {/* Other tabs content would go here - simplified for brevity */}
-                {activeTab !== "json" && activeTab !== "contact-messages" && (
+                {activeTab !== "json" && activeTab !== "contact-messages" && activeTab !== "services" && activeTab !== "cases" && activeTab !== "blog" && (
                   <div className="text-center py-8 text-gray-500">
                     <svg className="w-16 h-16 mx-auto mb-4 text-gray-300" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                       <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z" />
