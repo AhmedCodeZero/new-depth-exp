@@ -406,8 +406,134 @@ export default function AdminPage() {
                   </div>
                 )}
 
+                {/* Contact Messages Tab */}
+                {activeTab === "contact-messages" && (
+                  <div className="space-y-4">
+                    <div className="flex justify-between items-center">
+                      <h3 className="text-lg font-semibold">رسائل التواصل</h3>
+                      <div className="flex gap-2">
+                        <select
+                          value={selectedStatus}
+                          onChange={(e) => setSelectedStatus(e.target.value as any)}
+                          className="px-3 py-2 border rounded-md"
+                        >
+                          <option value="all">جميع الرسائل</option>
+                          <option value="new">جديدة</option>
+                          <option value="read">مقروءة</option>
+                          <option value="replied">تم الرد</option>
+                        </select>
+                      </div>
+                    </div>
+
+                    {messagesLoading ? (
+                      <div className="text-center py-8">
+                        <div className="animate-spin rounded-full h-8 w-8 border-b-2 border-blue-600 mx-auto"></div>
+                        <p className="mt-2 text-gray-600">جاري التحميل...</p>
+                      </div>
+                    ) : contactMessages.length === 0 ? (
+                      <div className="text-center py-8 text-gray-500">
+                        لا توجد رسائل
+                      </div>
+                    ) : (
+                      <div className="space-y-4">
+                        {contactMessages.map((message) => (
+                          <div key={message.id} className="border rounded-lg p-4 bg-white">
+                            <div className="flex justify-between items-start mb-3">
+                              <div className="flex-1">
+                                <div className="flex items-center gap-2 mb-2">
+                                  <span className="font-semibold text-gray-900">{message.name}</span>
+                                  <span className="text-sm text-gray-500">({message.email})</span>
+                                  {message.phone && (
+                                    <span className="text-sm text-gray-500">• {message.phone}</span>
+                                  )}
+                                </div>
+                                {message.company && (
+                                  <p className="text-sm text-gray-600 mb-1">الشركة: {message.company}</p>
+                                )}
+                                {message.service && (
+                                  <p className="text-sm text-gray-600 mb-2">الخدمة: {message.service}</p>
+                                )}
+                              </div>
+                              <div className="flex items-center gap-2">
+                                <span className={`px-2 py-1 text-xs rounded-full ${
+                                  message.status === 'new' ? 'bg-blue-100 text-blue-800' :
+                                  message.status === 'read' ? 'bg-yellow-100 text-yellow-800' :
+                                  'bg-green-100 text-green-800'
+                                }`}>
+                                  {message.status === 'new' ? 'جديدة' :
+                                   message.status === 'read' ? 'مقروءة' : 'تم الرد'}
+                                </span>
+                                <span className="text-xs text-gray-500">
+                                  {new Date(message.created_at).toLocaleDateString('ar-SA')}
+                                </span>
+                              </div>
+                            </div>
+                            
+                            <div className="bg-gray-50 p-3 rounded-md mb-3">
+                              <p className="text-gray-800 whitespace-pre-wrap">{message.message}</p>
+                            </div>
+
+                            <div className="flex gap-2">
+                              {message.status === 'new' && (
+                                <Button
+                                  size="sm"
+                                  variant="outline"
+                                  onClick={() => updateMessageStatus(message.id, 'read')}
+                                >
+                                  تحديد كمقروءة
+                                </Button>
+                              )}
+                              {message.status !== 'replied' && (
+                                <Button
+                                  size="sm"
+                                  variant="outline"
+                                  onClick={() => updateMessageStatus(message.id, 'replied')}
+                                >
+                                  تحديد كمنتهية
+                                </Button>
+                              )}
+                              <Button
+                                size="sm"
+                                variant="outline"
+                                onClick={() => window.open(`mailto:${message.email}?subject=رد على رسالتك&body=مرحباً ${message.name}،%0D%0A%0D%0Aشكراً لك على رسالتك.%0D%0A%0D%0Aمع تحياتي،%0D%0Aفريق عمق`)}
+                              >
+                                رد عبر البريد
+                              </Button>
+                            </div>
+                          </div>
+                        ))}
+
+                        {/* Pagination */}
+                        {messagesTotal > 20 && (
+                          <div className="flex justify-center items-center gap-2 mt-6">
+                            <Button
+                              variant="outline"
+                              size="sm"
+                              disabled={messagesPage === 1}
+                              onClick={() => fetchContactMessages(messagesPage - 1, selectedStatus)}
+                            >
+                              السابق
+                            </Button>
+                            <span className="text-sm text-gray-600">
+                              صفحة {messagesPage} من {Math.ceil(messagesTotal / 20)}
+                            </span>
+                            <Button
+                              variant="outline"
+                              size="sm"
+                              disabled={messagesPage >= Math.ceil(messagesTotal / 20)}
+                              onClick={() => fetchContactMessages(messagesPage + 1, selectedStatus)}
+                            >
+                              التالي
+                            </Button>
+                          </div>
+                        )}
+                      </div>
+                    )}
+                  </div>
+                )}
+
                 {/* Other tabs content would go here - simplified for brevity */}
-                {activeTab !== "json" && (
+                {activeTab !== "json" && activeTab !== "contact-messages" && (
                   <div className="text-center py-8 text-gray-500">
                     <svg className="w-16 h-16 mx-auto mb-4 text-gray-300" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                       <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z" />
