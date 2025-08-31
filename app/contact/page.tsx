@@ -50,10 +50,56 @@ export default function ContactPage() {
     })
   }
 
-  const handleSubmit = (e: React.FormEvent) => {
+  const [isSubmitting, setIsSubmitting] = useState(false)
+  const [submitStatus, setSubmitStatus] = useState<{
+    type: 'success' | 'error' | null
+    message: string
+  }>({ type: null, message: '' })
+
+  const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault()
-    // Handle form submission
-    console.log("Form submitted:", formData)
+    setIsSubmitting(true)
+    setSubmitStatus({ type: null, message: '' })
+
+    try {
+      const response = await fetch('/api/contact', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify(formData),
+      })
+
+      const result = await response.json()
+
+      if (response.ok) {
+        setSubmitStatus({
+          type: 'success',
+          message: result.message
+        })
+        // Reset form
+        setFormData({
+          name: "",
+          email: "",
+          phone: "",
+          company: "",
+          service: "",
+          message: "",
+        })
+      } else {
+        setSubmitStatus({
+          type: 'error',
+          message: result.error || 'حدث خطأ أثناء إرسال الرسالة'
+        })
+      }
+    } catch (error) {
+      setSubmitStatus({
+        type: 'error',
+        message: 'حدث خطأ في الاتصال بالخادم'
+      })
+    } finally {
+      setIsSubmitting(false)
+    }
   }
 
   const defaultContent = {
@@ -441,12 +487,33 @@ export default function ContactPage() {
                     />
                   </div>
 
+                  {/* Status Messages */}
+                  {submitStatus.type && (
+                    <div className={`p-3 rounded-md text-sm ${
+                      submitStatus.type === 'success' 
+                        ? 'bg-green-100 text-green-800 border border-green-200' 
+                        : 'bg-red-100 text-red-800 border border-red-200'
+                    }`}>
+                      {submitStatus.message}
+                    </div>
+                  )}
+
                   <Button
                     type="submit"
-                    className="w-full bg-gradient-to-r from-[#1e3a5f] to-[#4a90a4] hover:from-[#1e3a5f]/90 hover:to-[#4a90a4]/90 text-white border-0 shadow-lg"
+                    disabled={isSubmitting}
+                    className="w-full bg-gradient-to-r from-[#1e3a5f] to-[#4a90a4] hover:from-[#1e3a5f]/90 hover:to-[#4a90a4]/90 text-white border-0 shadow-lg disabled:opacity-50 disabled:cursor-not-allowed"
                   >
-                    <Send className="h-4 w-4 mr-2 rtl:mr-0 rtl:ml-2" />
-                    {currentContent.form.send}
+                    {isSubmitting ? (
+                      <div className="flex items-center justify-center">
+                        <div className="animate-spin rounded-full h-4 w-4 border-b-2 border-white mr-2 rtl:mr-0 rtl:ml-2"></div>
+                        {language === "ar" ? "جاري الإرسال..." : "Sending..."}
+                      </div>
+                    ) : (
+                      <>
+                        <Send className="h-4 w-4 mr-2 rtl:mr-0 rtl:ml-2" />
+                        {currentContent.form.send}
+                      </>
+                    )}
                   </Button>
                 </form>
               </CardContent>

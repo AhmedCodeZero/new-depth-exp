@@ -21,11 +21,16 @@ export default function AdminPage() {
   const [lang, setLang] = useState<"ar" | "en">("ar")
   const [servicesItems, setServicesItems] = useState<any[]>([])
   const [casesItems, setCasesItems] = useState<any[]>([])
-  const [activeTab, setActiveTab] = useState<"json" | "services" | "cases" | "blog" | "contact" | "home">("json")
+  const [activeTab, setActiveTab] = useState<"json" | "services" | "cases" | "blog" | "contact" | "home" | "contact-messages">("json")
   const [blogPosts, setBlogPosts] = useState<any[]>([])
   const [contactFaq, setContactFaq] = useState<any[]>([])
   const [contactOffice, setContactOffice] = useState<any>({})
   const [homeHero, setHomeHero] = useState<any>({})
+  const [contactMessages, setContactMessages] = useState<any[]>([])
+  const [messagesLoading, setMessagesLoading] = useState(false)
+  const [messagesPage, setMessagesPage] = useState(1)
+  const [messagesTotal, setMessagesTotal] = useState(0)
+  const [selectedStatus, setSelectedStatus] = useState<'all' | 'new' | 'read' | 'replied'>('all')
 
   const fetchPage = async (page: PageKey) => {
     setLoading(true)
@@ -68,9 +73,50 @@ export default function AdminPage() {
     }
   }
 
+  const fetchContactMessages = async (page: number = 1, status: string = 'all') => {
+    setMessagesLoading(true)
+    try {
+      const response = await fetch(`/api/admin/contact-messages?page=${page}&status=${status}`)
+      const data = await response.json()
+      
+      if (response.ok) {
+        setContactMessages(data.messages)
+        setMessagesTotal(data.total)
+        setMessagesPage(data.page)
+      }
+    } catch (error) {
+      console.error('Failed to fetch contact messages:', error)
+    } finally {
+      setMessagesLoading(false)
+    }
+  }
+
+  const updateMessageStatus = async (id: number, status: string) => {
+    try {
+      const response = await fetch('/api/admin/contact-messages', {
+        method: 'PATCH',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ id, status })
+      })
+      
+      if (response.ok) {
+        // Refresh messages
+        fetchContactMessages(messagesPage, selectedStatus)
+      }
+    } catch (error) {
+      console.error('Failed to update message status:', error)
+    }
+  }
+
   useEffect(() => {
     fetchPage(selectedPage)
   }, [selectedPage, lang])
+
+  useEffect(() => {
+    if (activeTab === 'contact-messages') {
+      fetchContactMessages(1, selectedStatus)
+    }
+  }, [activeTab, selectedStatus])
 
   const handleSave = async () => {
     setLoading(true)
@@ -206,6 +252,12 @@ export default function AdminPage() {
                   الرئيسية
                 </Button>
               )}
+              <Button 
+                variant={activeTab === "contact-messages" ? "default" : "outline"} 
+                onClick={() => setActiveTab("contact-messages")}
+              >
+                الطلبات
+              </Button>
             </div>
             {activeTab === "json" && (
               <div>
@@ -454,6 +506,130 @@ export default function AdminPage() {
                     </div>
                   ))}
                 </div>
+              </div>
+            )}
+            {activeTab === "contact-messages" && (
+              <div className="space-y-4">
+                <div className="flex justify-between items-center">
+                  <h3 className="text-lg font-semibold">رسائل التواصل</h3>
+                  <div className="flex gap-2">
+                    <select
+                      value={selectedStatus}
+                      onChange={(e) => setSelectedStatus(e.target.value as any)}
+                      className="px-3 py-2 border rounded-md"
+                    >
+                      <option value="all">جميع الرسائل</option>
+                      <option value="new">جديدة</option>
+                      <option value="read">مقروءة</option>
+                      <option value="replied">تم الرد</option>
+                    </select>
+                  </div>
+                </div>
+
+                {messagesLoading ? (
+                  <div className="text-center py-8">
+                    <div className="animate-spin rounded-full h-8 w-8 border-b-2 border-blue-600 mx-auto"></div>
+                    <p className="mt-2 text-gray-600">جاري التحميل...</p>
+                  </div>
+                ) : contactMessages.length === 0 ? (
+                  <div className="text-center py-8 text-gray-500">
+                    لا توجد رسائل
+                  </div>
+                ) : (
+                  <div className="space-y-4">
+                    {contactMessages.map((message) => (
+                      <div key={message.id} className="border rounded-lg p-4 bg-white">
+                        <div className="flex justify-between items-start mb-3">
+                          <div className="flex-1">
+                            <div className="flex items-center gap-2 mb-2">
+                              <span className="font-semibold text-gray-900">{message.name}</span>
+                              <span className="text-sm text-gray-500">({message.email})</span>
+                              {message.phone && (
+                                <span className="text-sm text-gray-500">• {message.phone}</span>
+                              )}
+                            </div>
+                            {message.company && (
+                              <p className="text-sm text-gray-600 mb-1">الشركة: {message.company}</p>
+                            )}
+                            {message.service && (
+                              <p className="text-sm text-gray-600 mb-2">الخدمة: {message.service}</p>
+                            )}
+                          </div>
+                          <div className="flex items-center gap-2">
+                            <span className={`px-2 py-1 text-xs rounded-full ${
+                              message.status === 'new' ? 'bg-blue-100 text-blue-800' :
+                              message.status === 'read' ? 'bg-yellow-100 text-yellow-800' :
+                              'bg-green-100 text-green-800'
+                            }`}>
+                              {message.status === 'new' ? 'جديدة' :
+                               message.status === 'read' ? 'مقروءة' : 'تم الرد'}
+                            </span>
+                            <span className="text-xs text-gray-500">
+                              {new Date(message.created_at).toLocaleDateString('ar-SA')}
+                            </span>
+                          </div>
+                        </div>
+                        
+                        <div className="bg-gray-50 p-3 rounded-md mb-3">
+                          <p className="text-gray-800 whitespace-pre-wrap">{message.message}</p>
+                        </div>
+
+                        <div className="flex gap-2">
+                          {message.status === 'new' && (
+                            <Button
+                              size="sm"
+                              variant="outline"
+                              onClick={() => updateMessageStatus(message.id, 'read')}
+                            >
+                              تحديد كمقروءة
+                            </Button>
+                          )}
+                          {message.status !== 'replied' && (
+                            <Button
+                              size="sm"
+                              variant="outline"
+                              onClick={() => updateMessageStatus(message.id, 'replied')}
+                            >
+                              تحديد كمنتهية
+                            </Button>
+                          )}
+                          <Button
+                            size="sm"
+                            variant="outline"
+                            onClick={() => window.open(`mailto:${message.email}?subject=رد على رسالتك&body=مرحباً ${message.name}،%0D%0A%0D%0Aشكراً لك على رسالتك.%0D%0A%0D%0Aمع تحياتي،%0D%0Aفريق عمق`)}
+                          >
+                            رد عبر البريد
+                          </Button>
+                        </div>
+                      </div>
+                    ))}
+
+                    {/* Pagination */}
+                    {messagesTotal > 20 && (
+                      <div className="flex justify-center items-center gap-2 mt-6">
+                        <Button
+                          variant="outline"
+                          size="sm"
+                          disabled={messagesPage === 1}
+                          onClick={() => fetchContactMessages(messagesPage - 1, selectedStatus)}
+                        >
+                          السابق
+                        </Button>
+                        <span className="text-sm text-gray-600">
+                          صفحة {messagesPage} من {Math.ceil(messagesTotal / 20)}
+                        </span>
+                        <Button
+                          variant="outline"
+                          size="sm"
+                          disabled={messagesPage >= Math.ceil(messagesTotal / 20)}
+                          onClick={() => fetchContactMessages(messagesPage + 1, selectedStatus)}
+                        >
+                          التالي
+                        </Button>
+                      </div>
+                    )}
+                  </div>
+                )}
               </div>
             )}
             {error && <div className="text-red-600 text-sm">{error}</div>}
