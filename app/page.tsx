@@ -187,7 +187,7 @@ export default function DepthBusinessWebsite() {
           <div className="flex items-center justify-between h-16">
             {/* Logo */}
             <div className="flex items-center">
-              <img src="/images/depth-logo.png" alt="Depth Logo" className="h-12 w-auto" />
+              <img src="/images/depth-logo-mainl.png" alt="Depth Logo" className="h-12 w-auto" />
             </div>
 
             {/* Desktop Navigation */}
@@ -277,7 +277,7 @@ export default function DepthBusinessWebsite() {
                 <div className="absolute inset-0 bg-gradient-to-r from-white/40 to-white/30 rounded-full blur-2xl scale-125"></div>
                 <div className="absolute inset-0 bg-white/20 rounded-full blur-xl scale-110"></div>
                 <img
-                  src="/images/depth-logo.png"
+                  src="/images/depth-logo-mainl.png"
                   alt="Depth Logo"
                   className="relative w-80 h-80 lg:w-96 lg:h-96 object-contain drop-shadow-2xl filter brightness-125 contrast-125"
                 />
@@ -587,11 +587,11 @@ export default function DepthBusinessWebsite() {
       <footer className="bg-[#1e3a5f] text-white py-12 relative">
         <div className="container mx-auto px-4 sm:px-6 lg:px-8">
           <div className="text-center">
-            <img
-              src="/images/depth-logo.png"
-              alt="Depth Logo"
-              className="h-12 w-auto mx-auto mb-4 brightness-0 invert"
-            />
+                            <img
+                  src="/images/depth-logo-mainl.png"
+                  alt="Depth Logo"
+                  className="h-12 w-auto mx-auto mb-4 brightness-0 invert"
+                />
             <p className="text-white/80">
               {language === "ar" ? "© 2024 عمق - جميع الحقوق محفوظة" : "© 2024 Depth - All rights reserved"}
             </p>

@@ -287,7 +287,7 @@ export default function ContactPage() {
             {/* Logo */}
             <div className="flex items-center">
               <Link href="/">
-                <img src="/images/depth-logo.png" alt="Depth Logo" className="h-12 w-auto cursor-pointer" />
+                <img src="/images/depth-logo-horizontal.png" alt="Depth Logo" className="h-12 w-auto cursor-pointer" />
               </Link>
             </div>
 
@@ -637,7 +637,7 @@ export default function ContactPage() {
         <div className="container mx-auto px-4 sm:px-6 lg:px-8">
           <div className="text-center">
             <img
-              src="/images/depth-logo.png"
+              src="/images/depth-logo-horizontal.png"
               alt="Depth Logo"
               className="h-12 w-auto mx-auto mb-4 brightness-0 invert"
             />
