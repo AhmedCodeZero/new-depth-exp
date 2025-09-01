@@ -135,6 +135,16 @@ export default function DepthBusinessWebsite() {
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false)
   const [content, setContent] = useState<ContentData | null>(null)
   const [loading, setLoading] = useState(true)
+  const [formData, setFormData] = useState({
+    name: '',
+    email: '',
+    phone: '',
+    company: '',
+    service: '',
+    message: ''
+  })
+  const [isSubmitting, setIsSubmitting] = useState(false)
+  const [submitStatus, setSubmitStatus] = useState<'idle' | 'success' | 'error'>('idle')
 
   // Load content from JSON file
   useEffect(() => {
@@ -161,6 +171,47 @@ export default function DepthBusinessWebsite() {
     setLanguage(language === "ar" ? "en" : "ar")
     document.documentElement.setAttribute("lang", language === "ar" ? "en" : "ar")
     document.documentElement.setAttribute("dir", language === "ar" ? "ltr" : "rtl")
+  }
+
+  const handleInputChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement | HTMLSelectElement>) => {
+    const { name, value } = e.target
+    setFormData(prev => ({ ...prev, [name]: value }))
+  }
+
+  const handleSubmit = async (e: React.FormEvent) => {
+    e.preventDefault()
+    setIsSubmitting(true)
+    setSubmitStatus('idle')
+
+    try {
+      const response = await fetch('/api/contact', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify(formData),
+      })
+
+      if (response.ok) {
+        setSubmitStatus('success')
+        setFormData({
+          name: '',
+          email: '',
+          phone: '',
+          company: '',
+          service: '',
+          message: ''
+        })
+        // Reset status after 3 seconds
+        setTimeout(() => setSubmitStatus('idle'), 3000)
+      } else {
+        setSubmitStatus('error')
+      }
+    } catch (error) {
+      setSubmitStatus('error')
+    } finally {
+      setIsSubmitting(false)
+    }
   }
 
   // Show loading state
@@ -190,24 +241,24 @@ export default function DepthBusinessWebsite() {
               <img src="/images/depth-logo-mainl.png" alt="Depth Logo" className="h-12 w-auto" />
             </div>
 
-            {/* Desktop Navigation */}
-            <nav className="hidden md:flex items-center space-x-8 rtl:space-x-reverse">
-              <Link href="/home" className="text-foreground hover:text-primary transition-colors">
-                {currentContent.nav.home}
-              </Link>
-              <Link href="/services" className="text-foreground hover:text-primary transition-colors">
-                {currentContent.nav.services}
-              </Link>
-              <Link href="/cases" className="text-foreground hover:text-primary transition-colors">
-                {currentContent.nav.cases}
-              </Link>
-              <Link href="/blog" className="text-foreground hover:text-primary transition-colors">
-                {currentContent.nav.blog}
-              </Link>
-              <Link href="/contact" className="text-foreground hover:text-primary transition-colors">
-                {currentContent.nav.contact}
-              </Link>
-            </nav>
+                         {/* Desktop Navigation */}
+             <nav className="hidden md:flex items-center gap-8">
+               <Link href="/home" className="text-foreground hover:text-primary transition-colors">
+                 {currentContent.nav.home}
+               </Link>
+               <Link href="/services" className="text-foreground hover:text-primary transition-colors">
+                 {currentContent.nav.services}
+               </Link>
+               <Link href="/cases" className="text-foreground hover:text-primary transition-colors">
+                 {currentContent.nav.cases}
+               </Link>
+               <Link href="/blog" className="text-foreground hover:text-primary transition-colors">
+                 {currentContent.nav.blog}
+               </Link>
+               <Link href="/contact" className="text-foreground hover:text-primary transition-colors">
+                 {currentContent.nav.contact}
+               </Link>
+             </nav>
 
             {/* Language Toggle & Mobile Menu */}
             <div className="flex items-center space-x-4 rtl:space-x-reverse">
@@ -453,132 +504,177 @@ export default function DepthBusinessWebsite() {
           </div>
 
           <div className="grid lg:grid-cols-2 gap-12 max-w-6xl mx-auto">
-            {/* Contact Form */}
-            <Card className="card-glow border-[#4a90a4]/20 bg-white relative overflow-hidden">
-              <div className="h-2 bg-gradient-to-r from-[#1e3a5f] to-[#4a90a4]"></div>
-              <CardHeader>
-                <CardTitle className="text-2xl text-[#1e3a5f] flex items-center">
-                  <MessageSquare className="h-6 w-6 mr-3 rtl:mr-0 rtl:ml-3 text-[#4a90a4]" />
-                  {currentContent.contact.title}
-                </CardTitle>
-                <p className="text-gray-600">{language === "ar" ? "املأ النموذج وسنتواصل معك في أقرب وقت ممكن" : "Fill out the form and we will contact you as soon as possible"}</p>
-              </CardHeader>
-              <CardContent className="space-y-6">
-                <div className="grid md:grid-cols-2 gap-4">
-                  <div>
-                    <label className="block text-sm font-medium mb-2 text-[#1e3a5f]">
-                      {language === "ar" ? "الاسم الكامل" : "Full Name"} *
-                    </label>
-                    <Input
-                      placeholder={language === "ar" ? "الاسم الكامل" : "Full Name"}
-                      className="border-[#4a90a4]/30 focus:border-[#4a90a4]"
-                      required
-                    />
-                  </div>
-                  <div>
-                    <label className="block text-sm font-medium mb-2 text-[#1e3a5f]">
-                      {language === "ar" ? "البريد الإلكتروني" : "Email Address"} *
-                    </label>
-                    <Input
-                      type="email"
-                      placeholder={language === "ar" ? "البريد الإلكتروني" : "Email Address"}
-                      className="border-[#4a90a4]/30 focus:border-[#4a90a4]"
-                      required
-                    />
-                  </div>
-                </div>
+                         {/* Contact Form */}
+             <Card className="card-glow border-[#4a90a4]/20 bg-white relative overflow-hidden">
+               <div className="h-2 bg-gradient-to-r from-[#1e3a5f] to-[#4a90a4]"></div>
+               <CardHeader>
+                 <CardTitle className="text-2xl text-[#1e3a5f] flex items-center">
+                   <MessageSquare className="h-6 w-6 mr-3 rtl:mr-0 rtl:ml-3 text-[#4a90a4]" />
+                   {currentContent.contact.title}
+                 </CardTitle>
+                 <p className="text-gray-600">{language === "ar" ? "املأ النموذج وسنتواصل معك في أقرب وقت ممكن" : "Fill out the form and we will contact you as soon as possible"}</p>
+               </CardHeader>
+               <form onSubmit={handleSubmit}>
+                 <CardContent className="space-y-6">
+                   {/* Status Messages */}
+                   {submitStatus === 'success' && (
+                     <div className="p-4 bg-green-50 border border-green-200 rounded-lg">
+                       <p className="text-green-800 text-center">
+                         {language === "ar" ? "تم إرسال رسالتك بنجاح! سنتواصل معك قريباً." : "Your message has been sent successfully! We'll contact you soon."}
+                       </p>
+                     </div>
+                   )}
+                   {submitStatus === 'error' && (
+                     <div className="p-4 bg-red-50 border border-red-200 rounded-lg">
+                       <p className="text-red-800 text-center">
+                         {language === "ar" ? "حدث خطأ في إرسال الرسالة. يرجى المحاولة مرة أخرى." : "An error occurred while sending your message. Please try again."}
+                       </p>
+                     </div>
+                   )}
 
-                <div className="grid md:grid-cols-2 gap-4">
-                  <div>
-                    <label className="block text-sm font-medium mb-2 text-[#1e3a5f]">
-                      {language === "ar" ? "رقم الهاتف" : "Phone Number"}
-                    </label>
-                    <Input
-                      placeholder={language === "ar" ? "رقم الهاتف" : "Phone Number"}
-                      className="border-[#4a90a4]/30 focus:border-[#4a90a4]"
-                    />
-                  </div>
-                  <div>
-                    <label className="block text-sm font-medium mb-2 text-[#1e3a5f]">
-                      {language === "ar" ? "اسم الشركة" : "Company Name"}
-                    </label>
-                    <Input
-                      placeholder={language === "ar" ? "اسم الشركة" : "Company Name"}
-                      className="border-[#4a90a4]/30 focus:border-[#4a90a4]"
-                    />
-                  </div>
-                </div>
+                   <div className="grid md:grid-cols-2 gap-4">
+                     <div>
+                       <label className="block text-sm font-medium mb-2 text-[#1e3a5f]">
+                         {language === "ar" ? "الاسم الكامل" : "Full Name"} *
+                       </label>
+                       <Input
+                         name="name"
+                         value={formData.name}
+                         onChange={handleInputChange}
+                         placeholder={language === "ar" ? "الاسم الكامل" : "Full Name"}
+                         className="border-[#4a90a4]/30 focus:border-[#4a90a4]"
+                         required
+                       />
+                     </div>
+                     <div>
+                       <label className="block text-sm font-medium mb-2 text-[#1e3a5f]">
+                         {language === "ar" ? "البريد الإلكتروني" : "Email Address"} *
+                       </label>
+                       <Input
+                         name="email"
+                         type="email"
+                         value={formData.email}
+                         onChange={handleInputChange}
+                         placeholder={language === "ar" ? "البريد الإلكتروني" : "Email Address"}
+                         className="border-[#4a90a4]/30 focus:border-[#4a90a4]"
+                         required
+                       />
+                     </div>
+                   </div>
 
-                <div>
-                  <label className="block text-sm font-medium mb-2 text-[#1e3a5f]">
-                    {language === "ar" ? "الخدمة المطلوبة" : "Required Service"}
-                  </label>
-                  <select className="w-full px-3 py-2 border border-[#4a90a4]/30 rounded-md focus:outline-none focus:ring-2 focus:ring-[#4a90a4] focus:border-[#4a90a4]">
-                    <option value="">{language === "ar" ? "الخدمة المطلوبة" : "Required Service"}</option>
-                    <option value="consulting">{language === "ar" ? "الاستشارات الإدارية" : "Management Consulting"}</option>
-                    <option value="strategy">{language === "ar" ? "التخطيط الاستراتيجي" : "Strategic Planning"}</option>
-                    <option value="digital">{language === "ar" ? "التحول الرقمي" : "Digital Transformation"}</option>
-                    <option value="training">{language === "ar" ? "التدريب والتطوير" : "Training & Development"}</option>
-                    <option value="other">{language === "ar" ? "أخرى" : "Other"}</option>
-                  </select>
-                </div>
+                   <div className="grid md:grid-cols-2 gap-4">
+                     <div>
+                       <label className="block text-sm font-medium mb-2 text-[#1e3a5f]">
+                         {language === "ar" ? "رقم الهاتف" : "Phone Number"}
+                       </label>
+                       <Input
+                         name="phone"
+                         value={formData.phone}
+                         onChange={handleInputChange}
+                         placeholder={language === "ar" ? "رقم الهاتف" : "Phone Number"}
+                         className="border-[#4a90a4]/30 focus:border-[#4a90a4]"
+                       />
+                     </div>
+                     <div>
+                       <label className="block text-sm font-medium mb-2 text-[#1e3a5f]">
+                         {language === "ar" ? "اسم الشركة" : "Company Name"}
+                       </label>
+                       <Input
+                         name="company"
+                         value={formData.company}
+                         onChange={handleInputChange}
+                         placeholder={language === "ar" ? "اسم الشركة" : "Company Name"}
+                         className="border-[#4a90a4]/30 focus:border-[#4a90a4]"
+                       />
+                     </div>
+                   </div>
 
-                <div>
-                  <label className="block text-sm font-medium mb-2 text-[#1e3a5f]">
-                    {language === "ar" ? "الرسالة" : "Message"} *
-                  </label>
-                  <Textarea
-                    placeholder={language === "ar" ? "الرسالة" : "Message"}
-                    rows={5}
-                    className="border-[#4a90a4]/30 focus:border-[#4a90a4]"
-                    required
-                  />
-                </div>
+                   <div>
+                     <label className="block text-sm font-medium mb-2 text-[#1e3a5f]">
+                       {language === "ar" ? "الخدمة المطلوبة" : "Required Service"}
+                     </label>
+                     <select 
+                       name="service"
+                       value={formData.service}
+                       onChange={handleInputChange}
+                       className="w-full px-3 py-2 border border-[#4a90a4]/30 rounded-md focus:outline-none focus:ring-2 focus:ring-[#4a90a4] focus:border-[#4a90a4]"
+                     >
+                       <option value="">{language === "ar" ? "الخدمة المطلوبة" : "Required Service"}</option>
+                       <option value="consulting">{language === "ar" ? "الاستشارات الإدارية" : "Management Consulting"}</option>
+                       <option value="strategy">{language === "ar" ? "التخطيط الاستراتيجي" : "Strategic Planning"}</option>
+                       <option value="digital">{language === "ar" ? "التحول الرقمي" : "Digital Transformation"}</option>
+                       <option value="training">{language === "ar" ? "التدريب والتطوير" : "Training & Development"}</option>
+                       <option value="other">{language === "ar" ? "أخرى" : "Other"}</option>
+                     </select>
+                   </div>
 
-                <Button className="w-full bg-gradient-to-r from-[#1e3a5f] to-[#4a90a4] hover:from-[#1e3a5f]/90 hover:to-[#4a90a4]/90 text-white border-0 shadow-lg">
-                  <Send className="h-4 w-4 mr-2 rtl:mr-0 rtl:ml-2" />
-                  {language === "ar" ? "إرسال الرسالة" : "Send Message"}
-                </Button>
-              </CardContent>
-            </Card>
+                   <div>
+                     <label className="block text-sm font-medium mb-2 text-[#1e3a5f]">
+                       {language === "ar" ? "الرسالة" : "Message"} *
+                     </label>
+                     <Textarea
+                       name="message"
+                       value={formData.message}
+                       onChange={handleInputChange}
+                       placeholder={language === "ar" ? "الرسالة" : "Message"}
+                       rows={5}
+                       className="border-[#4a90a4]/30 focus:border-[#4a90a4]"
+                       required
+                     />
+                   </div>
+
+                   <Button 
+                     type="submit"
+                     disabled={isSubmitting}
+                     className="w-full bg-gradient-to-r from-[#1e3a5f] to-[#4a90a4] hover:from-[#1e3a5f]/90 hover:to-[#4a90a4]/90 text-white border-0 shadow-lg disabled:opacity-50"
+                   >
+                     <Send className="h-4 w-4 mr-2 rtl:mr-0 rtl:ml-2" />
+                     {isSubmitting 
+                       ? (language === "ar" ? "جاري الإرسال..." : "Sending...")
+                       : (language === "ar" ? "إرسال الرسالة" : "Send Message")
+                     }
+                   </Button>
+                 </CardContent>
+               </form>
+             </Card>
 
             {/* Contact Information */}
             <div className="space-y-8">
-              <div className="flex items-start space-x-10 rtl:space-x-reverse p-6 bg-white rounded-2xl card-glow border border-[#4a90a4]/20 relative">
-                <div className="contact-icon-container bg-gradient-to-br from-[#4a90a4] to-[#6bb6c7] rounded-2xl flex items-center justify-center flex-shrink-0 shadow-lg">
-                  <Mail className="contact-icon text-white" />
-                </div>
-                <div className="flex-1">
-                  <h3 className="font-semibold text-lg mb-2 text-[#1e3a5f]">
-                    {language === "ar" ? "البريد الإلكتروني" : "Email"}
-                  </h3>
-                  <p className="text-gray-600">{currentContent.contact.info.email}</p>
-                </div>
-              </div>
+                             <div className="flex items-start gap-6 p-6 bg-white rounded-2xl card-glow border border-[#4a90a4]/20 relative">
+                 <div className="contact-icon-container bg-gradient-to-br from-[#4a90a4] to-[#6bb6c7] rounded-2xl flex items-center justify-center flex-shrink-0 shadow-lg">
+                   <Mail className="contact-icon text-white" />
+                 </div>
+                 <div className="flex-1">
+                   <h3 className="font-semibold text-lg mb-2 text-[#1e3a5f]">
+                     {language === "ar" ? "البريد الإلكتروني" : "Email"}
+                   </h3>
+                   <p className="text-gray-600">{currentContent.contact.info.email}</p>
+                 </div>
+               </div>
 
-              <div className="flex items-start space-x-10 rtl:space-x-reverse p-6 bg-white rounded-2xl card-glow border border-[#4a90a4]/20 relative">
-                <div className="contact-icon-container bg-gradient-to-br from-[#4a90a4] to-[#6bb6c7] rounded-2xl flex items-center justify-center flex-shrink-0 shadow-lg">
-                  <Phone className="contact-icon text-white" />
-                </div>
-                <div className="flex-1">
-                  <h3 className="font-semibold text-lg mb-2 text-[#1e3a5f]">
-                    {language === "ar" ? "الهاتف" : "Phone"}
-                  </h3>
-                  <p className="text-gray-600">{currentContent.contact.info.phone}</p>
-                </div>
-              </div>
+                             <div className="flex items-start gap-6 p-6 bg-white rounded-2xl card-glow border border-[#4a90a4]/20 relative">
+                 <div className="contact-icon-container bg-gradient-to-br from-[#4a90a4] to-[#6bb6c7] rounded-2xl flex items-center justify-center flex-shrink-0 shadow-lg">
+                   <Phone className="contact-icon text-white" />
+                 </div>
+                 <div className="flex-1">
+                   <h3 className="font-semibold text-lg mb-2 text-[#1e3a5f]">
+                     {language === "ar" ? "الهاتف" : "Phone"}
+                   </h3>
+                   <p className="text-gray-600">{currentContent.contact.info.phone}</p>
+                 </div>
+               </div>
 
-              <div className="flex items-start space-x-10 rtl:space-x-reverse p-6 bg-white rounded-2xl card-glow border border-[#4a90a4]/20 relative">
-                <div className="contact-icon-container bg-gradient-to-br from-[#4a90a4] to-[#6bb6c7] rounded-2xl flex items-center justify-center flex-shrink-0 shadow-lg">
-                  <MapPin className="contact-icon text-white" />
-                </div>
-                <div className="flex-1">
-                  <h3 className="font-semibold text-lg mb-2 text-[#1e3a5f]">
-                    {language === "ar" ? "العنوان" : "Address"}
-                  </h3>
-                  <p className="text-gray-600">{currentContent.contact.info.address}</p>
-                </div>
-              </div>
+                             <div className="flex items-start gap-6 p-6 bg-white rounded-2xl card-glow border border-[#4a90a4]/20 relative">
+                 <div className="contact-icon-container bg-gradient-to-br from-[#4a90a4] to-[#6bb6c7] rounded-2xl flex items-center justify-center flex-shrink-0 shadow-lg">
+                   <MapPin className="contact-icon text-white" />
+                 </div>
+                 <div className="flex-1">
+                   <h3 className="font-semibold text-lg mb-2 text-[#1e3a5f]">
+                     {language === "ar" ? "العنوان" : "Address"}
+                   </h3>
+                   <p className="text-gray-600">{currentContent.contact.info.address}</p>
+                 </div>
+               </div>
             </div>
           </div>
         </div>
