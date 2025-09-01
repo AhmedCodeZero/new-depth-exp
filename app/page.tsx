@@ -9,9 +9,153 @@ import { Badge } from "@/components/ui/badge"
 import { Globe, Menu, X, ChevronRight, Users, Target, TrendingUp, Award, Mail, Phone, MapPin, MessageSquare, Send } from "lucide-react"
 import Link from "next/link"
 
+interface ContentData {
+  ar: {
+    nav: {
+      home: string
+      services: string
+      cases: string
+      blog: string
+      contact: string
+    }
+    hero: {
+      title: string
+      subtitle: string
+      cta: string
+    }
+    services: {
+      title: string
+      subtitle: string
+      items: Array<{
+        title: string
+        description: string
+        imageUrl: string
+      }>
+    }
+    cases: {
+      title: string
+      subtitle: string
+      items: Array<{
+        title: string
+        description: string
+        result: string
+        imageUrl: string
+      }>
+    }
+    blog: {
+      title: string
+      subtitle: string
+      items: Array<{
+        title: string
+        excerpt: string
+        date: string
+        imageUrl: string
+      }>
+    }
+    contact: {
+      title: string
+      subtitle: string
+      name: string
+      email: string
+      phone: string
+      company: string
+      service: string
+      message: string
+      send: string
+      info: {
+        email: string
+        phone: string
+        address: string
+      }
+    }
+  }
+  en: {
+    nav: {
+      home: string
+      services: string
+      cases: string
+      blog: string
+      contact: string
+    }
+    hero: {
+      title: string
+      subtitle: string
+      cta: string
+    }
+    services: {
+      title: string
+      subtitle: string
+      items: Array<{
+        title: string
+        description: string
+        imageUrl: string
+      }>
+    }
+    cases: {
+      title: string
+      subtitle: string
+      items: Array<{
+        title: string
+        description: string
+        result: string
+        imageUrl: string
+      }>
+    }
+    blog: {
+      title: string
+      subtitle: string
+      items: Array<{
+        title: string
+        excerpt: string
+        date: string
+        imageUrl: string
+      }>
+    }
+    contact: {
+      title: string
+      subtitle: string
+      name: string
+      email: string
+      phone: string
+      company: string
+      service: string
+      message: string
+      send: string
+      info: {
+        email: string
+        phone: string
+        address: string
+      }
+    }
+  }
+}
+
 export default function DepthBusinessWebsite() {
   const [language, setLanguage] = useState<"ar" | "en">("ar")
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false)
+  const [content, setContent] = useState<ContentData | null>(null)
+  const [loading, setLoading] = useState(true)
+
+  // Load content from JSON file
+  useEffect(() => {
+    const loadContent = async () => {
+      try {
+        const response = await fetch('/api/content/home')
+        if (response.ok) {
+          const data = await response.json()
+          setContent(data)
+        } else {
+          console.error('Failed to load content')
+        }
+      } catch (error) {
+        console.error('Error loading content:', error)
+      } finally {
+        setLoading(false)
+      }
+    }
+
+    loadContent()
+  }, [])
 
   const toggleLanguage = () => {
     setLanguage(language === "ar" ? "en" : "ar")
@@ -19,183 +163,18 @@ export default function DepthBusinessWebsite() {
     document.documentElement.setAttribute("dir", language === "ar" ? "ltr" : "rtl")
   }
 
-  const defaultContent = {
-    ar: {
-      nav: {
-        home: "الرئيسية",
-        services: "الخدمات",
-        cases: "دراسات الحالة",
-        blog: "المدونة",
-        contact: "اتصل بنا",
-      },
-      hero: {
-        title: "عمق الخبرة لحلول الأعمال",
-        subtitle: "نقدم حلولاً مبتكرة ومتخصصة لتطوير أعمالكم وتحقيق أهدافكم الاستراتيجية",
-        cta: "ابدأ رحلتك معنا",
-      },
-      services: {
-        title: "خدماتنا",
-        subtitle: "نقدم مجموعة شاملة من الخدمات المصممة لتلبية احتياجات عملك",
-        consulting: {
-          title: "الاستشارات الإدارية",
-          description: "استشارات متخصصة لتطوير استراتيجيات العمل وتحسين الأداء",
-        },
-        strategy: {
-          title: "التخطيط الاستراتيجي",
-          description: "وضع خطط استراتيجية محكمة لضمان نمو مستدام لأعمالكم",
-        },
-        digital: {
-          title: "التحول الرقمي",
-          description: "مساعدة الشركات في التحول الرقمي وتطبيق أحدث التقنيات",
-        },
-        training: {
-          title: "التدريب والتطوير",
-          description: "برامج تدريبية متخصصة لتطوير قدرات فرق العمل",
-        },
-      },
-      cases: {
-        title: "دراسات الحالة",
-        subtitle: "قصص نجاح حقيقية من عملائنا",
-        case1: {
-          title: "تطوير استراتيجية شركة تقنية ناشئة",
-          description:
-            "ساعدنا شركة تقنية ناشئة في وضع استراتيجية نمو أدت إلى زيادة الإيرادات بنسبة 300% خلال عام واحد.",
-          result: "زيادة الإيرادات 300%",
-        },
-        case2: {
-          title: "التحول الرقمي لشركة تصنيع",
-          description: "قمنا بقيادة عملية التحول الرقمي لشركة تصنيع كبيرة، مما أدى إلى تحسين الكفاءة بنسبة 45%.",
-          result: "تحسين الكفاءة 45%",
-        },
-      },
-      blog: {
-        title: "المدونة",
-        subtitle: "آخر الأخبار والمقالات في عالم الأعمال",
-        post1: {
-          title: "مستقبل التحول الرقمي في الشرق الأوسط",
-          excerpt: "نظرة على التوجهات الحديثة في التحول الرقمي وتأثيرها على الأعمال في المنطقة...",
-          date: "15 يناير 2024",
-        },
-        post2: {
-          title: "استراتيجيات النمو للشركات الناشئة",
-          excerpt: "كيف يمكن للشركات الناشئة وضع استراتيجيات نمو فعالة في السوق التنافسي...",
-          date: "10 يناير 2024",
-        },
-      },
-      contact: {
-        title: "تواصل معنا",
-        subtitle: "نحن هنا لمساعدتك في تحقيق أهدافك",
-        name: "الاسم",
-        email: "البريد الإلكتروني",
-        message: "الرسالة",
-        send: "إرسال",
-        info: {
-          email: "info@depth-solutions.com",
-          phone: "+966 11 123 4567",
-          address: "الرياض، المملكة العربية السعودية",
-        },
-      },
-    },
-    en: {
-      nav: {
-        home: "Home",
-        services: "Services",
-        cases: "Case Studies",
-        blog: "Blog",
-        contact: "Contact",
-      },
-      hero: {
-        title: "Depth of Experience for Business Solutions",
-        subtitle:
-          "We provide innovative and specialized solutions to develop your business and achieve your strategic goals",
-        cta: "Start Your Journey",
-      },
-      services: {
-        title: "Our Services",
-        subtitle: "We offer a comprehensive range of services designed to meet your business needs",
-        consulting: {
-          title: "Management Consulting",
-          description: "Specialized consulting to develop business strategies and improve performance",
-        },
-        strategy: {
-          title: "Strategic Planning",
-          description: "Developing robust strategic plans to ensure sustainable growth for your business",
-        },
-        digital: {
-          title: "Digital Transformation",
-          description: "Helping companies in digital transformation and implementing latest technologies",
-        },
-        training: {
-          title: "Training & Development",
-          description: "Specialized training programs to develop team capabilities",
-        },
-      },
-      cases: {
-        title: "Case Studies",
-        subtitle: "Real success stories from our clients",
-        case1: {
-          title: "Tech Startup Strategy Development",
-          description:
-            "We helped a tech startup develop a growth strategy that led to 300% revenue increase within one year.",
-          result: "300% Revenue Growth",
-        },
-        case2: {
-          title: "Manufacturing Company Digital Transformation",
-          description:
-            "We led the digital transformation process for a large manufacturing company, improving efficiency by 45%.",
-          result: "45% Efficiency Improvement",
-        },
-      },
-      blog: {
-        title: "Blog",
-        subtitle: "Latest news and articles in the business world",
-        post1: {
-          title: "The Future of Digital Transformation in the Middle East",
-          excerpt: "A look at modern trends in digital transformation and their impact on business in the region...",
-          date: "January 15, 2024",
-        },
-        post2: {
-          title: "Growth Strategies for Startups",
-          excerpt: "How startups can develop effective growth strategies in the competitive market...",
-          date: "January 10, 2024",
-        },
-      },
-      contact: {
-        title: "Contact Us",
-        subtitle: "We are here to help you achieve your goals",
-        name: "Name",
-        email: "Email",
-        message: "Message",
-        send: "Send",
-        info: {
-          email: "info@depth-solutions.com",
-          phone: "+966 11 123 4567",
-          address: "Riyadh, Saudi Arabia",
-        },
-      },
-    },
+  // Show loading state
+  if (loading || !content) {
+    return (
+      <div className="min-h-screen flex items-center justify-center">
+        <div className="text-center">
+          <div className="animate-spin rounded-full h-32 w-32 border-b-2 border-[#4a90a4] mx-auto"></div>
+          <p className="mt-4 text-lg text-gray-600">جاري التحميل...</p>
+        </div>
+      </div>
+    )
   }
 
-  const [remoteContent, setRemoteContent] = useState<any | null>(null)
-  const [blogRemoteContent, setBlogRemoteContent] = useState<any | null>(null)
-
-  useEffect(() => {
-    const bust = Date.now()
-    fetch(`/api/content/home?bust=${bust}`, { cache: "no-store" as RequestCache })
-      .then((r) => r.json())
-      .then((d) => setRemoteContent(d.data))
-      .catch(() => {})
-  }, [])
-
-  useEffect(() => {
-    const bust = Date.now()
-    fetch(`/api/content/blog?bust=${bust}`, { cache: "no-store" as RequestCache })
-      .then((r) => r.json())
-      .then((d) => setBlogRemoteContent(d.data))
-      .catch(() => {})
-  }, [])
-
-  const content = (remoteContent as any) || (defaultContent as any)
   const currentContent = content[language]
 
   return (
@@ -443,7 +422,7 @@ export default function DepthBusinessWebsite() {
           </div>
 
           <div className="grid md:grid-cols-2 gap-8 max-w-4xl mx-auto">
-            {(((blogRemoteContent || defaultContent).ar ? blogRemoteContent : null) ? (blogRemoteContent as any)[language].posts : (currentContent.blog.posts || [])).slice(0,2).map((post: any, idx: number) => (
+            {(((content as any).ar ? (content as any).ar.blog : null) ? (content as any).ar.blog.posts : (currentContent.blog.posts || [])).slice(0,2).map((post: any, idx: number) => (
               <Card key={post.id || idx} className="card-glow border-[#4a90a4]/20 bg-white overflow-hidden relative">
                 <div className={`h-48 bg-gradient-to-br ${idx % 2 ? 'from-[#4a90a4]/10 to-[#6bb6c7]/20' : 'from-[#1e3a5f]/10 to-[#4a90a4]/20'} relative`}>
                   <div className="absolute inset-0 bg-gradient-to-r from-transparent via-white/10 to-transparent"></div>

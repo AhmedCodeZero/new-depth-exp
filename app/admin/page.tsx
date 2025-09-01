@@ -8,6 +8,7 @@ import { Textarea } from "@/components/ui/textarea"
 import ServicesManager from "./components/ServicesManager"
 import CasesManager from "./components/CasesManager"
 import BlogManager from "./components/BlogManager"
+import HomeManager from "./components/HomeManager"
 
 type PageKey = "home" | "services" | "cases" | "blog" | "contact"
 
@@ -569,6 +570,11 @@ export default function AdminPage() {
                     }}
                     lang={lang}
                   />
+                )}
+
+                {/* Home Tab */}
+                {activeTab === "home" && (
+                  <HomeManager />
                 )}
 
                 {/* Other tabs content would go here - simplified for brevity */}
