@@ -228,7 +228,7 @@ export default function ServicesPage() {
             </div>
 
             {/* Desktop Navigation */}
-            <nav className="hidden md:flex items-center space-x-8 rtl:space-x-reverse">
+            <nav className="hidden md:flex items-center gap-8">
               <Link href="/" className="text-foreground hover:text-primary transition-colors">
                 {currentContent.nav.home}
               </Link>
@@ -247,12 +247,12 @@ export default function ServicesPage() {
             </nav>
 
             {/* Language Toggle & Mobile Menu */}
-            <div className="flex items-center space-x-4 rtl:space-x-reverse">
+            <div className="flex items-center gap-4">
               <Button
                 variant="outline"
                 size="sm"
                 onClick={toggleLanguage}
-                className="flex items-center space-x-2 rtl:space-x-reverse bg-transparent"
+                className="flex items-center gap-2 bg-transparent"
               >
                 <Globe className="h-4 w-4" />
                 <span>{language === "ar" ? "EN" : "عربي"}</span>

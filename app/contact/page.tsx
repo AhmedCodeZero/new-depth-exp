@@ -292,7 +292,7 @@ export default function ContactPage() {
             </div>
 
             {/* Desktop Navigation */}
-            <nav className="hidden md:flex items-center space-x-8 rtl:space-x-reverse">
+            <nav className="hidden md:flex items-center gap-8">
               <Link href="/" className="text-foreground hover:text-primary transition-colors">
                 {currentContent.nav.home}
               </Link>
@@ -311,12 +311,12 @@ export default function ContactPage() {
             </nav>
 
             {/* Language Toggle & Mobile Menu */}
-            <div className="flex items-center space-x-4 rtl:space-x-reverse">
+            <div className="flex items-center gap-4">
               <Button
                 variant="outline"
                 size="sm"
                 onClick={toggleLanguage}
-                className="flex items-center space-x-2 rtl:space-x-reverse bg-transparent"
+                className="flex items-center gap-2 bg-transparent"
               >
                 <Globe className="h-4 w-4" />
                 <span>{language === "ar" ? "EN" : "عربي"}</span>
@@ -533,15 +533,15 @@ export default function ContactPage() {
                   <div>
                     <h4 className="font-semibold text-[#1e3a5f] mb-3">{currentContent.contact.office.title}</h4>
                     <div className="space-y-3">
-                      <div className="flex items-start space-x-4 rtl:space-x-reverse">
+                      <div className="flex items-start gap-4">
                         <MapPin className="h-5 w-5 text-[#4a90a4] mr-8 rtl:mr-0 rtl:ml-8 mt-0.5 flex-shrink-0" />
                         <span className="text-gray-600">{currentContent.contact.office.address}</span>
                       </div>
-                      <div className="flex items-center space-x-4 rtl:space-x-reverse">
+                      <div className="flex items-center gap-4">
                         <Phone className="h-5 w-5 text-[#4a90a4] mr-8 rtl:mr-0 rtl:ml-8 flex-shrink-0" />
                         <span className="text-gray-600">{currentContent.contact.office.phone}</span>
                       </div>
-                      <div className="flex items-center space-x-4 rtl:space-x-reverse">
+                      <div className="flex items-center gap-4">
                         <Mail className="h-5 w-5 text-[#4a90a4] mr-8 rtl:mr-0 rtl:ml-8 flex-shrink-0" />
                         <span className="text-gray-600">{currentContent.contact.office.email}</span>
                       </div>

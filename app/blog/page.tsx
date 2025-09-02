@@ -291,12 +291,12 @@ export default function BlogPage() {
             </div>
 
             {/* Desktop Navigation */}
-            <nav className="hidden md:flex items-center space-x-8 rtl:space-x-reverse">
+            <nav className="hidden md:flex items-center gap-8">
               <Link href="/" className="text-foreground hover:text-primary transition-colors">
                 {currentContent.nav.home}
               </Link>
               <Link href="/services" className="text-foreground hover:text-primary transition-colors">
-                {currentContent.nav.services}
+              {currentContent?.nav?.services}
               </Link>
               <Link href="/cases" className="text-foreground hover:text-primary transition-colors">
                 {currentContent.nav.cases}
@@ -310,12 +310,12 @@ export default function BlogPage() {
             </nav>
 
             {/* Language Toggle & Mobile Menu */}
-            <div className="flex items-center space-x-4 rtl:space-x-reverse">
+            <div className="flex items-center gap-4">
               <Button
                 variant="outline"
                 size="sm"
                 onClick={toggleLanguage}
-                className="flex items-center space-x-2 rtl:space-x-reverse bg-transparent"
+                className="flex items-center gap-2 bg-transparent"
               >
                 <Globe className="h-4 w-4" />
                 <span>{language === "ar" ? "EN" : "عربي"}</span>
@@ -341,7 +341,7 @@ export default function BlogPage() {
                   {currentContent.nav.home}
                 </Link>
                 <Link href="/services" className="text-foreground hover:text-primary transition-colors">
-                  {currentContent.nav.services}
+                  {currentContent?.nav?.services}
                 </Link>
                 <Link href="/cases" className="text-foreground hover:text-primary transition-colors">
                   {currentContent.nav.cases}
@@ -399,7 +399,7 @@ export default function BlogPage() {
                   key={category.key}
                   variant={selectedCategory === category.key ? "default" : "outline"}
                   onClick={() => setSelectedCategory(category.key)}
-                  className={`flex items-center space-x-2 rtl:space-x-reverse ${
+                  className={`flex items-center gap-2 ${
                     selectedCategory === category.key
                       ? "bg-gradient-to-r from-[#1e3a5f] to-[#4a90a4] text-white border-0"
                       : "border-[#4a90a4]/30 text-[#1e3a5f] hover:bg-[#4a90a4]/10"

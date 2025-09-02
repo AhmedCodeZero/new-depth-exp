@@ -130,6 +130,48 @@ interface ContentData {
   }
 }
 
+// Default fallback content
+const defaultContent: ContentData = {
+  ar: {
+    nav: { home: "الرئيسية", services: "الخدمات", cases: "دراسات الحالة", blog: "المدونة", contact: "اتصل بنا" },
+    hero: { title: "عمق الخبرة لحلول الأعمال", subtitle: "نقدم حلولاً مبتكرة ومتخصصة لتطوير أعمالكم وتحقيق أهدافكم الاستراتيجية", cta: "ابدأ رحلتك معنا" },
+    services: { title: "خدماتنا", subtitle: "نقدم مجموعة شاملة من الخدمات المصممة لتلبية احتياجات عملك", items: [] },
+    cases: { title: "دراسات الحالة", subtitle: "قصص نجاح عملائنا تروي كيف ساعدناهم في تحقيق أهدافهم", items: [] },
+    blog: { title: "أحدث المقالات", subtitle: "أحدث الأفكار والاتجاهات في عالم الأعمال", items: [] },
+    contact: { 
+      title: "تواصل معنا", 
+      subtitle: "نحن هنا لمساعدتك", 
+      name: "الاسم", 
+      email: "البريد الإلكتروني", 
+      phone: "رقم الهاتف", 
+      company: "الشركة", 
+      service: "الخدمة المطلوبة", 
+      message: "الرسالة", 
+      send: "إرسال",
+      info: { email: "info@depth.com", phone: "+966123456789", address: "الرياض، المملكة العربية السعودية" }
+    }
+  },
+  en: {
+    nav: { home: "Home", services: "Services", cases: "Case Studies", blog: "Blog", contact: "Contact" },
+    hero: { title: "Depth of Experience for Business Solutions", subtitle: "We provide innovative and specialized solutions to develop your business and achieve your strategic goals", cta: "Start Your Journey" },
+    services: { title: "Our Services", subtitle: "We offer a comprehensive range of services designed to meet your business needs", items: [] },
+    cases: { title: "Case Studies", subtitle: "Success stories of our clients telling how we helped them achieve their goals", items: [] },
+    blog: { title: "Latest Articles", subtitle: "Latest ideas and trends in the business world", items: [] },
+    contact: { 
+      title: "Contact Us", 
+      subtitle: "We are here to help you", 
+      name: "Name", 
+      email: "Email", 
+      phone: "Phone", 
+      company: "Company", 
+      service: "Required Service", 
+      message: "Message", 
+      send: "Send",
+      info: { email: "info@depth.com", phone: "+966123456789", address: "Riyadh, Saudi Arabia" }
+    }
+  }
+}
+
 export default function DepthBusinessWebsite() {
   const [language, setLanguage] = useState<"ar" | "en">("ar")
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false)
@@ -149,17 +191,29 @@ export default function DepthBusinessWebsite() {
   // Load content from JSON file
   useEffect(() => {
     const loadContent = async () => {
+      console.log('Starting to load content...')
+      setLoading(true)
+      
       try {
+        console.log('Fetching from /api/content/home...')
         const response = await fetch('/api/content/home')
+        console.log('Response status:', response.status)
+        
         if (response.ok) {
-          const data = await response.json()
-          setContent(data)
+          const result = await response.json()
+          console.log('Content loaded successfully:', result)
+          setContent(result.data)
         } else {
-          console.error('Failed to load content')
+          console.error('Failed to load content:', response.status, response.statusText)
+          console.log('Using fallback content')
+          setContent(defaultContent)
         }
       } catch (error) {
         console.error('Error loading content:', error)
+        console.log('Using fallback content due to error')
+        setContent(defaultContent)
       } finally {
+        console.log('Setting loading to false')
         setLoading(false)
       }
     }
@@ -169,8 +223,6 @@ export default function DepthBusinessWebsite() {
 
   const toggleLanguage = () => {
     setLanguage(language === "ar" ? "en" : "ar")
-    document.documentElement.setAttribute("lang", language === "ar" ? "en" : "ar")
-    document.documentElement.setAttribute("dir", language === "ar" ? "ltr" : "rtl")
   }
 
   const handleInputChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement | HTMLSelectElement>) => {
@@ -215,7 +267,7 @@ export default function DepthBusinessWebsite() {
   }
 
   // Show loading state
-  if (loading || !content) {
+  if (loading) {
     return (
       <div className="min-h-screen flex items-center justify-center">
         <div className="text-center">
@@ -226,7 +278,54 @@ export default function DepthBusinessWebsite() {
     )
   }
 
-  const currentContent = content[language]
+  if (!content) {
+    return (
+      <div className="min-h-screen flex items-center justify-center">
+        <div className="text-center">
+          <p className="text-lg text-red-600">فشل في تحميل المحتوى. سيتم استخدام المحتوى الافتراضي.</p>
+        </div>
+      </div>
+    )
+  }
+
+  const currentContent = content?.[language] || {
+    nav: {
+      home: language === "ar" ? "الرئيسية" : "Home",
+      services: language === "ar" ? "الخدمات" : "Services",
+      cases: language === "ar" ? "دراسات الحالة" : "Case Studies",
+      blog: language === "ar" ? "المدونة" : "Blog",
+      contact: language === "ar" ? "اتصل بنا" : "Contact"
+    },
+    hero: {
+      title: language === "ar" ? "عمق الخبرة لحلول الأعمال" : "Depth of Experience for Business Solutions",
+      subtitle: language === "ar" ? "نقدم حلولاً مبتكرة ومتخصصة" : "We provide innovative solutions",
+      cta: language === "ar" ? "ابدأ رحلتك معنا" : "Start Your Journey"
+    },
+    services: {
+      title: language === "ar" ? "خدماتنا" : "Our Services",
+      subtitle: language === "ar" ? "نقدم مجموعة شاملة من الخدمات" : "We offer comprehensive services",
+      items: []
+    },
+    cases: {
+      title: language === "ar" ? "دراسات الحالة" : "Case Studies",
+      subtitle: language === "ar" ? "قصص نجاح حقيقية" : "Real success stories",
+      items: []
+    },
+    blog: {
+      title: language === "ar" ? "المدونة" : "Blog",
+      subtitle: language === "ar" ? "آخر الأخبار والمقالات" : "Latest news and articles",
+      items: []
+    },
+    contact: {
+      title: language === "ar" ? "تواصل معنا" : "Contact Us",
+      subtitle: language === "ar" ? "نحن هنا لمساعدتك" : "We are here to help",
+      info: {
+        email: "info@depth-solutions.com",
+        phone: "+966 11 123 4567",
+        address: language === "ar" ? "الرياض، المملكة العربية السعودية" : "Riyadh, Saudi Arabia"
+      }
+    }
+  }
 
   return (
     <div
@@ -238,25 +337,25 @@ export default function DepthBusinessWebsite() {
           <div className="flex items-center justify-between h-16">
             {/* Logo */}
             <div className="flex items-center">
-              <img src="/images/depth-logo-mainl.png" alt="Depth Logo" className="h-12 w-auto" />
+              <img src="/images/depth-logo-horizontal.png" alt="Depth Logo" className="h-12 w-auto" />
             </div>
 
                          {/* Desktop Navigation */}
              <nav className="hidden md:flex items-center gap-8">
-               <Link href="/home" className="text-foreground hover:text-primary transition-colors">
-                 {currentContent.nav.home}
+               <Link href="/" className="text-foreground hover:text-primary transition-colors">
+                 {currentContent?.nav?.home}
                </Link>
                <Link href="/services" className="text-foreground hover:text-primary transition-colors">
-                 {currentContent.nav.services}
+                 {currentContent?.nav?.services}
                </Link>
                <Link href="/cases" className="text-foreground hover:text-primary transition-colors">
-                 {currentContent.nav.cases}
+                 {currentContent?.nav?.cases}
                </Link>
                <Link href="/blog" className="text-foreground hover:text-primary transition-colors">
-                 {currentContent.nav.blog}
+                 {currentContent?.nav?.blog}
                </Link>
                <Link href="/contact" className="text-foreground hover:text-primary transition-colors">
-                 {currentContent.nav.contact}
+                 {currentContent?.nav?.contact}
                </Link>
              </nav>
 
@@ -284,28 +383,28 @@ export default function DepthBusinessWebsite() {
             </div>
           </div>
 
-          {/* Mobile Navigation */}
-          {mobileMenuOpen && (
-            <div className="md:hidden py-4 border-t">
-              <nav className="flex flex-col space-y-4">
-                <Link href="/home" className="text-foreground hover:text-primary transition-colors">
-                  {currentContent.nav.home}
-                </Link>
-                <Link href="/services" className="text-foreground hover:text-primary transition-colors">
-                  {currentContent.nav.services}
-                </Link>
-                <Link href="/cases" className="text-foreground hover:text-primary transition-colors">
-                  {currentContent.nav.cases}
-                </Link>
-                <Link href="/blog" className="text-foreground hover:text-primary transition-colors">
-                  {currentContent.nav.blog}
-                </Link>
-                <Link href="/contact" className="text-foreground hover:text-primary transition-colors">
-                  {currentContent.nav.contact}
-                </Link>
-              </nav>
-            </div>
-          )}
+                     {/* Mobile Navigation */}
+           {mobileMenuOpen && (
+             <div className="md:hidden py-4 border-t">
+               <nav className="flex flex-col space-y-4">
+                 <Link href="/" className="text-foreground hover:text-primary transition-colors">
+                   {currentContent?.nav?.home}
+                 </Link>
+                 <Link href="/services" className="text-foreground hover:text-primary transition-colors">
+                   {currentContent?.nav?.services}
+                 </Link>
+                 <Link href="/cases" className="text-foreground hover:text-primary transition-colors">
+                   {currentContent?.nav?.cases}
+                 </Link>
+                 <Link href="/blog" className="text-foreground hover:text-primary transition-colors">
+                   {currentContent?.nav?.blog}
+                 </Link>
+                 <Link href="/contact" className="text-foreground hover:text-primary transition-colors">
+                   {currentContent?.nav?.contact}
+                 </Link>
+               </nav>
+             </div>
+           )}
         </div>
       </header>
 
@@ -407,26 +506,21 @@ export default function DepthBusinessWebsite() {
             <p className="text-xl text-muted-foreground max-w-3xl mx-auto">{currentContent.services.subtitle}</p>
           </div>
 
-          <div className="grid md:grid-cols-2 lg:grid-cols-4 gap-8">
-            {((currentContent.services as any).items || [
-              currentContent.services.consulting,
-              currentContent.services.strategy,
-              currentContent.services.digital,
-              currentContent.services.training,
-            ]).map((svc: any, idx: number) => (
-              <Card key={idx} className="text-center service-card-hover border-[#4a90a4]/20 bg-gradient-to-br from-white to-blue-50/50 relative overflow-hidden">
-                <CardHeader>
-                  <div className="mx-auto w-16 h-16 bg-gradient-to-br from-[#4a90a4] to-[#6bb6c7] rounded-2xl flex items-center justify-center mb-4 shadow-lg">
-                    <Users className="h-8 w-8 text-white" />
-                  </div>
-                  <CardTitle className="text-xl text-[#1e3a5f]">{svc.title}</CardTitle>
-                </CardHeader>
-                <CardContent>
-                  <CardDescription className="text-base text-gray-600">{svc.description}</CardDescription>
-                </CardContent>
-              </Card>
-            ))}
-          </div>
+                     <div className="grid md:grid-cols-2 lg:grid-cols-4 gap-8">
+             {(currentContent.services.items || []).map((svc: any, idx: number) => (
+               <Card key={idx} className="text-center service-card-hover border-[#4a90a4]/20 bg-gradient-to-br from-white to-blue-50/50 relative overflow-hidden">
+                 <CardHeader>
+                   <div className="mx-auto w-16 h-16 bg-gradient-to-br from-[#4a90a4] to-[#6bb6c7] rounded-2xl flex items-center justify-center mb-4 shadow-lg">
+                     <Users className="h-8 w-8 text-white" />
+                   </div>
+                   <CardTitle className="text-xl text-[#1e3a5f]">{svc.title}</CardTitle>
+                 </CardHeader>
+                 <CardContent>
+                   <CardDescription className="text-base text-gray-600">{svc.description}</CardDescription>
+                 </CardContent>
+               </Card>
+             ))}
+           </div>
         </div>
       </section>
 
@@ -439,27 +533,24 @@ export default function DepthBusinessWebsite() {
             <p className="text-xl text-muted-foreground max-w-3xl mx-auto">{currentContent.cases.subtitle}</p>
           </div>
 
-          <div className="grid md:grid-cols-2 gap-8 max-w-6xl mx-auto">
-            {((currentContent.cases as any).items || [
-              { ...currentContent.cases.case1 },
-              { ...currentContent.cases.case2 },
-            ]).map((cs: any, idx: number) => (
-              <Card key={idx} className="overflow-hidden card-glow border-[#4a90a4]/20 bg-white relative">
-                <div className={`h-48 bg-gradient-to-br ${idx % 2 ? 'from-[#6bb6c7]/20 to-[#4a90a4]/30' : 'from-[#4a90a4]/20 to-[#6bb6c7]/30'} relative overflow-hidden`}>
-                  <div className="absolute inset-0 bg-gradient-to-r from-transparent via-white/10 to-transparent animate-pulse"></div>
-                </div>
-                <CardHeader>
-                  <div className="flex items-center justify-between mb-2">
-                    <Badge className="bg-gradient-to-r from-[#4a90a4] to-[#6bb6c7] text-white border-0">{cs.result}</Badge>
-                  </div>
-                  <CardTitle className="text-xl text-[#1e3a5f]">{cs.title}</CardTitle>
-                </CardHeader>
-                <CardContent>
-                  <CardDescription className="text-base text-gray-600">{cs.description}</CardDescription>
-                </CardContent>
-              </Card>
-            ))}
-          </div>
+                     <div className="grid md:grid-cols-2 gap-8 max-w-6xl mx-auto">
+             {(currentContent.cases.items || []).map((cs: any, idx: number) => (
+               <Card key={idx} className="overflow-hidden card-glow border-[#4a90a4]/20 bg-white relative">
+                 <div className={`h-48 bg-gradient-to-br ${idx % 2 ? 'from-[#6bb6c7]/20 to-[#4a90a4]/30' : 'from-[#4a90a4]/20 to-[#6bb6c7]/30'} relative overflow-hidden`}>
+                   <div className="absolute inset-0 bg-gradient-to-r from-transparent via-white/10 to-transparent animate-pulse"></div>
+                 </div>
+                 <CardHeader>
+                   <div className="flex items-center justify-between mb-2">
+                     <Badge className="bg-gradient-to-r from-[#4a90a4] to-[#6bb6c7] text-white border-0">{cs.result}</Badge>
+                   </div>
+                   <CardTitle className="text-xl text-[#1e3a5f]">{cs.title}</CardTitle>
+                 </CardHeader>
+                 <CardContent>
+                   <CardDescription className="text-base text-gray-600">{cs.description}</CardDescription>
+                 </CardContent>
+               </Card>
+             ))}
+           </div>
         </div>
       </section>
 
@@ -472,22 +563,22 @@ export default function DepthBusinessWebsite() {
             <p className="text-xl text-muted-foreground max-w-3xl mx-auto">{currentContent.blog.subtitle}</p>
           </div>
 
-          <div className="grid md:grid-cols-2 gap-8 max-w-4xl mx-auto">
-            {(((content as any).ar ? (content as any).ar.blog : null) ? (content as any).ar.blog.posts : (currentContent.blog.posts || [])).slice(0,2).map((post: any, idx: number) => (
-              <Card key={post.id || idx} className="card-glow border-[#4a90a4]/20 bg-white overflow-hidden relative">
-                <div className={`h-48 bg-gradient-to-br ${idx % 2 ? 'from-[#4a90a4]/10 to-[#6bb6c7]/20' : 'from-[#1e3a5f]/10 to-[#4a90a4]/20'} relative`}>
-                  <div className="absolute inset-0 bg-gradient-to-r from-transparent via-white/10 to-transparent"></div>
-                </div>
-                <CardHeader>
-                  <div className="text-sm text-[#4a90a4] font-medium mb-2">{post.date}</div>
-                  <CardTitle className="text-xl text-[#1e3a5f]">{post.title}</CardTitle>
-                </CardHeader>
-                <CardContent>
-                  <CardDescription className="text-base text-gray-600">{post.excerpt}</CardDescription>
-                </CardContent>
-              </Card>
-            ))}
-          </div>
+                     <div className="grid md:grid-cols-2 gap-8 max-w-4xl mx-auto">
+             {(currentContent.blog.items || []).slice(0,2).map((post: any, idx: number) => (
+               <Card key={post.id || idx} className="card-glow border-[#4a90a4]/20 bg-white overflow-hidden relative">
+                 <div className={`h-48 bg-gradient-to-br ${idx % 2 ? 'from-[#4a90a4]/10 to-[#6bb6c7]/20' : 'from-[#1e3a5f]/10 to-[#4a90a4]/20'} relative`}>
+                   <div className="absolute inset-0 bg-gradient-to-r from-transparent via-white/10 to-transparent"></div>
+                 </div>
+                 <CardHeader>
+                   <div className="text-sm text-[#4a90a4] font-medium mb-2">{post.date}</div>
+                   <CardTitle className="text-xl text-[#1e3a5f]">{post.title}</CardTitle>
+                 </CardHeader>
+                 <CardContent>
+                   <CardDescription className="text-base text-gray-600">{post.excerpt}</CardDescription>
+                 </CardContent>
+               </Card>
+             ))}
+           </div>
         </div>
       </section>
 
@@ -684,9 +775,9 @@ export default function DepthBusinessWebsite() {
         <div className="container mx-auto px-4 sm:px-6 lg:px-8">
           <div className="text-center">
                             <img
-                  src="/images/depth-logo-mainl.png"
+                  src="/images/depth-logo-horizontal.png"
                   alt="Depth Logo"
-                  className="h-12 w-auto mx-auto mb-4 brightness-0 invert"
+                  className="h-16 w-auto mx-auto mb-4 brightness-0 invert"
                 />
             <p className="text-white/80">
               {language === "ar" ? "© 2024 عمق - جميع الحقوق محفوظة" : "© 2024 Depth - All rights reserved"}

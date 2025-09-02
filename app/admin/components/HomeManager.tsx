@@ -324,8 +324,9 @@ export default function HomeManager() {
 
   if (loading) {
     return (
-      <div className="flex items-center justify-center p-8">
-        <div className="animate-spin rounded-full h-8 w-8 border-b-2 border-[#4a90a4]"></div>
+      <div className="text-center p-8">
+        <div className="animate-spin rounded-full h-32 w-32 border-b-2 border-[#4a90a4] mx-auto"></div>
+        <p className="mt-4 text-lg text-gray-600">جاري تحميل المحتوى...</p>
       </div>
     )
   }
@@ -338,7 +339,25 @@ export default function HomeManager() {
     )
   }
 
-  const currentContent = content[activeLanguage]
+  const currentContent = content?.[activeLanguage] || {
+    nav: { home: "", services: "", cases: "", blog: "", contact: "" },
+    hero: { title: "", subtitle: "", cta: "" },
+    services: { title: "", subtitle: "", items: [] },
+    cases: { title: "", subtitle: "", items: [] },
+    blog: { title: "", subtitle: "", items: [] },
+    contact: { 
+      title: "", 
+      subtitle: "", 
+      name: "", 
+      email: "", 
+      phone: "", 
+      company: "", 
+      service: "", 
+      message: "", 
+      send: "",
+      info: { email: "", phone: "", address: "" }
+    }
+  }
 
   return (
     <div className="space-y-6">
@@ -441,7 +460,7 @@ export default function HomeManager() {
               <div>
                 <label className="block text-sm font-medium mb-2">العنوان الرئيسي</label>
                 <Input
-                  value={currentContent.hero.title}
+                  value={currentContent.hero?.title || ""}
                   onChange={(e) => setContent({
                     ...content,
                     [activeLanguage]: {
@@ -459,7 +478,7 @@ export default function HomeManager() {
               <div>
                 <label className="block text-sm font-medium mb-2">العنوان الفرعي</label>
                 <Textarea
-                  value={currentContent.hero.subtitle}
+                  value={currentContent.hero?.subtitle || ""}
                   onChange={(e) => setContent({
                     ...content,
                     [activeLanguage]: {
@@ -478,7 +497,7 @@ export default function HomeManager() {
               <div>
                 <label className="block text-sm font-medium mb-2">نص الزر</label>
                 <Input
-                  value={currentContent.hero.cta}
+                  value={currentContent.hero?.cta || ""}
                   onChange={(e) => setContent({
                     ...content,
                     [activeLanguage]: {
@@ -516,7 +535,7 @@ export default function HomeManager() {
                 <div>
                   <label className="block text-sm font-medium mb-2">عنوان القسم</label>
                   <Input
-                    value={currentContent.services.title}
+                    value={currentContent.services?.title || ""}
                     onChange={(e) => setContent({
                       ...content,
                       [activeLanguage]: {
@@ -534,7 +553,7 @@ export default function HomeManager() {
                 <div>
                   <label className="block text-sm font-medium mb-2">وصف القسم</label>
                   <Input
-                    value={currentContent.services.subtitle}
+                    value={currentContent.services?.subtitle || ""}
                     onChange={(e) => setContent({
                       ...content,
                       [activeLanguage]: {
@@ -552,7 +571,7 @@ export default function HomeManager() {
 
               <div className="space-y-4">
                 <h4 className="font-medium">قائمة الخدمات</h4>
-                {currentContent.services.items.map((service, index) => (
+                {(currentContent.services?.items || []).map((service, index) => (
                   <Card key={index} className="border-2 border-gray-100">
                     <CardContent className="p-4">
                       <div className="flex items-center justify-between mb-4">
@@ -582,7 +601,7 @@ export default function HomeManager() {
                           <Input
                             value={service.title}
                             onChange={(e) => {
-                              const newItems = [...currentContent.services.items]
+                              const newItems = [...(currentContent.services?.items || [])]
                               newItems[index] = { ...service, title: e.target.value }
                               setContent({
                                 ...content,
@@ -604,7 +623,7 @@ export default function HomeManager() {
                           <Textarea
                             value={service.description}
                             onChange={(e) => {
-                              const newItems = [...currentContent.services.items]
+                              const newItems = [...(currentContent.services?.items || [])]
                               newItems[index] = { ...service, description: e.target.value }
                               setContent({
                                 ...content,
@@ -627,7 +646,7 @@ export default function HomeManager() {
                           <Input
                             value={service.imageUrl}
                             onChange={(e) => {
-                              const newItems = [...currentContent.services.items]
+                              const newItems = [...(currentContent.services?.items || [])]
                               newItems[index] = { ...service, imageUrl: e.target.value }
                               setContent({
                                 ...content,
@@ -672,7 +691,7 @@ export default function HomeManager() {
                 <div>
                   <label className="block text-sm font-medium mb-2">عنوان القسم</label>
                   <Input
-                    value={currentContent.cases.title}
+                    value={currentContent.cases?.title || ""}
                     onChange={(e) => setContent({
                       ...content,
                       [activeLanguage]: {
@@ -690,7 +709,7 @@ export default function HomeManager() {
                 <div>
                   <label className="block text-sm font-medium mb-2">وصف القسم</label>
                   <Input
-                    value={currentContent.cases.subtitle}
+                    value={currentContent.cases?.subtitle || ""}
                     onChange={(e) => setContent({
                       ...content,
                       [activeLanguage]: {
@@ -708,7 +727,7 @@ export default function HomeManager() {
 
               <div className="space-y-4">
                 <h4 className="font-medium">قائمة دراسات الحالة</h4>
-                {currentContent.cases.items.map((caseItem, index) => (
+                {(currentContent.cases?.items || []).map((caseItem, index) => (
                   <Card key={index} className="border-2 border-gray-100">
                     <CardContent className="p-4">
                       <div className="flex items-center justify-between mb-4">
@@ -738,7 +757,7 @@ export default function HomeManager() {
                           <Input
                             value={caseItem.title}
                             onChange={(e) => {
-                              const newItems = [...currentContent.cases.items]
+                              const newItems = [...(currentContent.cases?.items || [])]
                               newItems[index] = { ...caseItem, title: e.target.value }
                               setContent({
                                 ...content,
@@ -760,7 +779,7 @@ export default function HomeManager() {
                           <Textarea
                             value={caseItem.description}
                             onChange={(e) => {
-                              const newItems = [...currentContent.cases.items]
+                              const newItems = [...(currentContent.cases?.items || [])]
                               newItems[index] = { ...caseItem, description: e.target.value }
                               setContent({
                                 ...content,
@@ -783,7 +802,7 @@ export default function HomeManager() {
                           <Input
                             value={caseItem.result}
                             onChange={(e) => {
-                              const newItems = [...currentContent.cases.items]
+                              const newItems = [...(currentContent.cases?.items || [])]
                               newItems[index] = { ...caseItem, result: e.target.value }
                               setContent({
                                 ...content,
@@ -805,7 +824,7 @@ export default function HomeManager() {
                           <Input
                             value={caseItem.imageUrl}
                             onChange={(e) => {
-                              const newItems = [...currentContent.cases.items]
+                              const newItems = [...(currentContent.cases?.items || [])]
                               newItems[index] = { ...caseItem, imageUrl: e.target.value }
                               setContent({
                                 ...content,
@@ -850,7 +869,7 @@ export default function HomeManager() {
                 <div>
                   <label className="block text-sm font-medium mb-2">عنوان القسم</label>
                   <Input
-                    value={currentContent.blog.title}
+                    value={currentContent.blog?.title || ""}
                     onChange={(e) => setContent({
                       ...content,
                       [activeLanguage]: {
@@ -868,7 +887,7 @@ export default function HomeManager() {
                 <div>
                   <label className="block text-sm font-medium mb-2">وصف القسم</label>
                   <Input
-                    value={currentContent.blog.subtitle}
+                    value={currentContent.blog?.subtitle || ""}
                     onChange={(e) => setContent({
                       ...content,
                       [activeLanguage]: {
@@ -886,7 +905,7 @@ export default function HomeManager() {
 
               <div className="space-y-4">
                 <h4 className="font-medium">قائمة المقالات</h4>
-                {currentContent.blog.items.map((post, index) => (
+                {(currentContent.blog?.items || []).map((post, index) => (
                   <Card key={index} className="border-2 border-gray-100">
                     <CardContent className="p-4">
                       <div className="flex items-center justify-between mb-4">
@@ -916,7 +935,7 @@ export default function HomeManager() {
                           <Input
                             value={post.title}
                             onChange={(e) => {
-                              const newItems = [...currentContent.blog.items]
+                              const newItems = [...(currentContent.blog?.items || [])]
                               newItems[index] = { ...post, title: e.target.value }
                               setContent({
                                 ...content,
@@ -938,7 +957,7 @@ export default function HomeManager() {
                           <Textarea
                             value={post.excerpt}
                             onChange={(e) => {
-                              const newItems = [...currentContent.blog.items]
+                              const newItems = [...(currentContent.blog?.items || [])]
                               newItems[index] = { ...post, excerpt: e.target.value }
                               setContent({
                                 ...content,
@@ -961,7 +980,7 @@ export default function HomeManager() {
                           <Input
                             value={post.date}
                             onChange={(e) => {
-                              const newItems = [...currentContent.blog.items]
+                              const newItems = [...(currentContent.blog?.items || [])]
                               newItems[index] = { ...post, date: e.target.value }
                               setContent({
                                 ...content,
@@ -983,7 +1002,7 @@ export default function HomeManager() {
                           <Input
                             value={post.imageUrl}
                             onChange={(e) => {
-                              const newItems = [...currentContent.blog.items]
+                              const newItems = [...(currentContent.blog?.items || [])]
                               newItems[index] = { ...post, imageUrl: e.target.value }
                               setContent({
                                 ...content,
@@ -1022,7 +1041,7 @@ export default function HomeManager() {
                 <div>
                   <label className="block text-sm font-medium mb-2">عنوان القسم</label>
                   <Input
-                    value={currentContent.contact.title}
+                    value={currentContent.contact?.title || ""}
                     onChange={(e) => setContent({
                       ...content,
                       [activeLanguage]: {
@@ -1040,7 +1059,7 @@ export default function HomeManager() {
                 <div>
                   <label className="block text-sm font-medium mb-2">وصف القسم</label>
                   <Input
-                    value={currentContent.contact.subtitle}
+                    value={currentContent.contact?.subtitle || ""}
                     onChange={(e) => setContent({
                       ...content,
                       [activeLanguage]: {
@@ -1060,7 +1079,7 @@ export default function HomeManager() {
                 <div>
                   <label className="block text-sm font-medium mb-2">البريد الإلكتروني</label>
                   <Input
-                    value={currentContent.contact.info.email}
+                    value={currentContent.contact?.info?.email || ""}
                     onChange={(e) => setContent({
                       ...content,
                       [activeLanguage]: {
@@ -1081,7 +1100,7 @@ export default function HomeManager() {
                 <div>
                   <label className="block text-sm font-medium mb-2">رقم الهاتف</label>
                   <Input
-                    value={currentContent.contact.info.phone}
+                    value={currentContent.contact?.info?.phone || ""}
                     onChange={(e) => setContent({
                       ...content,
                       [activeLanguage]: {
@@ -1102,7 +1121,7 @@ export default function HomeManager() {
                 <div>
                   <label className="block text-sm font-medium mb-2">العنوان</label>
                   <Input
-                    value={currentContent.contact.info.address}
+                    value={currentContent.contact?.info?.address || ""}
                     onChange={(e) => setContent({
                       ...content,
                       [activeLanguage]: {
