@@ -9,49 +9,131 @@
     },
     "hero": {
       "title": "عمق الخبرة لحلول الأعمال",
-      "subtitle": "نقدم حلولاً مبتكرة ومتخصصة لتطوير أعمالكم وتحقيق أهدافكم الاستراتيجية",
-      "cta": "ابدأ رحلتك معنا"
+      "subtitle": "مؤسسة متخصصة في تقديم حلول استراتيجية وإدارية متكاملة، تجمع بين الاستشارات الإدارية، البحث والتطوير، التدريب وبناء القدرات، وتنظيم الفعاليات والمعارض. نؤمن أن نجاح المنظمات لا يتحقق إلا عبر حلول عملية عميقة تستند إلى المعرفة والخبرة.",
+      "cta": "ابدأ رحلتك معنا",
+      "vision": "أن نكون المرجع الأول في حلول الأعمال المتكاملة التي تصنع التميز والاستدامة.",
+      "mission": "نبتكر حلول أعمال متكاملة تمكّن المنظمات من النمو وتحقيق الاستدامة.",
+      "values": {
+        "innovation": "الابتكار: تقديم حلول جديدة وفعالة",
+        "excellence": "التميز: الالتزام بأعلى معايير الجودة",
+        "sustainability": "الاستدامة: التركيز على الأثر طويل المدى",
+        "reliability": "الموثوقية: بناء علاقات قائمة على الثقة والمصداقية",
+        "partnership": "الشراكة: التعاون لتحقيق النجاح المشترك"
+      },
+      "objectives": [
+        "الريادة في تقديم حلول أعمال متكاملة ومبتكرة",
+        "تمكين المنظمات من تحقيق النمو والتميز المؤسسي",
+        "إثراء المعرفة عبر البحث والتطوير وصناعة الدراسات التطبيقية",
+        "صناعة منصات معرفية للتأثير وبناء الشراكات",
+        "تعزيز الاستدامة من خلال الابتكار والكفاءة التشغيلية"
+      ]
     },
     "services": {
-      "title": "خدماتنا",
-      "subtitle": "نقدم مجموعة شاملة من الخدمات المصممة لتلبية احتياجات عملك",
+      "title": "مجالات خدماتنا",
+      "subtitle": "نقدم مجموعة شاملة من الحلول المتكاملة المصممة لتمكين المنظمات من النمو والتميز",
       "items": [
         {
-          "title": "الاستشارات الإدارية",
-          "description": "استشارات متخصصة لتطوير استراتيجيات العمل وتحسين الأداء",
-          "imageUrl": ""
+          "title": "حلول الأعمال والاستشارات الإدارية",
+          "description": "إعداد الخطط الاستراتيجية وخطط التحول المؤسسي، تطوير السياسات واللوائح الداخلية والهياكل التنظيمية، إعادة هندسة العمليات الإدارية والمالية والتشغيلية",
+          "imageUrl": "",
+          "features": [
+            "إعداد الخطط الاستراتيجية وخطط التحول المؤسسي",
+            "تطوير السياسات واللوائح الداخلية والهياكل التنظيمية", 
+            "إعادة هندسة العمليات الإدارية والمالية والتشغيلية",
+            "استشارات الحوكمة والامتثال والاستدامة المالية",
+            "دعم تأسيس المنظمات الناشئة وخطط إنقاذ للمتعثرة"
+          ]
         },
         {
-          "title": "التخطيط الاستراتيجي",
-          "description": "وضع خطط استراتيجية محكمة لضمان نمو مستدام لأعمالكم",
-          "imageUrl": ""
+          "title": "خدمات البحث والتطوير وصناعة المعرفة",
+          "description": "إعداد الدراسات والبحوث في العلوم الاجتماعية والإنسانية، تنفيذ البحوث الميدانية واستطلاعات الرأي والتحليل الإحصائي",
+          "imageUrl": "",
+          "features": [
+            "إعداد الدراسات والبحوث في العلوم الاجتماعية والإنسانية",
+            "تنفيذ البحوث الميدانية واستطلاعات الرأي والتحليل الإحصائي",
+            "إعداد تقارير السياسات العامة والتوصيات لصناع القرار",
+            "تطوير أدلة وإطارات عمل مبنية على أفضل الممارسات العالمية",
+            "إنشاء قواعد بيانات معرفية لدعم القطاعات التنموية",
+            "تقديم خدمات تقييم البرامج والمشاريع (التقويم والمتابعة)"
+          ]
         },
         {
-          "title": "التحول الرقمي",
-          "description": "مساعدة الشركات في التحول الرقمي وتطبيق أحدث التقنيات",
-          "imageUrl": ""
+          "title": "التدريب وبناء القدرات",
+          "description": "تصميم الحقائب التدريبية التخصصية والإدارية، تقديم برامج تدريبية في القيادة والإدارة وريادة الأعمال",
+          "imageUrl": "",
+          "features": [
+            "تصميم الحقائب التدريبية التخصصية والإدارية",
+            "تقديم برامج تدريبية في القيادة والإدارة وريادة الأعمال",
+            "دورات في المهارات الناعمة (التواصل، التفكير النقدي، إدارة الوقت)",
+            "ورش عمل حول الابتكار المؤسسي والتحول الرقمي",
+            "برامج تدريبية للقطاع غير الربحي (حوكمة – استدامة – تطوع)",
+            "برامج تدريب المدربين (TOT) ومسارات تدريبية متدرجة"
+          ]
         },
         {
-          "title": "التدريب والتطوير",
-          "description": "برامج تدريبية متخصصة لتطوير قدرات فرق العمل",
-          "imageUrl": ""
+          "title": "تنظيم وإدارة الفعاليات",
+          "description": "تنظيم المؤتمرات والمعارض والمنتديات المتخصصة، إدارة ورش العمل والملتقيات الاستشارية",
+          "imageUrl": "",
+          "features": [
+            "تنظيم المؤتمرات والمعارض والمنتديات المتخصصة",
+            "إدارة ورش العمل والملتقيات الاستشارية",
+            "تصميم وتنفيذ فعاليات معرفية ومجتمعية (ندوات – حوارات)",
+            "تشغيل مراكز ومرافق المعارض والمؤتمرات",
+            "بناء منصات للتواصل والشراكات بين القطاعات",
+            "تقديم خدمات الدعم اللوجستي والتقني للفعاليات"
+          ]
+        },
+        {
+          "title": "حلول التحول الرقمي والأتمتة",
+          "description": "أتمتة العمليات الإدارية والتشغيلية، تطوير حلول رقمية لإدارة العمليات والموارد",
+          "imageUrl": "",
+          "features": [
+            "أتمتة العمليات الإدارية والتشغيلية",
+            "تطوير حلول رقمية لإدارة العمليات والموارد",
+            "بناء لوحات مؤشرات (Dashboards) لمتابعة الأداء",
+            "تقديم استشارات في التحول الرقمي للمنظمات",
+            "تصميم أدوات قياس الأثر والمتابعة باستخدام التقنية"
+          ]
+        },
+        {
+          "title": "خدمات متخصصة للقطاع غير الربحي",
+          "description": "استشارات تأسيس الجمعيات والمؤسسات، بناء أنظمة الحوكمة والامتثال لمعايير المركز الوطني",
+          "imageUrl": "",
+          "features": [
+            "استشارات تأسيس الجمعيات والمؤسسات",
+            "بناء أنظمة الحوكمة والامتثال لمعايير المركز الوطني",
+            "تصميم برامج استدامة مالية وشراكات استراتيجية",
+            "تقييم وقياس الأثر الاجتماعي",
+            "خطط إنقاذ للجمعيات المتعثرة وتطوير القوية للريادة"
+          ]
+        },
+        {
+          "title": "الخدمات الإعلامية والمعرفية المساندة",
+          "description": "إعداد خطط الاتصال المؤسسي والإعلامي، إدارة الحملات الإعلامية للبرامج والفعاليات",
+          "imageUrl": "",
+          "features": [
+            "إعداد خطط الاتصال المؤسسي والإعلامي",
+            "إدارة الحملات الإعلامية للبرامج والفعاليات",
+            "تصميم وإنتاج محتوى معرفي وتفاعلي",
+            "الترجمة والتحرير وإعداد هويات بصرية متكاملة"
+          ]
         }
       ],
       "consulting": {
-        "title": "الاستشارات الإدارية",
-        "description": "استشارات متخصصة لتطوير استراتيجيات العمل وتحسين الأداء"
+        "title": "حلول الأعمال والاستشارات الإدارية",
+        "description": "إعداد الخطط الاستراتيجية وخطط التحول المؤسسي، تطوير السياسات واللوائح الداخلية والهياكل التنظيمية"
       },
       "strategy": {
-        "title": "التخطيط الاستراتيجي",
-        "description": "وضع خطط استراتيجية محكمة لضمان نمو مستدام لأعمالكم"
+        "title": "خدمات البحث والتطوير وصناعة المعرفة", 
+        "description": "إعداد الدراسات والبحوث في العلوم الاجتماعية والإنسانية، تنفيذ البحوث الميدانية واستطلاعات الرأي"
       },
       "digital": {
-        "title": "التحول الرقمي",
-        "description": "مساعدة الشركات في التحول الرقمي وتطبيق أحدث التقنيات"
+        "title": "حلول التحول الرقمي والأتمتة",
+        "description": "أتمتة العمليات الإدارية والتشغيلية، تطوير حلول رقمية لإدارة العمليات والموارد"
       },
       "training": {
-        "title": "التدريب والتطوير",
-        "description": "برامج تدريبية متخصصة لتطوير قدرات فرق العمل"
+        "title": "التدريب وبناء القدرات", 
+        "description": "تصميم الحقائب التدريبية التخصصية والإدارية، تقديم برامج تدريبية في القيادة والإدارة وريادة الأعمال"
       }
     },
     "cases": {
@@ -120,49 +202,131 @@
     },
     "hero": {
       "title": "Depth of Experience for Business Solutions",
-      "subtitle": "We provide innovative and specialized solutions to develop your business and achieve your strategic goals",
-      "cta": "Start Your Journey"
+      "subtitle": "A specialized institution in providing integrated strategic and administrative solutions, combining management consulting, research and development, training and capacity building, and organizing events and exhibitions. We believe that organizational success is only achieved through deep practical solutions based on knowledge and experience.",
+      "cta": "Start Your Journey",
+      "vision": "To be the first reference in integrated business solutions that create excellence and sustainability.",
+      "mission": "We innovate integrated business solutions that enable organizations to grow and achieve sustainability.",
+      "values": {
+        "innovation": "Innovation: Providing new and effective solutions",
+        "excellence": "Excellence: Commitment to the highest quality standards",
+        "sustainability": "Sustainability: Focus on long-term impact",
+        "reliability": "Reliability: Building relationships based on trust and credibility",
+        "partnership": "Partnership: Collaboration to achieve mutual success"
+      },
+      "objectives": [
+        "Leadership in providing integrated and innovative business solutions",
+        "Enabling organizations to achieve growth and institutional excellence",
+        "Enriching knowledge through research, development and creating applied studies",
+        "Creating knowledge platforms for influence and building partnerships",
+        "Enhancing sustainability through innovation and operational efficiency"
+      ]
     },
     "services": {
-      "title": "Our Services",
-      "subtitle": "We offer a comprehensive range of services designed to meet your business needs",
+      "title": "Our Service Areas",
+      "subtitle": "We offer a comprehensive range of integrated solutions designed to enable organizations to grow and excel",
       "items": [
         {
-          "title": "Management Consulting",
-          "description": "Specialized consulting to develop business strategies and improve performance",
-          "imageUrl": ""
+          "title": "Business Solutions and Management Consulting",
+          "description": "Preparing strategic plans and institutional transformation plans, developing internal policies, regulations and organizational structures, re-engineering administrative, financial and operational processes",
+          "imageUrl": "",
+          "features": [
+            "Preparing strategic plans and institutional transformation plans",
+            "Developing internal policies, regulations and organizational structures",
+            "Re-engineering administrative, financial and operational processes",
+            "Governance, compliance and financial sustainability consulting",
+            "Supporting startup establishment and rescue plans for struggling organizations"
+          ]
         },
         {
-          "title": "Strategic Planning",
-          "description": "Developing robust strategic plans to ensure sustainable growth for your business",
-          "imageUrl": ""
+          "title": "Research & Development and Knowledge Creation Services",
+          "description": "Preparing studies and research in social and human sciences, implementing field research, opinion polls and statistical analysis",
+          "imageUrl": "",
+          "features": [
+            "Preparing studies and research in social and human sciences",
+            "Implementing field research, opinion polls and statistical analysis",
+            "Preparing public policy reports and recommendations for decision makers",
+            "Developing guides and frameworks based on global best practices",
+            "Creating knowledge databases to support development sectors",
+            "Providing program and project evaluation services (evaluation and monitoring)"
+          ]
         },
         {
-          "title": "Digital Transformation",
-          "description": "Helping companies in digital transformation and implementing latest technologies",
-          "imageUrl": ""
+          "title": "Training and Capacity Building",
+          "description": "Designing specialized and administrative training packages, providing training programs in leadership, management and entrepreneurship",
+          "imageUrl": "",
+          "features": [
+            "Designing specialized and administrative training packages",
+            "Providing training programs in leadership, management and entrepreneurship",
+            "Courses in soft skills (communication, critical thinking, time management)",
+            "Workshops on institutional innovation and digital transformation",
+            "Training programs for the non-profit sector (governance - sustainability - volunteering)",
+            "Train the trainers (TOT) programs and graduated training tracks"
+          ]
         },
         {
-          "title": "Training & Development",
-          "description": "Specialized training programs to develop team capabilities",
-          "imageUrl": ""
+          "title": "Event Organization and Management",
+          "description": "Organizing specialized conferences, exhibitions and forums, managing workshops and advisory meetings",
+          "imageUrl": "",
+          "features": [
+            "Organizing specialized conferences, exhibitions and forums",
+            "Managing workshops and advisory meetings",
+            "Designing and implementing knowledge and community events (seminars - dialogues)",
+            "Operating exhibition and conference centers and facilities",
+            "Building platforms for communication and partnerships between sectors",
+            "Providing logistical and technical support services for events"
+          ]
+        },
+        {
+          "title": "Digital Transformation and Automation Solutions",
+          "description": "Automating administrative and operational processes, developing digital solutions for operations and resource management",
+          "imageUrl": "",
+          "features": [
+            "Automating administrative and operational processes",
+            "Developing digital solutions for operations and resource management",
+            "Building dashboards for performance monitoring",
+            "Providing digital transformation consulting for organizations",
+            "Designing impact measurement and monitoring tools using technology"
+          ]
+        },
+        {
+          "title": "Specialized Services for Non-Profit Sector",
+          "description": "Consulting for establishing associations and institutions, building governance and compliance systems for National Center standards",
+          "imageUrl": "",
+          "features": [
+            "Consulting for establishing associations and institutions",
+            "Building governance and compliance systems for National Center standards",
+            "Designing financial sustainability programs and strategic partnerships",
+            "Evaluating and measuring social impact",
+            "Rescue plans for struggling associations and developing strong ones for leadership"
+          ]
+        },
+        {
+          "title": "Supporting Media and Knowledge Services",
+          "description": "Preparing institutional and media communication plans, managing media campaigns for programs and events",
+          "imageUrl": "",
+          "features": [
+            "Preparing institutional and media communication plans",
+            "Managing media campaigns for programs and events",
+            "Designing and producing knowledge and interactive content",
+            "Translation, editing and preparing integrated visual identities"
+          ]
         }
       ],
       "consulting": {
-        "title": "Management Consulting",
-        "description": "Specialized consulting to develop business strategies and improve performance"
+        "title": "Business Solutions and Management Consulting",
+        "description": "Preparing strategic plans and institutional transformation plans, developing internal policies, regulations and organizational structures"
       },
       "strategy": {
-        "title": "Strategic Planning",
-        "description": "Developing robust strategic plans to ensure sustainable growth for your business"
+        "title": "Research & Development and Knowledge Creation Services",
+        "description": "Preparing studies and research in social and human sciences, implementing field research and opinion polls"
       },
       "digital": {
-        "title": "Digital Transformation",
-        "description": "Helping companies in digital transformation and implementing latest technologies"
+        "title": "Digital Transformation and Automation Solutions",
+        "description": "Automating administrative and operational processes, developing digital solutions for operations and resource management"
       },
       "training": {
-        "title": "Training & Development",
-        "description": "Specialized training programs to develop team capabilities"
+        "title": "Training and Capacity Building",
+        "description": "Designing specialized and administrative training packages, providing training programs in leadership, management and entrepreneurship"
       }
     },
     "cases": {

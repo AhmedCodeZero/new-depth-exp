@@ -4,38 +4,134 @@
     "hero": { "title": "خدماتنا المتخصصة", "subtitle": "نقدم مجموعة شاملة من الحلول المبتكرة لتطوير أعمالكم وتحقيق النمو المستدام", "backToHome": "العودة للرئيسية" },
     "services": {
       "items": [
-        { "title": "الاستشارات الإدارية", "description": "استشارات متخصصة لتطوير استراتيجيات العمل وتحسين الأداء التشغيلي", "features": ["تحليل الوضع الحالي للشركة", "وضع استراتيجيات التطوير", "تحسين العمليات التشغيلية", "إدارة التغيير والتطوير", "قياس الأداء والنتائج"], "price": "يبدأ من 15,000 ريال", "duration": "3-6 أشهر", "imageUrl": "" },
-        { "title": "التخطيط الاستراتيجي", "description": "وضع خطط استراتيجية محكمة لضمان نمو مستدام وتحقيق الأهداف طويلة المدى", "features": ["تحليل السوق والمنافسين", "وضع الرؤية والرسالة", "تحديد الأهداف الاستراتيجية", "خطط التنفيذ التفصيلية", "متابعة وتقييم النتائج"], "price": "يبدأ من 20,000 ريال", "duration": "4-8 أشهر", "imageUrl": "" },
-        { "title": "التحول الرقمي", "description": "مساعدة الشركات في التحول الرقمي وتطبيق أحدث التقنيات لتحسين الكفاءة", "features": ["تقييم الوضع التقني الحالي", "وضع استراتيجية التحول الرقمي", "تطبيق الحلول التقنية", "تدريب الفرق على التقنيات الجديدة", "الدعم والصيانة المستمرة"], "price": "يبدأ من 25,000 ريال", "duration": "6-12 شهر", "imageUrl": "" },
-        { "title": "التدريب والتطوير", "description": "برامج تدريبية متخصصة لتطوير قدرات فرق العمل ورفع مستوى الأداء", "features": ["تحليل احتياجات التدريب", "تصميم البرامج التدريبية", "التدريب العملي والنظري", "ورش العمل التفاعلية", "شهادات معتمدة"], "price": "يبدأ من 5,000 ريال", "duration": "1-3 أشهر", "imageUrl": "" }
+        { 
+          "title": "حلول الأعمال والاستشارات الإدارية", 
+          "description": "استشارات متخصصة لتطوير استراتيجيات العمل وتحسين الأداء التشغيلي وإعادة هندسة العمليات", 
+          "features": [
+            "إعداد الخطط الاستراتيجية وخطط التحول المؤسسي", 
+            "تطوير السياسات واللوائح الداخلية والهياكل التنظيمية", 
+            "إعادة هندسة العمليات الإدارية والمالية والتشغيلية", 
+            "استشارات الحوكمة والامتثال والاستدامة المالية", 
+            "دعم تأسيس المنظمات الناشئة وخطط إنقاذ للمتعثرة"
+          ], 
+          "price": "حسب نطاق المشروع", 
+          "duration": "3-12 شهر", 
+          "imageUrl": "" 
+        },
+        { 
+          "title": "خدمات البحث والتطوير وصناعة المعرفة", 
+          "description": "إعداد الدراسات والبحوث التطبيقية وتنفيذ البحوث الميدانية وصناعة المحتوى المعرفي", 
+          "features": [
+            "إعداد الدراسات والبحوث في العلوم الاجتماعية والإنسانية", 
+            "تنفيذ البحوث الميدانية واستطلاعات الرأي والتحليل الإحصائي", 
+            "إعداد تقارير السياسات العامة والتوصيات لصناع القرار", 
+            "تطوير أدلة وإطارات عمل مبنية على أفضل الممارسات العالمية", 
+            "إنشاء قواعد بيانات معرفية لدعم القطاعات التنموية",
+            "تقديم خدمات تقييم البرامج والمشاريع (التقويم والمتابعة)"
+          ], 
+          "price": "حسب نوع الدراسة", 
+          "duration": "2-8 أشهر", 
+          "imageUrl": "" 
+        },
+        { 
+          "title": "التدريب وبناء القدرات", 
+          "description": "تصميم وتنفيذ برامج تدريبية متخصصة لتطوير قدرات الأفراد والفرق ورفع مستوى الأداء", 
+          "features": [
+            "تصميم الحقائب التدريبية التخصصية والإدارية", 
+            "تقديم برامج تدريبية في القيادة والإدارة وريادة الأعمال", 
+            "دورات في المهارات الناعمة (التواصل، التفكير النقدي، إدارة الوقت)", 
+            "ورش عمل حول الابتكار المؤسسي والتحول الرقمي", 
+            "برامج تدريبية للقطاع غير الربحي (حوكمة – استدامة – تطوع)",
+            "برامج تدريب المدربين (TOT) ومسارات تدريبية متدرجة"
+          ], 
+          "price": "يبدأ من 3,000 ريال", 
+          "duration": "1-6 أشهر", 
+          "imageUrl": "" 
+        },
+        { 
+          "title": "تنظيم وإدارة الفعاليات", 
+          "description": "تخطيط وتنظيم وإدارة المؤتمرات والمعارض والفعاليات المتخصصة بأعلى معايير الجودة", 
+          "features": [
+            "تنظيم المؤتمرات والمعارض والمنتديات المتخصصة", 
+            "إدارة ورش العمل والملتقيات الاستشارية", 
+            "تصميم وتنفيذ فعاليات معرفية ومجتمعية (ندوات – حوارات)", 
+            "تشغيل مراكز ومرافق المعارض والمؤتمرات", 
+            "بناء منصات للتواصل والشراكات بين القطاعات",
+            "تقديم خدمات الدعم اللوجستي والتقني للفعاليات"
+          ], 
+          "price": "حسب حجم الفعالية", 
+          "duration": "1-12 شهر", 
+          "imageUrl": "" 
+        },
+        { 
+          "title": "حلول التحول الرقمي والأتمتة", 
+          "description": "تطوير وتطبيق حلول تقنية متقدمة لأتمتة العمليات وتحسين الكفاءة التشغيلية", 
+          "features": [
+            "أتمتة العمليات الإدارية والتشغيلية", 
+            "تطوير حلول رقمية لإدارة العمليات والموارد", 
+            "بناء لوحات مؤشرات (Dashboards) لمتابعة الأداء", 
+            "تقديم استشارات في التحول الرقمي للمنظمات", 
+            "تصميم أدوات قياس الأثر والمتابعة باستخدام التقنية"
+          ], 
+          "price": "يبدأ من 25,000 ريال", 
+          "duration": "3-18 شهر", 
+          "imageUrl": "" 
+        },
+        { 
+          "title": "خدمات متخصصة للقطاع غير الربحي", 
+          "description": "حلول متكاملة مصممة خصيصاً لتمكين وتطوير منظمات القطاع غير الربحي", 
+          "features": [
+            "استشارات تأسيس الجمعيات والمؤسسات", 
+            "بناء أنظمة الحوكمة والامتثال لمعايير المركز الوطني", 
+            "تصميم برامج استدامة مالية وشراكات استراتيجية", 
+            "تقييم وقياس الأثر الاجتماعي", 
+            "خطط إنقاذ للجمعيات المتعثرة وتطوير القوية للريادة"
+          ], 
+          "price": "يبدأ من 10,000 ريال", 
+          "duration": "2-12 شهر", 
+          "imageUrl": "" 
+        },
+        { 
+          "title": "الخدمات الإعلامية والمعرفية المساندة", 
+          "description": "خدمات شاملة لدعم الاتصال المؤسسي وإنتاج المحتوى المعرفي المتميز", 
+          "features": [
+            "إعداد خطط الاتصال المؤسسي والإعلامي", 
+            "إدارة الحملات الإعلامية للبرامج والفعاليات", 
+            "تصميم وإنتاج محتوى معرفي وتفاعلي", 
+            "الترجمة والتحرير وإعداد هويات بصرية متكاملة"
+          ], 
+          "price": "حسب نوع الخدمة", 
+          "duration": "1-6 أشهر", 
+          "imageUrl": "" 
+        }
       ],
       "consulting": {
-        "title": "الاستشارات الإدارية",
-        "description": "استشارات متخصصة لتطوير استراتيجيات العمل وتحسين الأداء التشغيلي",
-        "features": ["تحليل الوضع الحالي للشركة", "وضع استراتيجيات التطوير", "تحسين العمليات التشغيلية", "إدارة التغيير والتطوير", "قياس الأداء والنتائج"],
-        "price": "يبدأ من 15,000 ريال",
-        "duration": "3-6 أشهر"
+        "title": "حلول الأعمال والاستشارات الإدارية",
+        "description": "استشارات متخصصة لتطوير استراتيجيات العمل وتحسين الأداء التشغيلي وإعادة هندسة العمليات",
+        "features": ["إعداد الخطط الاستراتيجية وخطط التحول المؤسسي", "تطوير السياسات واللوائح الداخلية والهياكل التنظيمية", "إعادة هندسة العمليات الإدارية والمالية والتشغيلية", "استشارات الحوكمة والامتثال والاستدامة المالية", "دعم تأسيس المنظمات الناشئة وخطط إنقاذ للمتعثرة"],
+        "price": "حسب نطاق المشروع",
+        "duration": "3-12 شهر"
       },
       "strategy": {
-        "title": "التخطيط الاستراتيجي",
-        "description": "وضع خطط استراتيجية محكمة لضمان نمو مستدام وتحقيق الأهداف طويلة المدى",
-        "features": ["تحليل السوق والمنافسين", "وضع الرؤية والرسالة", "تحديد الأهداف الاستراتيجية", "خطط التنفيذ التفصيلية", "متابعة وتقييم النتائج"],
-        "price": "يبدأ من 20,000 ريال",
-        "duration": "4-8 أشهر"
+        "title": "خدمات البحث والتطوير وصناعة المعرفة",
+        "description": "إعداد الدراسات والبحوث التطبيقية وتنفيذ البحوث الميدانية وصناعة المحتوى المعرفي",
+        "features": ["إعداد الدراسات والبحوث في العلوم الاجتماعية والإنسانية", "تنفيذ البحوث الميدانية واستطلاعات الرأي والتحليل الإحصائي", "إعداد تقارير السياسات العامة والتوصيات لصناع القرار", "تطوير أدلة وإطارات عمل مبنية على أفضل الممارسات العالمية", "إنشاء قواعد بيانات معرفية لدعم القطاعات التنموية"],
+        "price": "حسب نوع الدراسة",
+        "duration": "2-8 أشهر"
       },
       "digital": {
-        "title": "التحول الرقمي",
-        "description": "مساعدة الشركات في التحول الرقمي وتطبيق أحدث التقنيات لتحسين الكفاءة",
-        "features": ["تقييم الوضع التقني الحالي", "وضع استراتيجية التحول الرقمي", "تطبيق الحلول التقنية", "تدريب الفرق على التقنيات الجديدة", "الدعم والصيانة المستمرة"],
+        "title": "حلول التحول الرقمي والأتمتة",
+        "description": "تطوير وتطبيق حلول تقنية متقدمة لأتمتة العمليات وتحسين الكفاءة التشغيلية",
+        "features": ["أتمتة العمليات الإدارية والتشغيلية", "تطوير حلول رقمية لإدارة العمليات والموارد", "بناء لوحات مؤشرات (Dashboards) لمتابعة الأداء", "تقديم استشارات في التحول الرقمي للمنظمات", "تصميم أدوات قياس الأثر والمتابعة باستخدام التقنية"],
         "price": "يبدأ من 25,000 ريال",
-        "duration": "6-12 شهر"
+        "duration": "3-18 شهر"
       },
       "training": {
-        "title": "التدريب والتطوير",
-        "description": "برامج تدريبية متخصصة لتطوير قدرات فرق العمل ورفع مستوى الأداء",
-        "features": ["تحليل احتياجات التدريب", "تصميم البرامج التدريبية", "التدريب العملي والنظري", "ورش العمل التفاعلية", "شهادات معتمدة"],
-        "price": "يبدأ من 5,000 ريال",
-        "duration": "1-3 أشهر"
+        "title": "التدريب وبناء القدرات",
+        "description": "تصميم وتنفيذ برامج تدريبية متخصصة لتطوير قدرات الأفراد والفرق ورفع مستوى الأداء",
+        "features": ["تصميم الحقائب التدريبية التخصصية والإدارية", "تقديم برامج تدريبية في القيادة والإدارة وريادة الأعمال", "دورات في المهارات الناعمة (التواصل، التفكير النقدي، إدارة الوقت)", "ورش عمل حول الابتكار المؤسسي والتحول الرقمي", "برامج تدريبية للقطاع غير الربحي (حوكمة – استدامة – تطوع)"],
+        "price": "يبدأ من 3,000 ريال",
+        "duration": "1-6 أشهر"
       }
     },
     "cta": { "title": "هل أنت مستعد لبدء رحلة التطوير؟", "subtitle": "تواصل معنا اليوم للحصول على استشارة مجانية", "button": "احجز استشارة مجانية" }
@@ -45,42 +141,136 @@
     "hero": { "title": "Our Specialized Services", "subtitle": "We offer a comprehensive range of innovative solutions to develop your business and achieve sustainable growth", "backToHome": "Back to Home" },
     "services": {
       "items": [
-        { "title": "Management Consulting", "description": "Specialized consulting to develop business strategies and improve operational performance", "features": ["Current company situation analysis", "Development strategy formulation", "Operational process improvement", "Change management and development", "Performance measurement and results"], "price": "Starting from SAR 15,000", "duration": "3-6 months", "imageUrl": "" },
-        { "title": "Strategic Planning", "description": "Developing robust strategic plans to ensure sustainable growth and achieve long-term goals", "features": ["Market and competitor analysis", "Vision and mission development", "Strategic objectives definition", "Detailed implementation plans", "Follow-up and results evaluation"], "price": "Starting from SAR 20,000", "duration": "4-8 months", "imageUrl": "" },
-        { "title": "Digital Transformation", "description": "Helping companies in digital transformation and implementing latest technologies to improve efficiency", "features": ["Current technical situation assessment", "Digital transformation strategy", "Technical solutions implementation", "Team training on new technologies", "Ongoing support and maintenance"], "price": "Starting from SAR 25,000", "duration": "6-12 months", "imageUrl": "" },
-        { "title": "Training & Development", "description": "Specialized training programs to develop team capabilities and enhance performance levels", "features": ["Training needs analysis", "Training program design", "Practical and theoretical training", "Interactive workshops", "Certified certificates"], "price": "Starting from SAR 5,000", "duration": "1-3 months", "imageUrl": "" }
+        { 
+          "title": "Business Solutions and Management Consulting", 
+          "description": "Specialized consulting to develop business strategies, improve operational performance and re-engineer processes", 
+          "features": [
+            "Preparing strategic plans and institutional transformation plans", 
+            "Developing internal policies, regulations and organizational structures", 
+            "Re-engineering administrative, financial and operational processes", 
+            "Governance, compliance and financial sustainability consulting", 
+            "Supporting startup establishment and rescue plans for struggling organizations"
+          ], 
+          "price": "Based on project scope", 
+          "duration": "3-12 months", 
+          "imageUrl": "" 
+        },
+        { 
+          "title": "Research & Development and Knowledge Creation Services", 
+          "description": "Preparing applied studies and research, implementing field research and creating outstanding knowledge content", 
+          "features": [
+            "Preparing studies and research in social and human sciences", 
+            "Implementing field research, opinion polls and statistical analysis", 
+            "Preparing public policy reports and recommendations for decision makers", 
+            "Developing guides and frameworks based on global best practices", 
+            "Creating knowledge databases to support development sectors",
+            "Providing program and project evaluation services (evaluation and monitoring)"
+          ], 
+          "price": "Based on study type", 
+          "duration": "2-8 months", 
+          "imageUrl": "" 
+        },
+        { 
+          "title": "Training and Capacity Building", 
+          "description": "Designing and implementing specialized training programs to develop individual and team capabilities and enhance performance", 
+          "features": [
+            "Designing specialized and administrative training packages", 
+            "Providing training programs in leadership, management and entrepreneurship", 
+            "Courses in soft skills (communication, critical thinking, time management)", 
+            "Workshops on institutional innovation and digital transformation", 
+            "Training programs for the non-profit sector (governance - sustainability - volunteering)",
+            "Train the trainers (TOT) programs and graduated training tracks"
+          ], 
+          "price": "Starting from SAR 3,000", 
+          "duration": "1-6 months", 
+          "imageUrl": "" 
+        },
+        { 
+          "title": "Event Organization and Management", 
+          "description": "Planning, organizing and managing conferences, exhibitions and specialized events with the highest quality standards", 
+          "features": [
+            "Organizing specialized conferences, exhibitions and forums", 
+            "Managing workshops and advisory meetings", 
+            "Designing and implementing knowledge and community events (seminars - dialogues)", 
+            "Operating exhibition and conference centers and facilities", 
+            "Building platforms for communication and partnerships between sectors",
+            "Providing logistical and technical support services for events"
+          ], 
+          "price": "Based on event size", 
+          "duration": "1-12 months", 
+          "imageUrl": "" 
+        },
+        { 
+          "title": "Digital Transformation and Automation Solutions", 
+          "description": "Developing and implementing advanced technological solutions to automate processes and improve operational efficiency", 
+          "features": [
+            "Automating administrative and operational processes", 
+            "Developing digital solutions for operations and resource management", 
+            "Building dashboards for performance monitoring", 
+            "Providing digital transformation consulting for organizations", 
+            "Designing impact measurement and monitoring tools using technology"
+          ], 
+          "price": "Starting from SAR 25,000", 
+          "duration": "3-18 months", 
+          "imageUrl": "" 
+        },
+        { 
+          "title": "Specialized Services for Non-Profit Sector", 
+          "description": "Integrated solutions specially designed to empower and develop non-profit sector organizations", 
+          "features": [
+            "Consulting for establishing associations and institutions", 
+            "Building governance and compliance systems for National Center standards", 
+            "Designing financial sustainability programs and strategic partnerships", 
+            "Evaluating and measuring social impact", 
+            "Rescue plans for struggling associations and developing strong ones for leadership"
+          ], 
+          "price": "Starting from SAR 10,000", 
+          "duration": "2-12 months", 
+          "imageUrl": "" 
+        },
+        { 
+          "title": "Supporting Media and Knowledge Services", 
+          "description": "Comprehensive services to support institutional communication and produce outstanding knowledge content", 
+          "features": [
+            "Preparing institutional and media communication plans", 
+            "Managing media campaigns for programs and events", 
+            "Designing and producing knowledge and interactive content", 
+            "Translation, editing and preparing integrated visual identities"
+          ], 
+          "price": "Based on service type", 
+          "duration": "1-6 months", 
+          "imageUrl": "" 
+        }
       ],
       "consulting": {
-        "title": "Management Consulting",
-        "description": "Specialized consulting to develop business strategies and improve operational performance",
-        "features": ["Current company situation analysis", "Development strategy formulation", "Operational process improvement", "Change management and development", "Performance measurement and results"],
-        "price": "Starting from SAR 15,000",
-        "duration": "3-6 months"
+        "title": "Business Solutions and Management Consulting",
+        "description": "Specialized consulting to develop business strategies, improve operational performance and re-engineer processes",
+        "features": ["Preparing strategic plans and institutional transformation plans", "Developing internal policies, regulations and organizational structures", "Re-engineering administrative, financial and operational processes", "Governance, compliance and financial sustainability consulting", "Supporting startup establishment and rescue plans for struggling organizations"],
+        "price": "Based on project scope",
+        "duration": "3-12 months"
       },
       "strategy": {
-        "title": "Strategic Planning",
-        "description": "Developing robust strategic plans to ensure sustainable growth and achieve long-term goals",
-        "features": ["Market and competitor analysis", "Vision and mission development", "Strategic objectives definition", "Detailed implementation plans", "Follow-up and results evaluation"],
-        "price": "Starting from SAR 20,000",
-        "duration": "4-8 months"
+        "title": "Research & Development and Knowledge Creation Services",
+        "description": "Preparing applied studies and research, implementing field research and creating outstanding knowledge content",
+        "features": ["Preparing studies and research in social and human sciences", "Implementing field research, opinion polls and statistical analysis", "Preparing public policy reports and recommendations for decision makers", "Developing guides and frameworks based on global best practices", "Creating knowledge databases to support development sectors"],
+        "price": "Based on study type",
+        "duration": "2-8 months"
       },
       "digital": {
-        "title": "Digital Transformation",
-        "description": "Helping companies in digital transformation and implementing latest technologies to improve efficiency",
-        "features": ["Current technical situation assessment", "Digital transformation strategy", "Technical solutions implementation", "Team training on new technologies", "Ongoing support and maintenance"],
+        "title": "Digital Transformation and Automation Solutions",
+        "description": "Developing and implementing advanced technological solutions to automate processes and improve operational efficiency",
+        "features": ["Automating administrative and operational processes", "Developing digital solutions for operations and resource management", "Building dashboards for performance monitoring", "Providing digital transformation consulting for organizations", "Designing impact measurement and monitoring tools using technology"],
         "price": "Starting from SAR 25,000",
-        "duration": "6-12 months"
+        "duration": "3-18 months"
       },
       "training": {
-        "title": "Training & Development",
-        "description": "Specialized training programs to develop team capabilities and enhance performance levels",
-        "features": ["Training needs analysis", "Training program design", "Practical and theoretical training", "Interactive workshops", "Certified certificates"],
-        "price": "Starting from SAR 5,000",
-        "duration": "1-3 months"
+        "title": "Training and Capacity Building",
+        "description": "Designing and implementing specialized training programs to develop individual and team capabilities and enhance performance",
+        "features": ["Designing specialized and administrative training packages", "Providing training programs in leadership, management and entrepreneurship", "Courses in soft skills (communication, critical thinking, time management)", "Workshops on institutional innovation and digital transformation", "Training programs for the non-profit sector (governance - sustainability - volunteering)"],
+        "price": "Starting from SAR 3,000",
+        "duration": "1-6 months"
       }
     },
     "cta": { "title": "Ready to Start Your Development Journey?", "subtitle": "Contact us today for a free consultation", "button": "Book Free Consultation" }
   }
 }
-
-

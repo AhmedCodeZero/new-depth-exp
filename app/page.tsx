@@ -6,7 +6,7 @@ import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/com
 import { Input } from "@/components/ui/input"
 import { Textarea } from "@/components/ui/textarea"
 import { Badge } from "@/components/ui/badge"
-import { Globe, Menu, X, ChevronRight, Users, Target, TrendingUp, Award, Mail, Phone, MapPin, MessageSquare, Send } from "lucide-react"
+import { Globe, Menu, X, ChevronRight, Users, Target, TrendingUp, Award, Mail, Phone, MapPin, MessageSquare, Send, Eye, Heart, Star, CheckCircle } from "lucide-react"
 import Link from "next/link"
 
 interface ContentData {
@@ -22,6 +22,10 @@ interface ContentData {
       title: string
       subtitle: string
       cta: string
+      vision?: string
+      mission?: string
+      values?: { [key: string]: string }
+      objectives?: string[]
     }
     services: {
       title: string
@@ -30,6 +34,7 @@ interface ContentData {
         title: string
         description: string
         imageUrl: string
+        features?: string[]
       }>
     }
     cases: {
@@ -40,6 +45,7 @@ interface ContentData {
         description: string
         result: string
         imageUrl: string
+        features?: string[]
       }>
     }
     blog: {
@@ -50,6 +56,7 @@ interface ContentData {
         excerpt: string
         date: string
         imageUrl: string
+        features?: string[]
       }>
     }
     contact: {
@@ -81,6 +88,10 @@ interface ContentData {
       title: string
       subtitle: string
       cta: string
+      vision?: string
+      mission?: string
+      values?: { [key: string]: string }
+      objectives?: string[]
     }
     services: {
       title: string
@@ -89,6 +100,7 @@ interface ContentData {
         title: string
         description: string
         imageUrl: string
+        features?: string[]
       }>
     }
     cases: {
@@ -99,6 +111,7 @@ interface ContentData {
         description: string
         result: string
         imageUrl: string
+        features?: string[]
       }>
     }
     blog: {
@@ -109,6 +122,7 @@ interface ContentData {
         excerpt: string
         date: string
         imageUrl: string
+        features?: string[]
       }>
     }
     contact: {
@@ -497,6 +511,132 @@ export default function DepthBusinessWebsite() {
         </div>
       </section>
 
+      {/* Vision, Mission, Values Section */}
+      <section className="py-20 bg-gradient-to-br from-white via-blue-50/30 to-white relative">
+        <div className="container mx-auto px-4 sm:px-6 lg:px-8">
+          {/* Vision and Mission */}
+          <div className="grid lg:grid-cols-2 gap-12 mb-20">
+            <Card className="border-[#4a90a4]/20 bg-gradient-to-br from-white to-blue-50/50 relative overflow-hidden">
+              <div className="h-2 bg-gradient-to-r from-[#1e3a5f] to-[#4a90a4]"></div>
+              <CardHeader>
+                <div className="flex items-center mb-4">
+                  <div className="w-12 h-12 bg-gradient-to-br from-[#4a90a4] to-[#6bb6c7] rounded-xl flex items-center justify-center mr-4 rtl:mr-0 rtl:ml-4">
+                    <Eye className="h-6 w-6 text-white" />
+                  </div>
+                  <CardTitle className="text-2xl text-[#1e3a5f]">
+                    {language === "ar" ? "🎯 الرؤية" : "🎯 Vision"}
+                  </CardTitle>
+                </div>
+                <CardDescription className="text-lg text-gray-700 leading-relaxed">
+                  {currentContent.hero?.vision || (language === "ar" ? "أن نكون المرجع الأول في حلول الأعمال المتكاملة التي تصنع التميز والاستدامة." : "To be the first reference in integrated business solutions that create excellence and sustainability.")}
+                </CardDescription>
+              </CardHeader>
+            </Card>
+
+            <Card className="border-[#4a90a4]/20 bg-gradient-to-br from-white to-blue-50/50 relative overflow-hidden">
+              <div className="h-2 bg-gradient-to-r from-[#6bb6c7] to-[#4a90a4]"></div>
+              <CardHeader>
+                <div className="flex items-center mb-4">
+                  <div className="w-12 h-12 bg-gradient-to-br from-[#6bb6c7] to-[#4a90a4] rounded-xl flex items-center justify-center mr-4 rtl:mr-0 rtl:ml-4">
+                    <Heart className="h-6 w-6 text-white" />
+                  </div>
+                  <CardTitle className="text-2xl text-[#1e3a5f]">
+                    {language === "ar" ? "📝 الرسالة" : "📝 Mission"}
+                  </CardTitle>
+                </div>
+                <CardDescription className="text-lg text-gray-700 leading-relaxed">
+                  {currentContent.hero?.mission || (language === "ar" ? "نبتكر حلول أعمال متكاملة تمكّن المنظمات من النمو وتحقيق الاستدامة." : "We innovate integrated business solutions that enable organizations to grow and achieve sustainability.")}
+                </CardDescription>
+              </CardHeader>
+            </Card>
+          </div>
+
+          {/* Values */}
+          <div className="mb-20">
+            <div className="text-center mb-12">
+              <h2 className="text-3xl md:text-4xl font-bold bg-gradient-to-r from-[#1e3a5f] to-[#4a90a4] bg-clip-text text-transparent mb-4">
+                {language === "ar" ? "🌟 القيم المؤسسية" : "🌟 Our Values"}
+              </h2>
+            </div>
+            <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-6">
+              {currentContent.hero?.values ? Object.entries(currentContent.hero.values).map(([key, value], idx) => (
+                <Card key={key} className="border-[#4a90a4]/20 bg-white relative overflow-hidden">
+                  <CardHeader className="pb-4">
+                    <div className="flex items-start">
+                      <div className={`w-10 h-10 bg-gradient-to-br ${['from-[#4a90a4] to-[#6bb6c7]', 'from-[#1e3a5f] to-[#4a90a4]', 'from-[#6bb6c7] to-[#4a90a4]'][idx % 3]} rounded-lg flex items-center justify-center mr-3 rtl:mr-0 rtl:ml-3 flex-shrink-0`}>
+                        <Star className="h-5 w-5 text-white" />
+                      </div>
+                      <div>
+                        <CardDescription className="text-base text-gray-700 font-medium">
+                          {value as string}
+                        </CardDescription>
+                      </div>
+                    </div>
+                  </CardHeader>
+                </Card>
+              )) : (
+                // Default values if not provided
+                [
+                  language === "ar" ? "الابتكار: تقديم حلول جديدة وفعالة" : "Innovation: Providing new and effective solutions",
+                  language === "ar" ? "التميز: الالتزام بأعلى معايير الجودة" : "Excellence: Commitment to the highest quality standards",
+                  language === "ar" ? "الاستدامة: التركيز على الأثر طويل المدى" : "Sustainability: Focus on long-term impact",
+                  language === "ar" ? "الموثوقية: بناء علاقات قائمة على الثقة والمصداقية" : "Reliability: Building relationships based on trust and credibility",
+                  language === "ar" ? "الشراكة: التعاون لتحقيق النجاح المشترك" : "Partnership: Collaboration to achieve mutual success"
+                ].map((value, idx) => (
+                  <Card key={idx} className="border-[#4a90a4]/20 bg-white relative overflow-hidden">
+                    <CardHeader className="pb-4">
+                      <div className="flex items-start">
+                        <div className={`w-10 h-10 bg-gradient-to-br ${['from-[#4a90a4] to-[#6bb6c7]', 'from-[#1e3a5f] to-[#4a90a4]', 'from-[#6bb6c7] to-[#4a90a4]'][idx % 3]} rounded-lg flex items-center justify-center mr-3 rtl:mr-0 rtl:ml-3 flex-shrink-0`}>
+                          <Star className="h-5 w-5 text-white" />
+                        </div>
+                        <div>
+                          <CardDescription className="text-base text-gray-700 font-medium">
+                            {value}
+                          </CardDescription>
+                        </div>
+                      </div>
+                    </CardHeader>
+                  </Card>
+                ))
+              )}
+            </div>
+          </div>
+
+          {/* Strategic Objectives */}
+          <div>
+            <div className="text-center mb-12">
+              <h2 className="text-3xl md:text-4xl font-bold bg-gradient-to-r from-[#1e3a5f] to-[#4a90a4] bg-clip-text text-transparent mb-4">
+                {language === "ar" ? "🎯 الأهداف الاستراتيجية" : "🎯 Strategic Objectives"}
+              </h2>
+            </div>
+            <div className="max-w-4xl mx-auto">
+              <div className="grid gap-4">
+                {currentContent.hero?.objectives ? currentContent.hero.objectives.map((objective: string, idx: number) => (
+                  <div key={idx} className="flex items-start p-4 bg-white rounded-lg border border-[#4a90a4]/20">
+                    <CheckCircle className="h-6 w-6 text-[#4a90a4] mr-3 rtl:mr-0 rtl:ml-3 mt-0.5 flex-shrink-0" />
+                    <p className="text-gray-700 text-lg">{objective}</p>
+                  </div>
+                )) : (
+                  // Default objectives if not provided
+                  [
+                    language === "ar" ? "الريادة في تقديم حلول أعمال متكاملة ومبتكرة" : "Leadership in providing integrated and innovative business solutions",
+                    language === "ar" ? "تمكين المنظمات من تحقيق النمو والتميز المؤسسي" : "Enabling organizations to achieve growth and institutional excellence",
+                    language === "ar" ? "إثراء المعرفة عبر البحث والتطوير وصناعة الدراسات التطبيقية" : "Enriching knowledge through research, development and creating applied studies",
+                    language === "ar" ? "صناعة منصات معرفية للتأثير وبناء الشراكات" : "Creating knowledge platforms for influence and building partnerships",
+                    language === "ar" ? "تعزيز الاستدامة من خلال الابتكار والكفاءة التشغيلية" : "Enhancing sustainability through innovation and operational efficiency"
+                  ].map((objective, idx) => (
+                    <div key={idx} className="flex items-start p-4 bg-white rounded-lg border border-[#4a90a4]/20">
+                      <CheckCircle className="h-6 w-6 text-[#4a90a4] mr-3 rtl:mr-0 rtl:ml-3 mt-0.5 flex-shrink-0" />
+                      <p className="text-gray-700 text-lg">{objective}</p>
+                    </div>
+                  ))
+                )}
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+
       <section id="services" className="py-20 bg-gradient-to-br from-background via-muted/30 to-background relative">
         <div className="container mx-auto px-4 sm:px-6 lg:px-8">
           <div className="text-center mb-16">
@@ -506,21 +646,52 @@ export default function DepthBusinessWebsite() {
             <p className="text-xl text-muted-foreground max-w-3xl mx-auto">{currentContent.services.subtitle}</p>
           </div>
 
-                     <div className="grid md:grid-cols-2 lg:grid-cols-4 gap-8">
-             {(currentContent.services.items || []).map((svc: any, idx: number) => (
-               <Card key={idx} className="text-center service-card-hover border-[#4a90a4]/20 bg-gradient-to-br from-white to-blue-50/50 relative overflow-hidden">
-                 <CardHeader>
-                   <div className="mx-auto w-16 h-16 bg-gradient-to-br from-[#4a90a4] to-[#6bb6c7] rounded-2xl flex items-center justify-center mb-4 shadow-lg">
-                     <Users className="h-8 w-8 text-white" />
-                   </div>
-                   <CardTitle className="text-xl text-[#1e3a5f]">{svc.title}</CardTitle>
-                 </CardHeader>
-                 <CardContent>
-                   <CardDescription className="text-base text-gray-600">{svc.description}</CardDescription>
-                 </CardContent>
-               </Card>
-             ))}
-           </div>
+          <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
+            {(currentContent.services.items || []).slice(0, 6).map((svc: any, idx: number) => {
+              const icons = [Users, Target, TrendingUp, Award, Users, Target];
+              const IconComponent = icons[idx % icons.length];
+              return (
+                <Card key={idx} className="text-center service-card-hover border-[#4a90a4]/20 bg-gradient-to-br from-white to-blue-50/50 relative overflow-hidden">
+                  <div className={`h-2 bg-gradient-to-r ${['from-[#4a90a4] to-[#6bb6c7]', 'from-[#1e3a5f] to-[#4a90a4]', 'from-[#6bb6c7] to-[#4a90a4]'][idx % 3]}`}></div>
+                  <CardHeader>
+                    <div className={`mx-auto w-16 h-16 bg-gradient-to-br ${['from-[#4a90a4] to-[#6bb6c7]', 'from-[#1e3a5f] to-[#4a90a4]', 'from-[#6bb6c7] to-[#4a90a4]'][idx % 3]} rounded-2xl flex items-center justify-center mb-4 shadow-lg`}>
+                      <IconComponent className="h-8 w-8 text-white" />
+                    </div>
+                    <CardTitle className="text-xl text-[#1e3a5f] mb-2">{svc.title}</CardTitle>
+                  </CardHeader>
+                  <CardContent>
+                    <CardDescription className="text-base text-gray-600 mb-4">{svc.description}</CardDescription>
+                    {svc.features && svc.features.length > 0 && (
+                      <div className="text-left">
+                        <ul className="space-y-2">
+                          {svc.features.slice(0, 3).map((feature: string, featureIdx: number) => (
+                            <li key={featureIdx} className="flex items-start text-sm">
+                              <CheckCircle className="h-4 w-4 text-[#4a90a4] mr-2 rtl:mr-0 rtl:ml-2 mt-0.5 flex-shrink-0" />
+                              <span className="text-gray-600">{feature}</span>
+                            </li>
+                          ))}
+                        </ul>
+                        {svc.features.length > 3 && (
+                          <p className="text-sm text-[#4a90a4] mt-2">
+                            {language === "ar" ? `+${svc.features.length - 3} خدمات أخرى` : `+${svc.features.length - 3} more services`}
+                          </p>
+                        )}
+                      </div>
+                    )}
+                  </CardContent>
+                </Card>
+              );
+            })}
+          </div>
+
+          <div className="text-center mt-12">
+            <Link href="/services">
+              <Button className="bg-gradient-to-r from-[#1e3a5f] to-[#4a90a4] hover:from-[#1e3a5f]/90 hover:to-[#4a90a4]/90 text-white px-8 py-3 text-lg rounded-full shadow-lg">
+                {language === "ar" ? "عرض جميع الخدمات" : "View All Services"}
+                <ChevronRight className="ml-2 h-5 w-5 rtl:ml-0 rtl:mr-2 rtl:rotate-180" />
+              </Button>
+            </Link>
+          </div>
         </div>
       </section>
 
