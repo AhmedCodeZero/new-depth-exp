@@ -1,0 +1,233 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>اختبار لوحة التحكم المبسطة</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background: linear-gradient(135deg, #0a0f1c, #1e3a5f, #0f1419);
+            color: white;
+            padding: 20px;
+            margin: 0;
+        }
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+        .header {
+            text-align: center;
+            margin-bottom: 30px;
+        }
+        .grid {
+            display: grid;
+            grid-template-columns: 1fr 3fr;
+            gap: 20px;
+        }
+        .sidebar {
+            background: rgba(255, 255, 255, 0.95);
+            backdrop-filter: blur(20px);
+            border-radius: 15px;
+            padding: 20px;
+            position: relative;
+            overflow: hidden;
+        }
+        .sidebar::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: linear-gradient(135deg, rgba(74, 144, 164, 0.1), rgba(107, 182, 199, 0.1));
+            border-radius: 15px;
+            filter: blur(20px);
+            opacity: 0;
+            transition: opacity 0.3s ease;
+            pointer-events: none;
+        }
+        .sidebar:hover::before {
+            opacity: 1;
+        }
+        .main-content {
+            background: rgba(255, 255, 255, 0.95);
+            backdrop-filter: blur(20px);
+            border-radius: 15px;
+            padding: 20px;
+            position: relative;
+            overflow: hidden;
+        }
+        .main-content::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: linear-gradient(135deg, rgba(74, 144, 164, 0.05), rgba(107, 182, 199, 0.05));
+            border-radius: 15px;
+            filter: blur(20px);
+            opacity: 0;
+            transition: opacity 0.3s ease;
+            pointer-events: none;
+        }
+        .main-content:hover::before {
+            opacity: 1;
+        }
+        .page-button {
+            display: block;
+            width: 100%;
+            padding: 12px 16px;
+            margin: 8px 0;
+            background: white;
+            color: #333;
+            border: 1px solid #ddd;
+            border-radius: 8px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            text-align: right;
+            position: relative;
+            z-index: 10;
+        }
+        .page-button:hover {
+            background: #f0f0f0;
+            color: #4a90a4;
+        }
+        .page-button.active {
+            background: linear-gradient(135deg, #1e3a5f, #4a90a4);
+            color: white;
+        }
+        .tab-button {
+            display: inline-block;
+            padding: 8px 16px;
+            margin: 4px;
+            background: white;
+            color: #333;
+            border: 1px solid #ddd;
+            border-radius: 6px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            position: relative;
+            z-index: 10;
+        }
+        .tab-button:hover {
+            background: #f0f0f0;
+            color: #4a90a4;
+        }
+        .tab-button.active {
+            background: linear-gradient(135deg, #1e3a5f, #4a90a4);
+            color: white;
+        }
+        .result {
+            margin-top: 20px;
+            padding: 15px;
+            background: rgba(0, 0, 0, 0.1);
+            border-radius: 8px;
+            font-family: monospace;
+            font-size: 14px;
+        }
+        .success {
+            background: rgba(0, 255, 0, 0.1);
+            border: 1px solid rgba(0, 255, 0, 0.3);
+        }
+        .error {
+            background: rgba(255, 0, 0, 0.1);
+            border: 1px solid rgba(255, 0, 0, 0.3);
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="header">
+            <h1>اختبار لوحة التحكم المبسطة</h1>
+            <p>هذا اختبار لمعرفة إذا كانت الأزرار تعمل بشكل صحيح</p>
+        </div>
+
+        <div class="grid">
+            <div class="sidebar">
+                <h3>الصفحات</h3>
+                <button class="page-button active" onclick="selectPage('home')">الرئيسية</button>
+                <button class="page-button" onclick="selectPage('services')">الخدمات</button>
+                <button class="page-button" onclick="selectPage('cases')">دراسات الحالة</button>
+                <button class="page-button" onclick="selectPage('blog')">المدونة</button>
+                <button class="page-button" onclick="selectPage('contact')">التواصل</button>
+            </div>
+
+            <div class="main-content">
+                <h3>المحتوى الرئيسي</h3>
+                <div>
+                    <button class="tab-button active" onclick="selectTab('json')">JSON</button>
+                    <button class="tab-button" onclick="selectTab('services')">الخدمات</button>
+                    <button class="tab-button" onclick="selectTab('cases')">دراسات الحالة</button>
+                    <button class="tab-button" onclick="selectTab('blog')">المدونة</button>
+                    <button class="tab-button" onclick="selectTab('contact')">التواصل</button>
+                </div>
+                
+                <div id="result" class="result">
+                    <h4>نتائج الاختبار:</h4>
+                    <div id="log"></div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        let currentPage = 'home';
+        let currentTab = 'json';
+
+        function log(message, type = 'info') {
+            const logDiv = document.getElementById('log');
+            const timestamp = new Date().toLocaleTimeString();
+            const logEntry = document.createElement('div');
+            logEntry.innerHTML = `[${timestamp}] ${message}`;
+            logEntry.className = type;
+            logDiv.appendChild(logEntry);
+            logDiv.scrollTop = logDiv.scrollHeight;
+            console.log(`[${timestamp}] ${message}`);
+        }
+
+        function selectPage(page) {
+            log(`تم النقر على صفحة: ${page}`, 'success');
+            
+            // إزالة active من جميع الأزرار
+            document.querySelectorAll('.page-button').forEach(btn => {
+                btn.classList.remove('active');
+            });
+            
+            // إضافة active للزر المحدد
+            event.target.classList.add('active');
+            
+            currentPage = page;
+        }
+
+        function selectTab(tab) {
+            log(`تم النقر على تبويب: ${tab}`, 'success');
+            
+            // إزالة active من جميع الأزرار
+            document.querySelectorAll('.tab-button').forEach(btn => {
+                btn.classList.remove('active');
+            });
+            
+            // إضافة active للزر المحدد
+            event.target.classList.add('active');
+            
+            currentTab = tab;
+        }
+
+        // اختبار event listeners
+        document.addEventListener('click', function(e) {
+            log(`تم النقر على: ${e.target.tagName} - ${e.target.className}`, 'info');
+        });
+
+        document.addEventListener('pointerdown', function(e) {
+            log(`Pointer down on: ${e.target.tagName}`, 'info');
+        });
+
+        // اختبار أولي
+        log('تم تحميل الصفحة بنجاح', 'success');
+        log('جميع الأزرار يجب أن تعمل الآن', 'info');
+    </script>
+</body>
+</html>
+

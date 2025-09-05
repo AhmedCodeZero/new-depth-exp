@@ -1,0 +1,171 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>اختبار الأزرار</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background: linear-gradient(135deg, #0a0f1c, #1e3a5f, #0f1419);
+            color: white;
+            padding: 20px;
+        }
+        .container {
+            max-width: 800px;
+            margin: 0 auto;
+            background: rgba(255, 255, 255, 0.1);
+            padding: 30px;
+            border-radius: 15px;
+            backdrop-filter: blur(10px);
+        }
+        .test-section {
+            margin-bottom: 30px;
+            padding: 20px;
+            background: rgba(255, 255, 255, 0.05);
+            border-radius: 10px;
+        }
+        .button-test {
+            display: inline-block;
+            padding: 12px 24px;
+            margin: 10px;
+            background: linear-gradient(135deg, #1e3a5f, #4a90a4);
+            color: white;
+            border: none;
+            border-radius: 8px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            position: relative;
+            z-index: 10;
+        }
+        .button-test:hover {
+            background: linear-gradient(135deg, #4a90a4, #6bb6c7);
+            transform: translateY(-2px);
+            box-shadow: 0 10px 20px rgba(74, 144, 164, 0.3);
+        }
+        .button-test:active {
+            transform: translateY(0);
+        }
+        .overlay-test {
+            position: relative;
+        }
+        .overlay {
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: rgba(255, 0, 0, 0.1);
+            pointer-events: none;
+            z-index: 5;
+        }
+        .overlay-blocking {
+            pointer-events: all;
+        }
+        .result {
+            margin-top: 10px;
+            padding: 10px;
+            background: rgba(0, 0, 0, 0.3);
+            border-radius: 5px;
+            font-family: monospace;
+        }
+        .card {
+            background: rgba(255, 255, 255, 0.95);
+            backdrop-filter: blur(20px);
+            border-radius: 15px;
+            padding: 20px;
+            margin: 20px 0;
+            position: relative;
+            overflow: hidden;
+        }
+        .card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: linear-gradient(135deg, rgba(74, 144, 164, 0.1), rgba(107, 182, 199, 0.1));
+            border-radius: 15px;
+            filter: blur(20px);
+            opacity: 0;
+            transition: opacity 0.3s ease;
+            pointer-events: none;
+        }
+        .card:hover::before {
+            opacity: 1;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>اختبار مشكلة الأزرار في لوحة التحكم</h1>
+        
+        <div class="test-section">
+            <h2>1. أزرار عادية (يجب أن تعمل)</h2>
+            <button class="button-test" onclick="logClick('button1')">زر عادي 1</button>
+            <button class="button-test" onclick="logClick('button2')">زر عادي 2</button>
+            <div id="result1" class="result"></div>
+        </div>
+
+        <div class="test-section">
+            <h2>2. أزرار مع overlay (مشكلة محتملة)</h2>
+            <div class="overlay-test">
+                <button class="button-test" onclick="logClick('button3')">زر مع overlay</button>
+                <div class="overlay"></div>
+            </div>
+            <div id="result2" class="result"></div>
+        </div>
+
+        <div class="test-section">
+            <h2>3. أزرار مع overlay blocking (مشكلة مؤكدة)</h2>
+            <div class="overlay-test">
+                <button class="button-test" onclick="logClick('button4')">زر مع overlay blocking</button>
+                <div class="overlay overlay-blocking"></div>
+            </div>
+            <div id="result3" class="result"></div>
+        </div>
+
+        <div class="test-section">
+            <h2>4. محاكاة تصميم لوحة التحكم</h2>
+            <div class="card">
+                <h3>بطاقة مع تأثيرات</h3>
+                <button class="button-test" onclick="logClick('button5')">زر داخل بطاقة</button>
+                <div id="result4" class="result"></div>
+            </div>
+        </div>
+
+        <div class="test-section">
+            <h2>5. اختبار z-index</h2>
+            <div style="position: relative; z-index: 1;">
+                <button class="button-test" onclick="logClick('button6')" style="position: relative; z-index: 10;">زر z-index 10</button>
+                <div style="position: absolute; top: 0; left: 0; right: 0; bottom: 0; background: rgba(0, 255, 0, 0.1); z-index: 5; pointer-events: none;"></div>
+            </div>
+            <div id="result5" class="result"></div>
+        </div>
+    </div>
+
+    <script>
+        function logClick(buttonId) {
+            const timestamp = new Date().toLocaleTimeString();
+            const resultId = 'result' + buttonId.slice(-1);
+            const resultDiv = document.getElementById(resultId);
+            resultDiv.innerHTML = `✅ تم النقر على ${buttonId} في ${timestamp}`;
+            resultDiv.style.background = 'rgba(0, 255, 0, 0.3)';
+            console.log(`تم النقر على ${buttonId} في ${timestamp}`);
+        }
+
+        // اختبار event listeners
+        document.addEventListener('click', function(e) {
+            console.log('تم النقر على:', e.target);
+            console.log('Event path:', e.composedPath());
+        });
+
+        // اختبار pointer events
+        document.addEventListener('pointerdown', function(e) {
+            console.log('Pointer down on:', e.target);
+        });
+    </script>
+</body>
+</html>
+

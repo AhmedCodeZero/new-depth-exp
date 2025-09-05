@@ -1,0 +1,233 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>اختبار فورم طلب الخدمة</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background: linear-gradient(135deg, #0a0f1c, #1e3a5f, #0f1419);
+            color: white;
+            padding: 20px;
+            margin: 0;
+        }
+        .container {
+            max-width: 800px;
+            margin: 0 auto;
+            background: rgba(255, 255, 255, 0.1);
+            padding: 30px;
+            border-radius: 15px;
+            backdrop-filter: blur(10px);
+        }
+        .form-group {
+            margin-bottom: 20px;
+        }
+        label {
+            display: block;
+            margin-bottom: 5px;
+            font-weight: bold;
+        }
+        input, textarea, select {
+            width: 100%;
+            padding: 12px;
+            border: 1px solid #ddd;
+            border-radius: 8px;
+            background: rgba(255, 255, 255, 0.9);
+            color: #333;
+            font-size: 16px;
+        }
+        textarea {
+            height: 100px;
+            resize: vertical;
+        }
+        button {
+            width: 100%;
+            padding: 15px;
+            background: linear-gradient(135deg, #1e3a5f, #4a90a4);
+            color: white;
+            border: none;
+            border-radius: 8px;
+            cursor: pointer;
+            font-size: 18px;
+            font-weight: bold;
+            transition: all 0.3s ease;
+        }
+        button:hover {
+            background: linear-gradient(135deg, #4a90a4, #6bb6c7);
+            transform: translateY(-2px);
+        }
+        button:disabled {
+            opacity: 0.6;
+            cursor: not-allowed;
+            transform: none;
+        }
+        .result {
+            margin-top: 20px;
+            padding: 15px;
+            border-radius: 8px;
+            font-family: monospace;
+        }
+        .success {
+            background: rgba(0, 255, 0, 0.1);
+            border: 1px solid rgba(0, 255, 0, 0.3);
+        }
+        .error {
+            background: rgba(255, 0, 0, 0.1);
+            border: 1px solid rgba(255, 0, 0, 0.3);
+        }
+        .loading {
+            background: rgba(255, 255, 0, 0.1);
+            border: 1px solid rgba(255, 255, 0, 0.3);
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>اختبار فورم طلب الخدمة</h1>
+        <p>املأ البيانات التالية لاختبار إرسال طلب الخدمة:</p>
+
+        <form id="serviceForm">
+            <div class="form-group">
+                <label for="fullName">الاسم الكامل *</label>
+                <input type="text" id="fullName" name="fullName" required>
+            </div>
+
+            <div class="form-group">
+                <label for="email">البريد الإلكتروني *</label>
+                <input type="email" id="email" name="email" required>
+            </div>
+
+            <div class="form-group">
+                <label for="phone">رقم الهاتف *</label>
+                <input type="tel" id="phone" name="phone" required>
+            </div>
+
+            <div class="form-group">
+                <label for="company">الشركة</label>
+                <input type="text" id="company" name="company">
+            </div>
+
+            <div class="form-group">
+                <label for="position">المنصب</label>
+                <input type="text" id="position" name="position">
+            </div>
+
+            <div class="form-group">
+                <label for="serviceTitle">عنوان الخدمة</label>
+                <input type="text" id="serviceTitle" name="serviceTitle" value="تطوير موقع ويب">
+            </div>
+
+            <div class="form-group">
+                <label for="projectDescription">وصف المشروع *</label>
+                <textarea id="projectDescription" name="projectDescription" required placeholder="اكتب وصفاً مفصلاً لمشروعك..."></textarea>
+            </div>
+
+            <div class="form-group">
+                <label for="timeline">الجدول الزمني</label>
+                <select id="timeline" name="timeline">
+                    <option value="">اختر الجدول الزمني</option>
+                    <option value="أقل من شهر">أقل من شهر</option>
+                    <option value="1-3 أشهر">1-3 أشهر</option>
+                    <option value="3-6 أشهر">3-6 أشهر</option>
+                    <option value="أكثر من 6 أشهر">أكثر من 6 أشهر</option>
+                </select>
+            </div>
+
+            <div class="form-group">
+                <label for="budget">الميزانية</label>
+                <select id="budget" name="budget">
+                    <option value="">اختر الميزانية</option>
+                    <option value="أقل من 5,000 ريال">أقل من 5,000 ريال</option>
+                    <option value="5,000 - 15,000 ريال">5,000 - 15,000 ريال</option>
+                    <option value="15,000 - 30,000 ريال">15,000 - 30,000 ريال</option>
+                    <option value="أكثر من 30,000 ريال">أكثر من 30,000 ريال</option>
+                </select>
+            </div>
+
+            <div class="form-group">
+                <label for="specificRequirements">متطلبات خاصة</label>
+                <textarea id="specificRequirements" name="specificRequirements" placeholder="اكتب أي متطلبات خاصة أو ملاحظات..."></textarea>
+            </div>
+
+            <button type="submit" id="submitBtn">إرسال طلب الخدمة</button>
+        </form>
+
+        <div id="result" class="result" style="display: none;"></div>
+    </div>
+
+    <script>
+        const form = document.getElementById('serviceForm');
+        const submitBtn = document.getElementById('submitBtn');
+        const resultDiv = document.getElementById('result');
+
+        form.addEventListener('submit', async function(e) {
+            e.preventDefault();
+            
+            submitBtn.disabled = true;
+            submitBtn.textContent = 'جاري الإرسال...';
+            resultDiv.style.display = 'block';
+            resultDiv.className = 'result loading';
+            resultDiv.innerHTML = 'جاري إرسال طلب الخدمة...';
+
+            try {
+                const formData = new FormData(form);
+                const data = Object.fromEntries(formData.entries());
+                
+                console.log('Form data:', data);
+
+                const response = await fetch('/api/service-requests-simple', {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json',
+                    },
+                    body: JSON.stringify({
+                        ...data,
+                        submittedAt: new Date().toISOString(),
+                        status: 'pending'
+                    }),
+                });
+
+                console.log('Response status:', response.status);
+                console.log('Response ok:', response.ok);
+
+                if (response.ok) {
+                    const result = await response.json();
+                    console.log('Success response:', result);
+                    
+                    resultDiv.className = 'result success';
+                    resultDiv.innerHTML = `
+                        <h3>✅ تم إرسال طلب الخدمة بنجاح!</h3>
+                        <p>رقم الطلب: ${result.data.id}</p>
+                        <p>سيتم التواصل معك قريباً.</p>
+                    `;
+                    
+                    form.reset();
+                } else {
+                    const errorData = await response.json();
+                    console.error('Error response:', errorData);
+                    
+                    resultDiv.className = 'result error';
+                    resultDiv.innerHTML = `
+                        <h3>❌ حدث خطأ في الإرسال</h3>
+                        <p>الخطأ: ${errorData.error || 'خطأ غير معروف'}</p>
+                        <p>التفاصيل: ${errorData.details || 'لا توجد تفاصيل إضافية'}</p>
+                    `;
+                }
+            } catch (error) {
+                console.error('Error submitting form:', error);
+                
+                resultDiv.className = 'result error';
+                resultDiv.innerHTML = `
+                    <h3>❌ حدث خطأ في الإرسال</h3>
+                    <p>الخطأ: ${error.message}</p>
+                `;
+            } finally {
+                submitBtn.disabled = false;
+                submitBtn.textContent = 'إرسال طلب الخدمة';
+            }
+        });
+    </script>
+</body>
+</html>
+

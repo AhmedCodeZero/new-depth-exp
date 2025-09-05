@@ -1,6 +1,7 @@
 "use client"
 
 import { useEffect, useState } from "react"
+import { useRouter } from "next/navigation"
 import { Button } from "@/components/ui/button"
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card"
 import { Input } from "@/components/ui/input"
@@ -9,12 +10,14 @@ import ServicesManager from "./components/ServicesManager"
 import CasesManager from "./components/CasesManager"
 import BlogManager from "./components/BlogManager"
 import HomeManager from "./components/HomeManager"
+import ServiceRequestsManager from "./components/ServiceRequestsManager"
 
 type PageKey = "home" | "services" | "cases" | "blog" | "contact"
 
 const PAGES: PageKey[] = ["home", "services", "cases", "blog", "contact"]
 
 export default function AdminPage() {
+  const router = useRouter()
   const [selectedPage, setSelectedPage] = useState<PageKey>("home")
   const [adminToken, setAdminToken] = useState("")
   const [jsonText, setJsonText] = useState("")
@@ -25,7 +28,7 @@ export default function AdminPage() {
   const [lang, setLang] = useState<"ar" | "en">("ar")
   const [servicesItems, setServicesItems] = useState<any[]>([])
   const [casesItems, setCasesItems] = useState<any[]>([])
-  const [activeTab, setActiveTab] = useState<"json" | "services" | "cases" | "blog" | "contact" | "home" | "contact-messages">("json")
+  const [activeTab, setActiveTab] = useState<"json" | "services" | "cases" | "blog" | "contact" | "home" | "contact-messages" | "service-requests">("json")
   const [blogPosts, setBlogPosts] = useState<any[]>([])
   const [contactFaq, setContactFaq] = useState<any[]>([])
   const [contactOffice, setContactOffice] = useState<any>({})
@@ -35,6 +38,34 @@ export default function AdminPage() {
   const [messagesPage, setMessagesPage] = useState(1)
   const [messagesTotal, setMessagesTotal] = useState(0)
   const [selectedStatus, setSelectedStatus] = useState<'all' | 'new' | 'read' | 'replied'>('all')
+  const [isAuthenticated, setIsAuthenticated] = useState(false)
+  const [authLoading, setAuthLoading] = useState(true)
+
+  const handleLogout = () => {
+    localStorage.removeItem('admin_session')
+    document.cookie = 'admin_session=; path=/; expires=Thu, 01 Jan 1970 00:00:00 GMT'
+    router.push('/admin/login')
+  }
+
+  // إضافة event listeners للتشخيص
+  useEffect(() => {
+    const handleClick = (e: MouseEvent) => {
+      console.log('تم النقر على:', e.target)
+      console.log('Event path:', e.composedPath())
+    }
+
+    const handlePointerDown = (e: PointerEvent) => {
+      console.log('Pointer down on:', e.target)
+    }
+
+    document.addEventListener('click', handleClick)
+    document.addEventListener('pointerdown', handlePointerDown)
+
+    return () => {
+      document.removeEventListener('click', handleClick)
+      document.removeEventListener('pointerdown', handlePointerDown)
+    }
+  }, [])
 
   const fetchPage = async (page: PageKey) => {
     setLoading(true)
@@ -110,15 +141,52 @@ export default function AdminPage() {
     }
   }
 
+  // التحقق من الجلسة
   useEffect(() => {
-    fetchPage(selectedPage)
-  }, [selectedPage, lang])
+    const checkAuth = async () => {
+      try {
+        // التحقق من localStorage أولاً
+        const sessionToken = localStorage.getItem('admin_session')
+        if (!sessionToken) {
+          router.push('/admin/login')
+          return
+        }
+
+        // التحقق من صحة الجلسة
+        const response = await fetch('/api/admin/verify-session', {
+          headers: {
+            'x-admin-session': sessionToken
+          }
+        })
+        
+        if (response.ok) {
+          setIsAuthenticated(true)
+        } else {
+          localStorage.removeItem('admin_session')
+          router.push('/admin/login')
+        }
+      } catch (error) {
+        localStorage.removeItem('admin_session')
+        router.push('/admin/login')
+      } finally {
+        setAuthLoading(false)
+      }
+    }
+    
+    checkAuth()
+  }, [router])
 
   useEffect(() => {
-    if (activeTab === 'contact-messages') {
+    if (isAuthenticated) {
+      fetchPage(selectedPage)
+    }
+  }, [selectedPage, lang, isAuthenticated])
+
+  useEffect(() => {
+    if (activeTab === 'contact-messages' && isAuthenticated) {
       fetchContactMessages(1, selectedStatus)
     }
-  }, [activeTab, selectedStatus])
+  }, [activeTab, selectedStatus, isAuthenticated])
 
   const handleSave = async () => {
     setLoading(true)
@@ -188,46 +256,100 @@ export default function AdminPage() {
     return titles[page]
   }
 
-  return (
-    <div className="min-h-screen py-10 bg-gradient-to-br from-gray-50 to-blue-50/30">
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-        {/* Header */}
-        <div className="text-center mb-8">
-          <h1 className="text-4xl font-bold bg-gradient-to-r from-[#1e3a5f] to-[#4a90a4] bg-clip-text text-transparent mb-4">
-            لوحة تحكم المحتوى
-          </h1>
-          <p className="text-lg text-gray-600 max-w-2xl mx-auto">
-            إدارة المحتوى والرسائل والخدمات في موقع عمق
-          </p>
+  // شاشة التحميل
+  if (authLoading) {
+    return (
+      <div className="min-h-screen bg-gradient-to-br from-[#0a0f1c] via-[#1e3a5f] to-[#0f1419] flex items-center justify-center">
+        <div className="text-center">
+          <div className="animate-spin rounded-full h-32 w-32 border-b-2 border-[#4a90a4] mx-auto"></div>
+          <p className="mt-4 text-lg text-white">جاري التحقق من الصلاحيات...</p>
         </div>
+      </div>
+    )
+  }
+
+  // إذا لم يكن مصادق عليه
+  if (!isAuthenticated) {
+    return null
+  }
+
+  return (
+    <div className="min-h-screen bg-gradient-to-br from-[#0a0f1c] via-[#1e3a5f] to-[#0f1419] relative overflow-hidden">
+      {/* Background decorative elements */}
+      <div className="absolute inset-0 opacity-10">
+        <div className="absolute top-20 left-10 w-32 h-32 bg-gradient-to-r from-[#4a90a4]/10 to-[#6bb6c7]/10 rounded-full blur-xl animate-pulse"></div>
+        <div className="absolute top-60 right-20 w-24 h-24 bg-gradient-to-r from-[#6bb6c7]/10 to-[#4a90a4]/10 rounded-full blur-xl animate-pulse delay-1000"></div>
+        <div className="absolute bottom-40 left-1/4 w-20 h-20 bg-gradient-to-r from-[#1e3a5f]/10 to-[#4a90a4]/10 rounded-full blur-xl animate-pulse delay-2000"></div>
+        <div className="absolute bottom-20 right-1/3 w-28 h-28 bg-gradient-to-r from-[#4a90a4]/10 to-[#6bb6c7]/10 rounded-full blur-xl animate-pulse delay-500"></div>
+      </div>
+
+      <div className="relative z-10 py-10">
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+          {/* Header */}
+          <div className="text-center mb-12">
+            <div className="flex items-center justify-center mb-6">
+              <div className="inline-flex items-center justify-center p-2 bg-gradient-to-r from-[#4a90a4]/20 to-[#6bb6c7]/20 rounded-full">
+                <span className="px-4 py-2 bg-white/10 backdrop-blur-sm rounded-full text-white font-medium border border-white/20">
+                  لوحة التحكم
+                </span>
+              </div>
+              <button
+                onClick={handleLogout}
+                className="mr-4 px-4 py-2 bg-red-600 hover:bg-red-700 text-white rounded-lg transition-colors duration-200 flex items-center"
+              >
+                <svg className="w-4 h-4 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M17 16l4-4m0 0l-4-4m4 4H7m6 4v1a3 3 0 01-3 3H6a3 3 0 01-3-3V7a3 3 0 013-3h4a3 3 0 013 3v1" />
+                </svg>
+                تسجيل الخروج
+              </button>
+            </div>
+            <h1 className="text-4xl md:text-5xl font-bold text-white mb-6 drop-shadow-lg">
+              <span className="bg-gradient-to-r from-white to-blue-100 bg-clip-text text-transparent">
+                لوحة تحكم المحتوى
+              </span>
+            </h1>
+            <p className="text-xl text-white/90 max-w-3xl mx-auto leading-relaxed">
+              إدارة المحتوى والرسائل والخدمات في موقع عمق
+            </p>
+            <div className="w-24 h-1 bg-gradient-to-r from-[#4a90a4] to-[#6bb6c7] mx-auto mt-6 rounded-full"></div>
+          </div>
 
         <div className="grid lg:grid-cols-4 gap-8">
           {/* Sidebar */}
           <div className="lg:col-span-1 space-y-6">
             {/* Pages Navigation */}
-            <Card className="shadow-lg border-0 bg-white/80 backdrop-blur-sm">
-              <CardHeader className="bg-gradient-to-r from-[#1e3a5f] to-[#4a90a4] text-white rounded-t-lg">
+            <Card className="shadow-2xl border-0 bg-white/95 backdrop-blur-xl relative overflow-hidden group">
+              <div className="absolute inset-0 bg-gradient-to-br from-[#4a90a4]/10 to-[#6bb6c7]/10 rounded-3xl blur-xl opacity-0 group-hover:opacity-100 transition-opacity duration-300 pointer-events-none"></div>
+              <CardHeader className="bg-gradient-to-r from-[#1e3a5f] to-[#4a90a4] text-white rounded-t-lg relative z-10">
                 <CardTitle className="flex items-center">
-                  <svg className="w-5 h-5 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M19 11H5m14 0a2 2 0 012 2v6a2 2 0 01-2 2H5a2 2 0 01-2-2v-6a2 2 0 012-2m14 0V9a2 2 0 00-2-2M5 11V9a2 2 0 012-2m0 0V5a2 2 0 012-2h6a2 2 0 012 2v2M7 7h10" />
-                  </svg>
+                  <div className="w-8 h-8 bg-white/20 rounded-lg flex items-center justify-center mr-3">
+                    <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                      <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M19 11H5m14 0a2 2 0 012 2v6a2 2 0 01-2 2H5a2 2 0 01-2-2v-6a2 2 0 012-2m14 0V9a2 2 0 00-2-2M5 11V9a2 2 0 012-2m0 0V5a2 2 0 012-2h6a2 2 0 012 2v2M7 7h10" />
+                    </svg>
+                  </div>
                   الصفحات
                 </CardTitle>
               </CardHeader>
               <CardContent className="p-4 space-y-3">
                 {PAGES.map((p) => (
-                  <Button
+                  <button
                     key={p}
-                    onClick={() => setSelectedPage(p)}
-                    variant={selectedPage === p ? "default" : "outline"}
-                    className={`w-full justify-start transition-all duration-200 ${
+                    onClick={(e) => {
+                      console.log('تم النقر على صفحة:', p)
+                      console.log('Event:', e)
+                      setSelectedPage(p)
+                    }}
+                    className={`w-full text-right px-4 py-3 rounded-xl transition-all duration-300 ${
                       selectedPage === p 
-                        ? 'bg-gradient-to-r from-[#1e3a5f] to-[#4a90a4] text-white shadow-lg transform scale-105' 
-                        : 'hover:bg-[#4a90a4]/10 hover:border-[#4a90a4]/30'
+                        ? 'bg-gradient-to-r from-[#1e3a5f] to-[#4a90a4] text-white shadow-xl' 
+                        : 'bg-white hover:bg-gray-50 text-gray-700 hover:text-[#4a90a4] border border-gray-200'
                     }`}
                   >
-                    {getPageTitle(p)}
-                  </Button>
+                    <div className="flex items-center">
+                      <div className={`w-2 h-2 rounded-full mr-3 ${selectedPage === p ? 'bg-white' : 'bg-[#4a90a4]'}`}></div>
+                      {getPageTitle(p)}
+                    </div>
+                  </button>
                 ))}
                 
                 {/* Language Toggle */}
@@ -282,12 +404,15 @@ export default function AdminPage() {
 
           {/* Main Content Area */}
           <div className="lg:col-span-3">
-            <Card className="shadow-lg border-0 bg-white/80 backdrop-blur-sm">
-              <CardHeader className="bg-gradient-to-r from-[#1e3a5f] to-[#4a90a4] text-white rounded-t-lg">
+            <Card className="shadow-2xl border-0 bg-white/95 backdrop-blur-xl relative overflow-hidden group">
+              <div className="absolute inset-0 bg-gradient-to-br from-[#4a90a4]/5 to-[#6bb6c7]/5 rounded-3xl blur-xl opacity-0 group-hover:opacity-100 transition-opacity duration-300 pointer-events-none"></div>
+              <CardHeader className="bg-gradient-to-r from-[#1e3a5f] to-[#4a90a4] text-white rounded-t-lg relative z-10">
                 <CardTitle className="flex items-center">
-                  <svg className="w-5 h-5 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M11 5H6a2 2 0 00-2 2v11a2 2 0 002 2h11a2 2 0 002-2v-5m-1.414-9.414a2 2 0 112.828 2.828L11.828 15H9v-2.828l8.586-8.586z" />
-                  </svg>
+                  <div className="w-8 h-8 bg-white/20 rounded-lg flex items-center justify-center mr-3">
+                    <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                      <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M11 5H6a2 2 0 00-2 2v11a2 2 0 002 2h11a2 2 0 002-2v-5m-1.414-9.414a2 2 0 112.828 2.828L11.828 15H9v-2.828l8.586-8.586z" />
+                    </svg>
+                  </div>
                   تحرير: {getPageTitle(selectedPage)}
                 </CardTitle>
               </CardHeader>
@@ -310,87 +435,125 @@ export default function AdminPage() {
                 </div>
 
                 {/* Tab Navigation */}
-                <div className="flex flex-wrap gap-2 p-2 bg-gray-50 rounded-lg">
-                  <Button 
-                    variant={activeTab === "json" ? "default" : "outline"} 
-                    onClick={() => setActiveTab("json")}
-                    className={activeTab === "json" ? 'bg-gradient-to-r from-[#1e3a5f] to-[#4a90a4] text-white' : ''}
+                <div className="flex flex-wrap gap-2 p-3 bg-gradient-to-r from-gray-50 to-blue-50/30 rounded-xl border border-gray-200/50">
+                  <button 
+                    onClick={(e) => {
+                      console.log('تم النقر على تبويب JSON')
+                      console.log('Event:', e)
+                      setActiveTab("json")
+                    }}
+                    className={`px-4 py-2 rounded-lg transition-all duration-300 flex items-center ${
+                      activeTab === "json" 
+                        ? 'bg-gradient-to-r from-[#1e3a5f] to-[#4a90a4] text-white shadow-lg' 
+                        : 'bg-white hover:bg-gray-50 text-gray-700 hover:text-[#4a90a4] border border-gray-200'
+                    }`}
                   >
                     <svg className="w-4 h-4 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                       <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M10 20l4-16m4 4l4 4-4 4M6 16l-4-4 4-4" />
                     </svg>
                     JSON
-                  </Button>
+                  </button>
                   {selectedPage === "services" && (
-                    <Button 
-                      variant={activeTab === "services" ? "default" : "outline"} 
+                    <button 
                       onClick={() => setActiveTab("services")}
-                      className={activeTab === "services" ? 'bg-gradient-to-r from-[#1e3a5f] to-[#4a90a4] text-white' : ''}
+                      className={`px-4 py-2 rounded-lg transition-all duration-300 flex items-center ${
+                        activeTab === "services" 
+                          ? 'bg-gradient-to-r from-[#1e3a5f] to-[#4a90a4] text-white shadow-lg' 
+                          : 'bg-white hover:bg-gray-50 text-gray-700 hover:text-[#4a90a4] border border-gray-200'
+                      }`}
                     >
                       <svg className="w-4 h-4 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                         <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M13 10V3L4 14h7v7l9-11h-7z" />
                       </svg>
                       الخدمات
-                    </Button>
+                    </button>
                   )}
                   {selectedPage === "cases" && (
-                    <Button 
-                      variant={activeTab === "cases" ? "default" : "outline"} 
+                    <button 
                       onClick={() => setActiveTab("cases")}
-                      className={activeTab === "cases" ? 'bg-gradient-to-r from-[#1e3a5f] to-[#4a90a4] text-white' : ''}
+                      className={`px-4 py-2 rounded-lg transition-all duration-300 flex items-center ${
+                        activeTab === "cases" 
+                          ? 'bg-gradient-to-r from-[#1e3a5f] to-[#4a90a4] text-white shadow-lg' 
+                          : 'bg-white hover:bg-gray-50 text-gray-700 hover:text-[#4a90a4] border border-gray-200'
+                      }`}
                     >
                       <svg className="w-4 h-4 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                         <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z" />
                       </svg>
                       دراسات الحالة
-                    </Button>
+                    </button>
                   )}
                   {selectedPage === "blog" && (
-                    <Button 
-                      variant={activeTab === "blog" ? "default" : "outline"} 
+                    <button 
                       onClick={() => setActiveTab("blog")}
-                      className={activeTab === "blog" ? 'bg-gradient-to-r from-[#1e3a5f] to-[#4a90a4] text-white' : ''}
+                      className={`px-4 py-2 rounded-lg transition-all duration-300 flex items-center ${
+                        activeTab === "blog" 
+                          ? 'bg-gradient-to-r from-[#1e3a5f] to-[#4a90a4] text-white shadow-lg' 
+                          : 'bg-white hover:bg-gray-50 text-gray-700 hover:text-[#4a90a4] border border-gray-200'
+                      }`}
                     >
                       <svg className="w-4 h-4 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                         <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M19 20H5a2 2 0 01-2-2V6a2 2 0 012-2h10a2 2 0 012 2v1m2 13a2 2 0 01-2-2V7m2 13a2 2 0 002-2V9a2 2 0 00-2-2h-2m-4-3H9M7 16h6M7 8h6v4H7V8z" />
                       </svg>
                       المدونة
-                    </Button>
+                    </button>
                   )}
                   {selectedPage === "contact" && (
-                    <Button 
-                      variant={activeTab === "contact" ? "default" : "outline"} 
+                    <button 
                       onClick={() => setActiveTab("contact")}
-                      className={activeTab === "contact" ? 'bg-gradient-to-r from-[#1e3a5f] to-[#4a90a4] text-white' : ''}
+                      className={`px-4 py-2 rounded-lg transition-all duration-300 flex items-center ${
+                        activeTab === "contact" 
+                          ? 'bg-gradient-to-r from-[#1e3a5f] to-[#4a90a4] text-white shadow-lg' 
+                          : 'bg-white hover:bg-gray-50 text-gray-700 hover:text-[#4a90a4] border border-gray-200'
+                      }`}
                     >
                       <svg className="w-4 h-4 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                         <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M8 12h.01M12 12h.01M16 12h.01M21 12c0 4.418-4.03 8-9 8a9.863 9.863 0 01-4.255-.949L3 20l1.395-3.72C3.512 15.042 3 13.574 3 12c0-4.418 4.03-8 9-8s9 3.582 9 8z" />
                       </svg>
                       التواصل
-                    </Button>
+                    </button>
                   )}
                   {selectedPage === "home" && (
-                    <Button 
-                      variant={activeTab === "home" ? "default" : "outline"} 
+                    <button 
                       onClick={() => setActiveTab("home")}
-                      className={activeTab === "home" ? 'bg-gradient-to-r from-[#1e3a5f] to-[#4a90a4] text-white' : ''}
+                      className={`px-4 py-2 rounded-lg transition-all duration-300 flex items-center ${
+                        activeTab === "home" 
+                          ? 'bg-gradient-to-r from-[#1e3a5f] to-[#4a90a4] text-white shadow-lg' 
+                          : 'bg-white hover:bg-gray-50 text-gray-700 hover:text-[#4a90a4] border border-gray-200'
+                      }`}
                     >
                       <svg className="w-4 h-4 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                         <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M3 12l2-2m0 0l7-7 7 7M5 10v10a1 1 0 001 1h3m10-11l2 2m-2-2v10a1 1 0 01-1 1h-3m-6 0a1 1 0 001-1v-4a1 1 0 011-1h2a1 1 0 011 1v4a1 1 0 001 1m-6 0h6" />
                       </svg>
                       الرئيسية
-                    </Button>
+                    </button>
                   )}
-                  <Button 
-                    variant={activeTab === "contact-messages" ? "default" : "outline"} 
+                  <button 
                     onClick={() => setActiveTab("contact-messages")}
-                    className={activeTab === "contact-messages" ? 'bg-gradient-to-r from-[#1e3a5f] to-[#4a90a4] text-white' : ''}
+                    className={`px-4 py-2 rounded-lg transition-all duration-300 flex items-center ${
+                      activeTab === "contact-messages" 
+                        ? 'bg-gradient-to-r from-[#1e3a5f] to-[#4a90a4] text-white shadow-lg' 
+                        : 'bg-white hover:bg-gray-50 text-gray-700 hover:text-[#4a90a4] border border-gray-200'
+                    }`}
                   >
                     <svg className="w-4 h-4 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                       <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M8 10h.01M12 10h.01M16 10h.01M9 16H5a2 2 0 01-2-2V6a2 2 0 012-2h14a2 2 0 012 2v8a2 2 0 01-2 2h-5l-5 5v-5z" />
                     </svg>
-                    الطلبات
-                  </Button>
+                    رسائل التواصل
+                  </button>
+                  <button 
+                    onClick={() => setActiveTab("service-requests")}
+                    className={`px-4 py-2 rounded-lg transition-all duration-300 flex items-center ${
+                      activeTab === "service-requests" 
+                        ? 'bg-gradient-to-r from-[#1e3a5f] to-[#4a90a4] text-white shadow-lg' 
+                        : 'bg-white hover:bg-gray-50 text-gray-700 hover:text-[#4a90a4] border border-gray-200'
+                    }`}
+                  >
+                    <svg className="w-4 h-4 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                      <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 5H7a2 2 0 00-2 2v10a2 2 0 002 2h8a2 2 0 002-2V7a2 2 0 00-2-2h-2M9 5a2 2 0 002 2h2a2 2 0 002-2M9 5a2 2 0 012-2h2a2 2 0 012 2m-3 7h3m-3 4h3m-6-4h.01M9 16h.01" />
+                    </svg>
+                    طلبات الخدمة
+                  </button>
                 </div>
 
                 {/* Content Tabs */}
@@ -577,8 +740,13 @@ export default function AdminPage() {
                   <HomeManager />
                 )}
 
+                {/* Service Requests Tab */}
+                {activeTab === "service-requests" && (
+                  <ServiceRequestsManager />
+                )}
+
                 {/* Other tabs content would go here - simplified for brevity */}
-                {activeTab !== "json" && activeTab !== "contact-messages" && activeTab !== "services" && activeTab !== "cases" && activeTab !== "blog" && (
+                {activeTab !== "json" && activeTab !== "contact-messages" && activeTab !== "services" && activeTab !== "cases" && activeTab !== "blog" && activeTab !== "home" && activeTab !== "service-requests" && (
                   <div className="text-center py-8 text-gray-500">
                     <svg className="w-16 h-16 mx-auto mb-4 text-gray-300" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                       <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z" />
@@ -649,6 +817,7 @@ export default function AdminPage() {
               </CardContent>
             </Card>
           </div>
+        </div>
         </div>
       </div>
     </div>

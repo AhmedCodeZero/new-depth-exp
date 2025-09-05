@@ -216,6 +216,7 @@ export default function DepthBusinessWebsite() {
         if (response.ok) {
           const result = await response.json()
           console.log('Content loaded successfully:', result)
+          console.log('Content data:', result.data)
           setContent(result.data)
         } else {
           console.error('Failed to load content:', response.status, response.statusText)
@@ -283,10 +284,10 @@ export default function DepthBusinessWebsite() {
   // Show loading state
   if (loading) {
     return (
-      <div className="min-h-screen flex items-center justify-center">
+      <div className="min-h-screen flex items-center justify-center bg-gradient-to-br from-[#0a0f1c] via-[#1e3a5f] to-[#0f1419]">
         <div className="text-center">
           <div className="animate-spin rounded-full h-32 w-32 border-b-2 border-[#4a90a4] mx-auto"></div>
-          <p className="mt-4 text-lg text-gray-600">جاري التحميل...</p>
+          <p className="mt-4 text-lg text-white">جاري التحميل...</p>
         </div>
       </div>
     )
@@ -294,84 +295,64 @@ export default function DepthBusinessWebsite() {
 
   if (!content) {
     return (
-      <div className="min-h-screen flex items-center justify-center">
+      <div className="min-h-screen flex items-center justify-center bg-gradient-to-br from-[#0a0f1c] via-[#1e3a5f] to-[#0f1419]">
         <div className="text-center">
-          <p className="text-lg text-red-600">فشل في تحميل المحتوى. سيتم استخدام المحتوى الافتراضي.</p>
+          <p className="text-lg text-red-400">فشل في تحميل المحتوى. سيتم استخدام المحتوى الافتراضي.</p>
         </div>
       </div>
     )
   }
 
-  const currentContent = content?.[language] || {
-    nav: {
-      home: language === "ar" ? "الرئيسية" : "Home",
-      services: language === "ar" ? "الخدمات" : "Services",
-      cases: language === "ar" ? "دراسات الحالة" : "Case Studies",
-      blog: language === "ar" ? "المدونة" : "Blog",
-      contact: language === "ar" ? "اتصل بنا" : "Contact"
-    },
-    hero: {
-      title: language === "ar" ? "عمق الخبرة لحلول الأعمال" : "Depth of Experience for Business Solutions",
-      subtitle: language === "ar" ? "نقدم حلولاً مبتكرة ومتخصصة" : "We provide innovative solutions",
-      cta: language === "ar" ? "ابدأ رحلتك معنا" : "Start Your Journey"
-    },
-    services: {
-      title: language === "ar" ? "خدماتنا" : "Our Services",
-      subtitle: language === "ar" ? "نقدم مجموعة شاملة من الخدمات" : "We offer comprehensive services",
-      items: []
-    },
-    cases: {
-      title: language === "ar" ? "دراسات الحالة" : "Case Studies",
-      subtitle: language === "ar" ? "قصص نجاح حقيقية" : "Real success stories",
-      items: []
-    },
-    blog: {
-      title: language === "ar" ? "المدونة" : "Blog",
-      subtitle: language === "ar" ? "آخر الأخبار والمقالات" : "Latest news and articles",
-      items: []
-    },
-    contact: {
-      title: language === "ar" ? "تواصل معنا" : "Contact Us",
-      subtitle: language === "ar" ? "نحن هنا لمساعدتك" : "We are here to help",
-      info: {
-        email: "info@depth-solutions.com",
-        phone: "+966 11 123 4567",
-        address: language === "ar" ? "الرياض، المملكة العربية السعودية" : "Riyadh, Saudi Arabia"
-      }
-    }
-  }
+  const currentContent = content?.[language] || defaultContent[language]
+  
+  // Debug logging
+  console.log('Current content:', currentContent)
+  console.log('Content loaded:', !!content)
+  console.log('Language:', language)
 
   return (
     <div
       className={`min-h-screen ${language === "ar" ? "font-arabic" : "font-sans"}`}
       dir={language === "ar" ? "rtl" : "ltr"}
     >
-      <header className="sticky top-0 z-50 bg-background/95 backdrop-blur supports-[backdrop-filter]:bg-background/60 border-b">
-        <div className="container mx-auto px-4 sm:px-6 lg:px-8">
-          <div className="flex items-center justify-between h-16">
+      <header className="sticky top-0 z-50 bg-white/95 backdrop-blur-xl supports-[backdrop-filter]:bg-white/90 border-b border-gray-200/30 shadow-lg">
+        <div className="container mx-auto px-6 sm:px-8 lg:px-12">
+          <div className="flex items-center justify-between h-24">
             {/* Logo */}
             <div className="flex items-center">
-              <img src="/images/depth-logo-horizontal.png" alt="Depth Logo" className="h-12 w-auto" />
+              <div className="relative group">
+                <div className="absolute inset-0 bg-gradient-to-r from-[#4a90a4]/20 to-[#6bb6c7]/20 rounded-2xl blur opacity-0 group-hover:opacity-100 transition-opacity duration-300"></div>
+                <img src="/images/depth-logo-horizontal.png" alt="Depth Logo" className="relative h-16 w-auto transition-transform duration-300 group-hover:scale-105 filter drop-shadow-sm" />
+              </div>
             </div>
 
-                         {/* Desktop Navigation */}
-             <nav className="hidden md:flex items-center gap-8">
-               <Link href="/" className="text-foreground hover:text-primary transition-colors">
-                 {currentContent?.nav?.home}
-               </Link>
-               <Link href="/services" className="text-foreground hover:text-primary transition-colors">
-                 {currentContent?.nav?.services}
-               </Link>
-               <Link href="/cases" className="text-foreground hover:text-primary transition-colors">
-                 {currentContent?.nav?.cases}
-               </Link>
-               <Link href="/blog" className="text-foreground hover:text-primary transition-colors">
-                 {currentContent?.nav?.blog}
-               </Link>
-               <Link href="/contact" className="text-foreground hover:text-primary transition-colors">
-                 {currentContent?.nav?.contact}
-               </Link>
-             </nav>
+            {/* Desktop Navigation */}
+            <nav className="hidden md:flex items-center bg-white/80 backdrop-blur-sm border border-gray-200/50 rounded-full px-2 py-2 shadow-lg">
+              <Link href="/" className="relative px-6 py-3 text-gray-800 hover:text-[#1e3a5f] font-medium transition-all duration-300 rounded-full hover:bg-gradient-to-r hover:from-[#4a90a4]/10 hover:to-[#6bb6c7]/10 hover:shadow-md group">
+                <span className="relative z-10 font-semibold">{currentContent?.nav?.home}</span>
+                <div className="absolute inset-0 bg-gradient-to-r from-[#4a90a4]/0 to-[#6bb6c7]/0 group-hover:from-[#4a90a4]/20 group-hover:to-[#6bb6c7]/20 rounded-full transition-all duration-300"></div>
+              </Link>
+              <Link href="/about" className="relative px-6 py-3 text-gray-800 hover:text-[#1e3a5f] font-medium transition-all duration-300 rounded-full hover:bg-gradient-to-r hover:from-[#4a90a4]/10 hover:to-[#6bb6c7]/10 hover:shadow-md group">
+                <span className="relative z-10 font-semibold">{language === 'ar' ? 'من نحن' : 'About Us'}</span>
+                <div className="absolute inset-0 bg-gradient-to-r from-[#4a90a4]/0 to-[#6bb6c7]/0 group-hover:from-[#4a90a4]/20 group-hover:to-[#6bb6c7]/20 rounded-full transition-all duration-300"></div>
+              </Link>
+              <Link href="/services" className="relative px-6 py-3 text-gray-800 hover:text-[#1e3a5f] font-medium transition-all duration-300 rounded-full hover:bg-gradient-to-r hover:from-[#4a90a4]/10 hover:to-[#6bb6c7]/10 hover:shadow-md group">
+                <span className="relative z-10 font-semibold">{currentContent?.nav?.services}</span>
+                <div className="absolute inset-0 bg-gradient-to-r from-[#4a90a4]/0 to-[#6bb6c7]/0 group-hover:from-[#4a90a4]/20 group-hover:to-[#6bb6c7]/20 rounded-full transition-all duration-300"></div>
+              </Link>
+              <Link href="/cases" className="relative px-6 py-3 text-gray-800 hover:text-[#1e3a5f] font-medium transition-all duration-300 rounded-full hover:bg-gradient-to-r hover:from-[#4a90a4]/10 hover:to-[#6bb6c7]/10 hover:shadow-md group">
+                <span className="relative z-10 font-semibold">{currentContent?.nav?.cases}</span>
+                <div className="absolute inset-0 bg-gradient-to-r from-[#4a90a4]/0 to-[#6bb6c7]/0 group-hover:from-[#4a90a4]/20 group-hover:to-[#6bb6c7]/20 rounded-full transition-all duration-300"></div>
+              </Link>
+              <Link href="/blog" className="relative px-6 py-3 text-gray-800 hover:text-[#1e3a5f] font-medium transition-all duration-300 rounded-full hover:bg-gradient-to-r hover:from-[#4a90a4]/10 hover:to-[#6bb6c7]/10 hover:shadow-md group">
+                <span className="relative z-10 font-semibold">{currentContent?.nav?.blog}</span>
+                <div className="absolute inset-0 bg-gradient-to-r from-[#4a90a4]/0 to-[#6bb6c7]/0 group-hover:from-[#4a90a4]/20 group-hover:to-[#6bb6c7]/20 rounded-full transition-all duration-300"></div>
+              </Link>
+              <Link href="/contact" className="relative px-6 py-3 text-gray-800 hover:text-[#1e3a5f] font-medium transition-all duration-300 rounded-full hover:bg-gradient-to-r hover:from-[#4a90a4]/10 hover:to-[#6bb6c7]/10 hover:shadow-md group">
+                <span className="relative z-10 font-semibold">{currentContent?.nav?.contact}</span>
+                <div className="absolute inset-0 bg-gradient-to-r from-[#4a90a4]/0 to-[#6bb6c7]/0 group-hover:from-[#4a90a4]/20 group-hover:to-[#6bb6c7]/20 rounded-full transition-all duration-300"></div>
+              </Link>
+            </nav>
 
             {/* Language Toggle & Mobile Menu */}
             <div className="flex items-center space-x-4 rtl:space-x-reverse">
@@ -379,46 +360,49 @@ export default function DepthBusinessWebsite() {
                 variant="outline"
                 size="sm"
                 onClick={toggleLanguage}
-                className="flex items-center space-x-2 rtl:space-x-reverse bg-transparent"
+                className="flex items-center space-x-2 rtl:space-x-reverse bg-gradient-to-r from-[#4a90a4]/10 to-[#6bb6c7]/10 border-[#4a90a4]/40 hover:from-[#4a90a4]/20 hover:to-[#6bb6c7]/20 hover:border-[#4a90a4]/60 transition-all duration-300 hover:scale-105 rounded-full px-4 py-2 font-medium text-[#1e3a5f] hover:text-[#4a90a4] shadow-md hover:shadow-lg"
               >
                 <Globe className="h-4 w-4" />
-                <span>{language === "ar" ? "EN" : "عربي"}</span>
+                <span className="font-semibold">{language === "ar" ? "EN" : "عربي"}</span>
               </Button>
 
               {/* Mobile menu button */}
               <Button
                 variant="ghost"
                 size="sm"
-                className="md:hidden"
+                className="md:hidden hover:bg-[#4a90a4]/10 transition-all duration-300 rounded-full p-3 hover:shadow-md"
                 onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
               >
-                {mobileMenuOpen ? <X className="h-5 w-5" /> : <Menu className="h-5 w-5" />}
+                {mobileMenuOpen ? <X className="h-5 w-5 text-[#1e3a5f]" /> : <Menu className="h-5 w-5 text-[#1e3a5f]" />}
               </Button>
             </div>
           </div>
 
-                     {/* Mobile Navigation */}
-           {mobileMenuOpen && (
-             <div className="md:hidden py-4 border-t">
-               <nav className="flex flex-col space-y-4">
-                 <Link href="/" className="text-foreground hover:text-primary transition-colors">
-                   {currentContent?.nav?.home}
-                 </Link>
-                 <Link href="/services" className="text-foreground hover:text-primary transition-colors">
-                   {currentContent?.nav?.services}
-                 </Link>
-                 <Link href="/cases" className="text-foreground hover:text-primary transition-colors">
-                   {currentContent?.nav?.cases}
-                 </Link>
-                 <Link href="/blog" className="text-foreground hover:text-primary transition-colors">
-                   {currentContent?.nav?.blog}
-                 </Link>
-                 <Link href="/contact" className="text-foreground hover:text-primary transition-colors">
-                   {currentContent?.nav?.contact}
-                 </Link>
-               </nav>
-             </div>
-           )}
+          {/* Mobile Navigation */}
+          {mobileMenuOpen && (
+            <div className="md:hidden py-6 border-t border-gray-200/30 bg-white/95 backdrop-blur-sm rounded-b-3xl shadow-xl">
+              <nav className="flex flex-col space-y-3">
+                <Link href="/" className="px-6 py-4 text-gray-800 hover:text-[#1e3a5f] font-semibold hover:bg-gradient-to-r hover:from-[#4a90a4]/10 hover:to-[#6bb6c7]/10 transition-all duration-300 rounded-full mx-4 hover:shadow-md">
+                  {currentContent?.nav?.home}
+                </Link>
+                <Link href="/about" className="px-6 py-4 text-gray-800 hover:text-[#1e3a5f] font-semibold hover:bg-gradient-to-r hover:from-[#4a90a4]/10 hover:to-[#6bb6c7]/10 transition-all duration-300 rounded-full mx-4 hover:shadow-md">
+                  {language === 'ar' ? 'من نحن' : 'About Us'}
+                </Link>
+                <Link href="/services" className="px-6 py-4 text-gray-800 hover:text-[#1e3a5f] font-semibold hover:bg-gradient-to-r hover:from-[#4a90a4]/10 hover:to-[#6bb6c7]/10 transition-all duration-300 rounded-full mx-4 hover:shadow-md">
+                  {currentContent?.nav?.services}
+                </Link>
+                <Link href="/cases" className="px-6 py-4 text-gray-800 hover:text-[#1e3a5f] font-semibold hover:bg-gradient-to-r hover:from-[#4a90a4]/10 hover:to-[#6bb6c7]/10 transition-all duration-300 rounded-full mx-4 hover:shadow-md">
+                  {currentContent?.nav?.cases}
+                </Link>
+                <Link href="/blog" className="px-6 py-4 text-gray-800 hover:text-[#1e3a5f] font-semibold hover:bg-gradient-to-r hover:from-[#4a90a4]/10 hover:to-[#6bb6c7]/10 transition-all duration-300 rounded-full mx-4 hover:shadow-md">
+                  {currentContent?.nav?.blog}
+                </Link>
+                <Link href="/contact" className="px-6 py-4 text-gray-800 hover:text-[#1e3a5f] font-semibold hover:bg-gradient-to-r hover:from-[#4a90a4]/10 hover:to-[#6bb6c7]/10 transition-all duration-300 rounded-full mx-4 hover:shadow-md">
+                  {currentContent?.nav?.contact}
+                </Link>
+              </nav>
+            </div>
+          )}
         </div>
       </header>
 
@@ -427,15 +411,20 @@ export default function DepthBusinessWebsite() {
         className="relative min-h-screen flex items-center overflow-hidden bg-gradient-to-br from-[#0a0f1c] via-[#1e3a5f] to-[#0f1419]"
       >
         <div className="absolute inset-0">
-          {/* Subtle background gradient overlay only */}
+          {/* Enhanced background with floating particles effect */}
           <div className="absolute inset-0 opacity-10">
             <div className="absolute inset-0 bg-gradient-to-r from-transparent via-[#4a90a4]/20 to-transparent"></div>
           </div>
+          {/* Floating geometric shapes */}
+          <div className="absolute top-20 left-10 w-32 h-32 bg-gradient-to-r from-[#4a90a4]/10 to-[#6bb6c7]/10 rounded-full blur-xl animate-pulse"></div>
+          <div className="absolute top-60 right-20 w-24 h-24 bg-gradient-to-r from-[#6bb6c7]/10 to-[#4a90a4]/10 rounded-full blur-xl animate-pulse delay-1000"></div>
+          <div className="absolute bottom-40 left-1/4 w-20 h-20 bg-gradient-to-r from-[#1e3a5f]/10 to-[#4a90a4]/10 rounded-full blur-xl animate-pulse delay-2000"></div>
+          <div className="absolute bottom-20 right-1/3 w-28 h-28 bg-gradient-to-r from-[#4a90a4]/10 to-[#6bb6c7]/10 rounded-full blur-xl animate-pulse delay-500"></div>
         </div>
 
         <div className="container mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
           <div className="grid lg:grid-cols-2 gap-12 items-center min-h-[80vh]">
-            <div className="flex justify-center lg:justify-start order-2 lg:order-1">
+            <div className="flex justify-center lg:justify-start order-1 lg:order-1">
               <div className="relative">
                 <div className="absolute inset-0 bg-gradient-to-r from-white/60 to-white/50 rounded-full blur-3xl scale-150"></div>
                 <div className="absolute inset-0 bg-gradient-to-r from-white/40 to-white/30 rounded-full blur-2xl scale-125"></div>
@@ -448,60 +437,77 @@ export default function DepthBusinessWebsite() {
               </div>
             </div>
 
-            <div className="text-center lg:text-right order-1 lg:order-2" dir={language === "ar" ? "rtl" : "ltr"}>
-              <div className="glass-effect-hero rounded-3xl p-8 lg:p-12 backdrop-blur-xl border border-white/30 shadow-2xl">
-                <h1 className="text-4xl md:text-5xl lg:text-6xl font-bold text-white mb-6 leading-tight drop-shadow-lg">
-                  <span className="text-white drop-shadow-2xl">{currentContent.hero.title}</span>
+            <div className="text-center lg:text-right order-2 lg:order-2" dir={language === "ar" ? "rtl" : "ltr"}>
+              <div className="glass-effect-hero rounded-3xl p-8 lg:p-12 backdrop-blur-xl border border-white/30 shadow-2xl relative group">
+                {/* Animated border gradient */}
+                <div className="absolute inset-0 bg-gradient-to-r from-[#4a90a4]/20 via-[#6bb6c7]/20 to-[#4a90a4]/20 rounded-3xl blur opacity-0 group-hover:opacity-100 transition-opacity duration-500"></div>
+                
+                <h1 className="text-4xl md:text-5xl lg:text-6xl font-bold text-white mb-6 leading-tight drop-shadow-lg relative z-10">
+                  <span className="text-white drop-shadow-2xl bg-gradient-to-r from-white to-blue-100 bg-clip-text">{currentContent.hero.title}</span>
                 </h1>
-                <p className="text-xl md:text-2xl text-white/95 mb-8 leading-relaxed font-light drop-shadow-md">
+                <p className="text-xl md:text-2xl text-white/95 mb-8 leading-relaxed font-light drop-shadow-md relative z-10">
                   {currentContent.hero.subtitle}
                 </p>
 
-                <div className="grid grid-cols-2 md:grid-cols-4 gap-6 mb-8">
-                  <div className="text-center">
-                    <div className="text-3xl md:text-4xl font-bold text-white mb-2 drop-shadow-lg">15+</div>
-                    <div className="text-sm md:text-base text-white/80 drop-shadow-md">
-                      {language === "ar" ? "سنوات خبرة" : "Years Experience"}
+                <div className="grid grid-cols-2 md:grid-cols-4 gap-6 mb-8 relative z-10">
+                  <div className="text-center group">
+                    <div className="relative p-4 rounded-2xl bg-white/10 backdrop-blur-sm border border-white/20 hover:bg-white/15 transition-all duration-300 hover:scale-105">
+                      <div className="text-3xl md:text-4xl font-bold text-white mb-2 drop-shadow-lg bg-gradient-to-r from-white to-blue-100 bg-clip-text">15+</div>
+                      <div className="text-sm md:text-base text-white/80 drop-shadow-md">
+                        {language === "ar" ? "سنوات خبرة" : "Years Experience"}
+                      </div>
+                      <div className="absolute inset-0 bg-gradient-to-r from-[#4a90a4]/20 to-[#6bb6c7]/20 rounded-2xl opacity-0 group-hover:opacity-100 transition-opacity duration-300"></div>
                     </div>
                   </div>
-                  <div className="text-center">
-                    <div className="text-3xl md:text-4xl font-bold text-white mb-2 drop-shadow-lg">200+</div>
-                    <div className="text-sm md:text-base text-white/80 drop-shadow-md">
-                      {language === "ar" ? "مشروع ناجح" : "Successful Projects"}
+                  <div className="text-center group">
+                    <div className="relative p-4 rounded-2xl bg-white/10 backdrop-blur-sm border border-white/20 hover:bg-white/15 transition-all duration-300 hover:scale-105">
+                      <div className="text-3xl md:text-4xl font-bold text-white mb-2 drop-shadow-lg bg-gradient-to-r from-white to-blue-100 bg-clip-text">200+</div>
+                      <div className="text-sm md:text-base text-white/80 drop-shadow-md">
+                        {language === "ar" ? "مشروع ناجح" : "Successful Projects"}
+                      </div>
+                      <div className="absolute inset-0 bg-gradient-to-r from-[#6bb6c7]/20 to-[#4a90a4]/20 rounded-2xl opacity-0 group-hover:opacity-100 transition-opacity duration-300"></div>
                     </div>
                   </div>
-                  <div className="text-center">
-                    <div className="text-3xl md:text-4xl font-bold text-white mb-2 drop-shadow-lg">98%</div>
-                    <div className="text-sm md:text-base text-white/80 drop-shadow-md">
-                      {language === "ar" ? "رضا العملاء" : "Client Satisfaction"}
+                  <div className="text-center group">
+                    <div className="relative p-4 rounded-2xl bg-white/10 backdrop-blur-sm border border-white/20 hover:bg-white/15 transition-all duration-300 hover:scale-105">
+                      <div className="text-3xl md:text-4xl font-bold text-white mb-2 drop-shadow-lg bg-gradient-to-r from-white to-blue-100 bg-clip-text">98%</div>
+                      <div className="text-sm md:text-base text-white/80 drop-shadow-md">
+                        {language === "ar" ? "رضا العملاء" : "Client Satisfaction"}
+                      </div>
+                      <div className="absolute inset-0 bg-gradient-to-r from-[#4a90a4]/20 to-[#6bb6c7]/20 rounded-2xl opacity-0 group-hover:opacity-100 transition-opacity duration-300"></div>
                     </div>
                   </div>
-                  <div className="text-center">
-                    <div className="text-3xl md:text-4xl font-bold text-white mb-2 drop-shadow-lg">50+</div>
-                    <div className="text-sm md:text-base text-white/80 drop-shadow-md">
-                      {language === "ar" ? "عميل سعيد" : "Happy Clients"}
+                  <div className="text-center group">
+                    <div className="relative p-4 rounded-2xl bg-white/10 backdrop-blur-sm border border-white/20 hover:bg-white/15 transition-all duration-300 hover:scale-105">
+                      <div className="text-3xl md:text-4xl font-bold text-white mb-2 drop-shadow-lg bg-gradient-to-r from-white to-blue-100 bg-clip-text">50+</div>
+                      <div className="text-sm md:text-base text-white/80 drop-shadow-md">
+                        {language === "ar" ? "عميل سعيد" : "Happy Clients"}
+                      </div>
+                      <div className="absolute inset-0 bg-gradient-to-r from-[#6bb6c7]/20 to-[#4a90a4]/20 rounded-2xl opacity-0 group-hover:opacity-100 transition-opacity duration-300"></div>
                     </div>
                   </div>
                 </div>
 
                 {/* Enhanced CTA with multiple buttons */}
-                <div className="flex flex-col sm:flex-row gap-4 justify-center lg:justify-end">
+                <div className="flex flex-col sm:flex-row gap-4 justify-center lg:justify-end relative z-10">
                   <Link href="/contact">
                     <Button
                       size="lg"
-                      className="bg-gradient-to-r from-[#1e3a5f] to-[#4a90a4] hover:from-[#1e3a5f]/90 hover:to-[#4a90a4]/90 text-white px-8 py-4 text-lg rounded-full shadow-2xl transform hover:scale-105 transition-all duration-300 border-0"
+                      className="relative bg-gradient-to-r from-[#1e3a5f] to-[#4a90a4] hover:from-[#1e3a5f]/90 hover:to-[#4a90a4]/90 text-white px-8 py-4 text-lg rounded-full shadow-2xl transform hover:scale-105 transition-all duration-300 border-0 group overflow-hidden"
                     >
-                      {currentContent.hero.cta}
-                      <ChevronRight className="ml-2 h-5 w-5 rtl:ml-0 rtl:mr-2 rtl:rotate-180" />
+                      <div className="absolute inset-0 bg-gradient-to-r from-white/0 via-white/20 to-white/0 translate-x-[-100%] group-hover:translate-x-[100%] transition-transform duration-500"></div>
+                      <span className="relative z-10">{currentContent.hero.cta}</span>
+                      <ChevronRight className="relative z-10 ml-2 h-5 w-5 rtl:ml-0 rtl:mr-2 rtl:rotate-180 group-hover:translate-x-1 transition-transform duration-300" />
                     </Button>
                   </Link>
                   <Link href="/services">
                     <Button
                       variant="outline"
                       size="lg"
-                      className="border-2 border-white/30 text-white hover:bg-white/10 px-8 py-4 text-lg rounded-full backdrop-blur-sm bg-transparent"
+                      className="relative border-2 border-white/30 text-white hover:bg-white/10 px-8 py-4 text-lg rounded-full backdrop-blur-sm bg-white/5 hover:border-white/50 transition-all duration-300 hover:scale-105 group"
                     >
-                      {language === "ar" ? "تعرف علينا أكثر" : "Learn More"}
+                      <span className="relative z-10">{language === "ar" ? "تعرف علينا أكثر" : "Learn More"}</span>
+                      <div className="absolute inset-0 bg-gradient-to-r from-white/0 via-white/10 to-white/0 opacity-0 group-hover:opacity-100 transition-opacity duration-300 rounded-full"></div>
                     </Button>
                   </Link>
                 </div>
@@ -511,450 +517,519 @@ export default function DepthBusinessWebsite() {
         </div>
       </section>
 
-      {/* Vision, Mission, Values Section */}
-      <section className="py-20 bg-gradient-to-br from-white via-blue-50/30 to-white relative">
-        <div className="container mx-auto px-4 sm:px-6 lg:px-8">
-          {/* Vision and Mission */}
-          <div className="grid lg:grid-cols-2 gap-12 mb-20">
-            <Card className="border-[#4a90a4]/20 bg-gradient-to-br from-white to-blue-50/50 relative overflow-hidden">
-              <div className="h-2 bg-gradient-to-r from-[#1e3a5f] to-[#4a90a4]"></div>
-              <CardHeader>
-                <div className="flex items-center mb-4">
-                  <div className="w-12 h-12 bg-gradient-to-br from-[#4a90a4] to-[#6bb6c7] rounded-xl flex items-center justify-center mr-4 rtl:mr-0 rtl:ml-4">
-                    <Eye className="h-6 w-6 text-white" />
-                  </div>
-                  <CardTitle className="text-2xl text-[#1e3a5f]">
-                    {language === "ar" ? "🎯 الرؤية" : "🎯 Vision"}
-                  </CardTitle>
-                </div>
-                <CardDescription className="text-lg text-gray-700 leading-relaxed">
-                  {currentContent.hero?.vision || (language === "ar" ? "أن نكون المرجع الأول في حلول الأعمال المتكاملة التي تصنع التميز والاستدامة." : "To be the first reference in integrated business solutions that create excellence and sustainability.")}
-                </CardDescription>
-              </CardHeader>
-            </Card>
 
-            <Card className="border-[#4a90a4]/20 bg-gradient-to-br from-white to-blue-50/50 relative overflow-hidden">
-              <div className="h-2 bg-gradient-to-r from-[#6bb6c7] to-[#4a90a4]"></div>
-              <CardHeader>
-                <div className="flex items-center mb-4">
-                  <div className="w-12 h-12 bg-gradient-to-br from-[#6bb6c7] to-[#4a90a4] rounded-xl flex items-center justify-center mr-4 rtl:mr-0 rtl:ml-4">
-                    <Heart className="h-6 w-6 text-white" />
-                  </div>
-                  <CardTitle className="text-2xl text-[#1e3a5f]">
-                    {language === "ar" ? "📝 الرسالة" : "📝 Mission"}
-                  </CardTitle>
-                </div>
-                <CardDescription className="text-lg text-gray-700 leading-relaxed">
-                  {currentContent.hero?.mission || (language === "ar" ? "نبتكر حلول أعمال متكاملة تمكّن المنظمات من النمو وتحقيق الاستدامة." : "We innovate integrated business solutions that enable organizations to grow and achieve sustainability.")}
-                </CardDescription>
-              </CardHeader>
-            </Card>
-          </div>
 
-          {/* Values */}
-          <div className="mb-20">
-            <div className="text-center mb-12">
-              <h2 className="text-3xl md:text-4xl font-bold bg-gradient-to-r from-[#1e3a5f] to-[#4a90a4] bg-clip-text text-transparent mb-4">
-                {language === "ar" ? "🌟 القيم المؤسسية" : "🌟 Our Values"}
-              </h2>
-            </div>
-            <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-6">
-              {currentContent.hero?.values ? Object.entries(currentContent.hero.values).map(([key, value], idx) => (
-                <Card key={key} className="border-[#4a90a4]/20 bg-white relative overflow-hidden">
-                  <CardHeader className="pb-4">
-                    <div className="flex items-start">
-                      <div className={`w-10 h-10 bg-gradient-to-br ${['from-[#4a90a4] to-[#6bb6c7]', 'from-[#1e3a5f] to-[#4a90a4]', 'from-[#6bb6c7] to-[#4a90a4]'][idx % 3]} rounded-lg flex items-center justify-center mr-3 rtl:mr-0 rtl:ml-3 flex-shrink-0`}>
-                        <Star className="h-5 w-5 text-white" />
-                      </div>
-                      <div>
-                        <CardDescription className="text-base text-gray-700 font-medium">
-                          {value as string}
-                        </CardDescription>
-                      </div>
-                    </div>
-                  </CardHeader>
-                </Card>
-              )) : (
-                // Default values if not provided
-                [
-                  language === "ar" ? "الابتكار: تقديم حلول جديدة وفعالة" : "Innovation: Providing new and effective solutions",
-                  language === "ar" ? "التميز: الالتزام بأعلى معايير الجودة" : "Excellence: Commitment to the highest quality standards",
-                  language === "ar" ? "الاستدامة: التركيز على الأثر طويل المدى" : "Sustainability: Focus on long-term impact",
-                  language === "ar" ? "الموثوقية: بناء علاقات قائمة على الثقة والمصداقية" : "Reliability: Building relationships based on trust and credibility",
-                  language === "ar" ? "الشراكة: التعاون لتحقيق النجاح المشترك" : "Partnership: Collaboration to achieve mutual success"
-                ].map((value, idx) => (
-                  <Card key={idx} className="border-[#4a90a4]/20 bg-white relative overflow-hidden">
-                    <CardHeader className="pb-4">
-                      <div className="flex items-start">
-                        <div className={`w-10 h-10 bg-gradient-to-br ${['from-[#4a90a4] to-[#6bb6c7]', 'from-[#1e3a5f] to-[#4a90a4]', 'from-[#6bb6c7] to-[#4a90a4]'][idx % 3]} rounded-lg flex items-center justify-center mr-3 rtl:mr-0 rtl:ml-3 flex-shrink-0`}>
-                          <Star className="h-5 w-5 text-white" />
-                        </div>
-                        <div>
-                          <CardDescription className="text-base text-gray-700 font-medium">
-                            {value}
-                          </CardDescription>
-                        </div>
-                      </div>
-                    </CardHeader>
-                  </Card>
-                ))
-              )}
-            </div>
-          </div>
-
-          {/* Strategic Objectives */}
-          <div>
-            <div className="text-center mb-12">
-              <h2 className="text-3xl md:text-4xl font-bold bg-gradient-to-r from-[#1e3a5f] to-[#4a90a4] bg-clip-text text-transparent mb-4">
-                {language === "ar" ? "🎯 الأهداف الاستراتيجية" : "🎯 Strategic Objectives"}
-              </h2>
-            </div>
-            <div className="max-w-4xl mx-auto">
-              <div className="grid gap-4">
-                {currentContent.hero?.objectives ? currentContent.hero.objectives.map((objective: string, idx: number) => (
-                  <div key={idx} className="flex items-start p-4 bg-white rounded-lg border border-[#4a90a4]/20">
-                    <CheckCircle className="h-6 w-6 text-[#4a90a4] mr-3 rtl:mr-0 rtl:ml-3 mt-0.5 flex-shrink-0" />
-                    <p className="text-gray-700 text-lg">{objective}</p>
-                  </div>
-                )) : (
-                  // Default objectives if not provided
-                  [
-                    language === "ar" ? "الريادة في تقديم حلول أعمال متكاملة ومبتكرة" : "Leadership in providing integrated and innovative business solutions",
-                    language === "ar" ? "تمكين المنظمات من تحقيق النمو والتميز المؤسسي" : "Enabling organizations to achieve growth and institutional excellence",
-                    language === "ar" ? "إثراء المعرفة عبر البحث والتطوير وصناعة الدراسات التطبيقية" : "Enriching knowledge through research, development and creating applied studies",
-                    language === "ar" ? "صناعة منصات معرفية للتأثير وبناء الشراكات" : "Creating knowledge platforms for influence and building partnerships",
-                    language === "ar" ? "تعزيز الاستدامة من خلال الابتكار والكفاءة التشغيلية" : "Enhancing sustainability through innovation and operational efficiency"
-                  ].map((objective, idx) => (
-                    <div key={idx} className="flex items-start p-4 bg-white rounded-lg border border-[#4a90a4]/20">
-                      <CheckCircle className="h-6 w-6 text-[#4a90a4] mr-3 rtl:mr-0 rtl:ml-3 mt-0.5 flex-shrink-0" />
-                      <p className="text-gray-700 text-lg">{objective}</p>
-                    </div>
-                  ))
-                )}
-              </div>
-            </div>
-          </div>
+      <section id="services" className="py-24 bg-gradient-to-br from-gray-50 via-blue-50/30 to-gray-50 relative overflow-hidden">
+        {/* Background decorative elements */}
+        <div className="absolute inset-0 opacity-5">
+          <div className="absolute top-20 right-10 w-72 h-72 bg-gradient-to-r from-[#4a90a4] to-[#6bb6c7] rounded-full blur-3xl"></div>
+          <div className="absolute bottom-20 left-10 w-96 h-96 bg-gradient-to-r from-[#1e3a5f] to-[#4a90a4] rounded-full blur-3xl"></div>
         </div>
-      </section>
-
-      <section id="services" className="py-20 bg-gradient-to-br from-background via-muted/30 to-background relative">
-        <div className="container mx-auto px-4 sm:px-6 lg:px-8">
-          <div className="text-center mb-16">
-            <h2 className="text-3xl md:text-4xl font-bold bg-gradient-to-r from-[#1e3a5f] to-[#4a90a4] bg-clip-text text-transparent mb-4">
+        
+        <div className="container mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
+          <div className="text-center mb-20">
+            <div className="inline-flex items-center justify-center p-2 bg-gradient-to-r from-[#4a90a4]/10 to-[#6bb6c7]/10 rounded-full mb-6">
+              <span className="px-4 py-2 bg-white rounded-full text-[#4a90a4] font-medium shadow-sm">
+                {language === "ar" ? "خدماتنا المتميزة" : "Our Premium Services"}
+              </span>
+            </div>
+            <h2 className="text-3xl md:text-4xl font-bold bg-gradient-to-r from-[#1e3a5f] to-[#4a90a4] bg-clip-text text-transparent mb-6">
               {currentContent.services.title}
             </h2>
-            <p className="text-xl text-muted-foreground max-w-3xl mx-auto">{currentContent.services.subtitle}</p>
+            <div className="w-24 h-1 bg-gradient-to-r from-[#1e3a5f] to-[#4a90a4] mx-auto mb-6 rounded-full"></div>
+            <p className="text-xl text-gray-600 max-w-3xl mx-auto leading-relaxed">{currentContent.services.subtitle}</p>
           </div>
 
           <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
             {(currentContent.services.items || []).slice(0, 6).map((svc: any, idx: number) => {
               const icons = [Users, Target, TrendingUp, Award, Users, Target];
               const IconComponent = icons[idx % icons.length];
+              const gradients = ['from-[#4a90a4] to-[#6bb6c7]', 'from-[#1e3a5f] to-[#4a90a4]', 'from-[#6bb6c7] to-[#4a90a4]'];
               return (
-                <Card key={idx} className="text-center service-card-hover border-[#4a90a4]/20 bg-gradient-to-br from-white to-blue-50/50 relative overflow-hidden">
-                  <div className={`h-2 bg-gradient-to-r ${['from-[#4a90a4] to-[#6bb6c7]', 'from-[#1e3a5f] to-[#4a90a4]', 'from-[#6bb6c7] to-[#4a90a4]'][idx % 3]}`}></div>
-                  <CardHeader>
-                    <div className={`mx-auto w-16 h-16 bg-gradient-to-br ${['from-[#4a90a4] to-[#6bb6c7]', 'from-[#1e3a5f] to-[#4a90a4]', 'from-[#6bb6c7] to-[#4a90a4]'][idx % 3]} rounded-2xl flex items-center justify-center mb-4 shadow-lg`}>
-                      <IconComponent className="h-8 w-8 text-white" />
-                    </div>
-                    <CardTitle className="text-xl text-[#1e3a5f] mb-2">{svc.title}</CardTitle>
-                  </CardHeader>
-                  <CardContent>
-                    <CardDescription className="text-base text-gray-600 mb-4">{svc.description}</CardDescription>
-                    {svc.features && svc.features.length > 0 && (
-                      <div className="text-left">
-                        <ul className="space-y-2">
-                          {svc.features.slice(0, 3).map((feature: string, featureIdx: number) => (
-                            <li key={featureIdx} className="flex items-start text-sm">
-                              <CheckCircle className="h-4 w-4 text-[#4a90a4] mr-2 rtl:mr-0 rtl:ml-2 mt-0.5 flex-shrink-0" />
-                              <span className="text-gray-600">{feature}</span>
-                            </li>
-                          ))}
-                        </ul>
-                        {svc.features.length > 3 && (
-                          <p className="text-sm text-[#4a90a4] mt-2">
-                            {language === "ar" ? `+${svc.features.length - 3} خدمات أخرى` : `+${svc.features.length - 3} more services`}
-                          </p>
-                        )}
+                <div key={idx} className="group relative">
+                  <div className={`absolute inset-0 bg-gradient-to-br ${gradients[idx % 3]} rounded-3xl blur-xl opacity-0 group-hover:opacity-20 transition-opacity duration-300`}></div>
+                  <Card className="relative text-center bg-white/90 backdrop-blur-sm border border-white/60 shadow-xl group-hover:shadow-2xl transition-all duration-300 hover:-translate-y-2 rounded-3xl overflow-hidden">
+                    <div className={`h-2 bg-gradient-to-r ${gradients[idx % 3]}`}></div>
+                    <CardHeader className="pb-4">
+                      <div className="relative mb-6">
+                        <div className={`absolute inset-0 bg-gradient-to-br ${gradients[idx % 3]} rounded-2xl blur-lg opacity-30`}></div>
+                        <div className={`relative mx-auto w-20 h-20 bg-gradient-to-br ${gradients[idx % 3]} rounded-2xl flex items-center justify-center shadow-xl group-hover:scale-110 transition-transform duration-300`}>
+                          <IconComponent className="h-10 w-10 text-white" />
+                        </div>
                       </div>
-                    )}
-                  </CardContent>
-                </Card>
+                      <CardTitle className="text-xl text-[#1e3a5f] mb-3 font-bold">{svc.title}</CardTitle>
+                    </CardHeader>
+                    <CardContent className="px-6 pb-6">
+                      <CardDescription className="text-base text-gray-600 mb-6 leading-relaxed">{svc.description}</CardDescription>
+                      {svc.features && svc.features.length > 0 && (
+                        <div className="text-left">
+                          <div className="space-y-3">
+                            {svc.features.slice(0, 3).map((feature: string, featureIdx: number) => (
+                              <div key={featureIdx} className="flex items-start">
+                                <div className={`w-5 h-5 bg-gradient-to-br ${gradients[idx % 3]} rounded-full flex items-center justify-center mr-3 rtl:mr-0 rtl:ml-3 mt-0.5 flex-shrink-0`}>
+                                  <CheckCircle className="h-3 w-3 text-white" />
+                                </div>
+                                <span className="text-gray-700 leading-relaxed">{feature}</span>
+                              </div>
+                            ))}
+                          </div>
+                          {svc.features.length > 3 && (
+                            <div className="mt-4">
+                              <p className="text-sm text-gray-600 font-medium">
+                                {language === "ar" ? `+${svc.features.length - 3} خدمات أخرى` : `+${svc.features.length - 3} more services`}
+                              </p>
+                            </div>
+                          )}
+                        </div>
+                      )}
+                      
+                      {/* Service Request Button */}
+                      <div className="mt-6">
+                        <Link href={`/request-service?service=${['consulting', 'research', 'training', 'events', 'digital', 'nonprofit', 'media'][idx % 7]}&title=${encodeURIComponent(svc.title)}`}>
+                          <Button className={`w-full bg-gradient-to-r ${gradients[idx % 3]} text-white hover:shadow-lg transition-all duration-300 hover:scale-105 rounded-xl`}>
+                            طلب هذه الخدمة
+                          </Button>
+                        </Link>
+                      </div>
+                      
+                      {/* Hover indicator */}
+                      <div className={`absolute bottom-0 left-0 w-full h-1 bg-gradient-to-r ${gradients[idx % 3]} transform scale-x-0 group-hover:scale-x-100 transition-transform duration-300 origin-left`}></div>
+                    </CardContent>
+                  </Card>
+                </div>
               );
             })}
           </div>
 
-          <div className="text-center mt-12">
-            <Link href="/services">
-              <Button className="bg-gradient-to-r from-[#1e3a5f] to-[#4a90a4] hover:from-[#1e3a5f]/90 hover:to-[#4a90a4]/90 text-white px-8 py-3 text-lg rounded-full shadow-lg">
-                {language === "ar" ? "عرض جميع الخدمات" : "View All Services"}
-                <ChevronRight className="ml-2 h-5 w-5 rtl:ml-0 rtl:mr-2 rtl:rotate-180" />
-              </Button>
-            </Link>
-          </div>
-        </div>
-      </section>
-
-      <section id="cases" className="py-20 bg-gradient-to-br from-[#1e3a5f]/5 via-[#4a90a4]/5 to-[#6bb6c7]/5 relative">
-        <div className="container mx-auto px-4 sm:px-6 lg:px-8">
-          <div className="text-center mb-16">
-            <h2 className="text-3xl md:text-4xl font-bold bg-gradient-to-r from-[#1e3a5f] to-[#4a90a4] bg-clip-text text-transparent mb-4">
-              {currentContent.cases.title}
-            </h2>
-            <p className="text-xl text-muted-foreground max-w-3xl mx-auto">{currentContent.cases.subtitle}</p>
-          </div>
-
-                     <div className="grid md:grid-cols-2 gap-8 max-w-6xl mx-auto">
-             {(currentContent.cases.items || []).map((cs: any, idx: number) => (
-               <Card key={idx} className="overflow-hidden card-glow border-[#4a90a4]/20 bg-white relative">
-                 <div className={`h-48 bg-gradient-to-br ${idx % 2 ? 'from-[#6bb6c7]/20 to-[#4a90a4]/30' : 'from-[#4a90a4]/20 to-[#6bb6c7]/30'} relative overflow-hidden`}>
-                   <div className="absolute inset-0 bg-gradient-to-r from-transparent via-white/10 to-transparent animate-pulse"></div>
-                 </div>
-                 <CardHeader>
-                   <div className="flex items-center justify-between mb-2">
-                     <Badge className="bg-gradient-to-r from-[#4a90a4] to-[#6bb6c7] text-white border-0">{cs.result}</Badge>
-                   </div>
-                   <CardTitle className="text-xl text-[#1e3a5f]">{cs.title}</CardTitle>
-                 </CardHeader>
-                 <CardContent>
-                   <CardDescription className="text-base text-gray-600">{cs.description}</CardDescription>
-                 </CardContent>
-               </Card>
-             ))}
-           </div>
-        </div>
-      </section>
-
-      <section id="blog" className="py-20 bg-gradient-to-br from-background via-muted/20 to-background relative">
-        <div className="container mx-auto px-4 sm:px-6 lg:px-8">
-          <div className="text-center mb-16">
-            <h2 className="text-3xl md:text-4xl font-bold bg-gradient-to-r from-[#1e3a5f] to-[#4a90a4] bg-clip-text text-transparent mb-4">
-              {currentContent.blog.title}
-            </h2>
-            <p className="text-xl text-muted-foreground max-w-3xl mx-auto">{currentContent.blog.subtitle}</p>
-          </div>
-
-                     <div className="grid md:grid-cols-2 gap-8 max-w-4xl mx-auto">
-             {(currentContent.blog.items || []).slice(0,2).map((post: any, idx: number) => (
-               <Card key={post.id || idx} className="card-glow border-[#4a90a4]/20 bg-white overflow-hidden relative">
-                 <div className={`h-48 bg-gradient-to-br ${idx % 2 ? 'from-[#4a90a4]/10 to-[#6bb6c7]/20' : 'from-[#1e3a5f]/10 to-[#4a90a4]/20'} relative`}>
-                   <div className="absolute inset-0 bg-gradient-to-r from-transparent via-white/10 to-transparent"></div>
-                 </div>
-                 <CardHeader>
-                   <div className="text-sm text-[#4a90a4] font-medium mb-2">{post.date}</div>
-                   <CardTitle className="text-xl text-[#1e3a5f]">{post.title}</CardTitle>
-                 </CardHeader>
-                 <CardContent>
-                   <CardDescription className="text-base text-gray-600">{post.excerpt}</CardDescription>
-                 </CardContent>
-               </Card>
-             ))}
-           </div>
-        </div>
-      </section>
-
-      <section
-        id="contact"
-        className="py-20 bg-gradient-to-br from-[#1e3a5f]/5 via-[#4a90a4]/5 to-[#6bb6c7]/5 relative"
-      >
-        <div className="container mx-auto px-4 sm:px-6 lg:px-8">
-          <div className="text-center mb-16">
-            <h2 className="text-3xl md:text-4xl font-bold bg-gradient-to-r from-[#1e3a5f] to-[#4a90a4] bg-clip-text text-transparent mb-4">
-              {currentContent.contact.title}
-            </h2>
-            <p className="text-xl text-muted-foreground max-w-3xl mx-auto">{currentContent.contact.subtitle}</p>
-          </div>
-
-          <div className="grid lg:grid-cols-2 gap-12 max-w-6xl mx-auto">
-                         {/* Contact Form */}
-             <Card className="card-glow border-[#4a90a4]/20 bg-white relative overflow-hidden">
-               <div className="h-2 bg-gradient-to-r from-[#1e3a5f] to-[#4a90a4]"></div>
-               <CardHeader>
-                 <CardTitle className="text-2xl text-[#1e3a5f] flex items-center">
-                   <MessageSquare className="h-6 w-6 mr-3 rtl:mr-0 rtl:ml-3 text-[#4a90a4]" />
-                   {currentContent.contact.title}
-                 </CardTitle>
-                 <p className="text-gray-600">{language === "ar" ? "املأ النموذج وسنتواصل معك في أقرب وقت ممكن" : "Fill out the form and we will contact you as soon as possible"}</p>
-               </CardHeader>
-               <form onSubmit={handleSubmit}>
-                 <CardContent className="space-y-6">
-                   {/* Status Messages */}
-                   {submitStatus === 'success' && (
-                     <div className="p-4 bg-green-50 border border-green-200 rounded-lg">
-                       <p className="text-green-800 text-center">
-                         {language === "ar" ? "تم إرسال رسالتك بنجاح! سنتواصل معك قريباً." : "Your message has been sent successfully! We'll contact you soon."}
-                       </p>
-                     </div>
-                   )}
-                   {submitStatus === 'error' && (
-                     <div className="p-4 bg-red-50 border border-red-200 rounded-lg">
-                       <p className="text-red-800 text-center">
-                         {language === "ar" ? "حدث خطأ في إرسال الرسالة. يرجى المحاولة مرة أخرى." : "An error occurred while sending your message. Please try again."}
-                       </p>
-                     </div>
-                   )}
-
-                   <div className="grid md:grid-cols-2 gap-4">
-                     <div>
-                       <label className="block text-sm font-medium mb-2 text-[#1e3a5f]">
-                         {language === "ar" ? "الاسم الكامل" : "Full Name"} *
-                       </label>
-                       <Input
-                         name="name"
-                         value={formData.name}
-                         onChange={handleInputChange}
-                         placeholder={language === "ar" ? "الاسم الكامل" : "Full Name"}
-                         className="border-[#4a90a4]/30 focus:border-[#4a90a4]"
-                         required
-                       />
-                     </div>
-                     <div>
-                       <label className="block text-sm font-medium mb-2 text-[#1e3a5f]">
-                         {language === "ar" ? "البريد الإلكتروني" : "Email Address"} *
-                       </label>
-                       <Input
-                         name="email"
-                         type="email"
-                         value={formData.email}
-                         onChange={handleInputChange}
-                         placeholder={language === "ar" ? "البريد الإلكتروني" : "Email Address"}
-                         className="border-[#4a90a4]/30 focus:border-[#4a90a4]"
-                         required
-                       />
-                     </div>
-                   </div>
-
-                   <div className="grid md:grid-cols-2 gap-4">
-                     <div>
-                       <label className="block text-sm font-medium mb-2 text-[#1e3a5f]">
-                         {language === "ar" ? "رقم الهاتف" : "Phone Number"}
-                       </label>
-                       <Input
-                         name="phone"
-                         value={formData.phone}
-                         onChange={handleInputChange}
-                         placeholder={language === "ar" ? "رقم الهاتف" : "Phone Number"}
-                         className="border-[#4a90a4]/30 focus:border-[#4a90a4]"
-                       />
-                     </div>
-                     <div>
-                       <label className="block text-sm font-medium mb-2 text-[#1e3a5f]">
-                         {language === "ar" ? "اسم الشركة" : "Company Name"}
-                       </label>
-                       <Input
-                         name="company"
-                         value={formData.company}
-                         onChange={handleInputChange}
-                         placeholder={language === "ar" ? "اسم الشركة" : "Company Name"}
-                         className="border-[#4a90a4]/30 focus:border-[#4a90a4]"
-                       />
-                     </div>
-                   </div>
-
-                   <div>
-                     <label className="block text-sm font-medium mb-2 text-[#1e3a5f]">
-                       {language === "ar" ? "الخدمة المطلوبة" : "Required Service"}
-                     </label>
-                     <select 
-                       name="service"
-                       value={formData.service}
-                       onChange={handleInputChange}
-                       className="w-full px-3 py-2 border border-[#4a90a4]/30 rounded-md focus:outline-none focus:ring-2 focus:ring-[#4a90a4] focus:border-[#4a90a4]"
-                     >
-                       <option value="">{language === "ar" ? "الخدمة المطلوبة" : "Required Service"}</option>
-                       <option value="consulting">{language === "ar" ? "الاستشارات الإدارية" : "Management Consulting"}</option>
-                       <option value="strategy">{language === "ar" ? "التخطيط الاستراتيجي" : "Strategic Planning"}</option>
-                       <option value="digital">{language === "ar" ? "التحول الرقمي" : "Digital Transformation"}</option>
-                       <option value="training">{language === "ar" ? "التدريب والتطوير" : "Training & Development"}</option>
-                       <option value="other">{language === "ar" ? "أخرى" : "Other"}</option>
-                     </select>
-                   </div>
-
-                   <div>
-                     <label className="block text-sm font-medium mb-2 text-[#1e3a5f]">
-                       {language === "ar" ? "الرسالة" : "Message"} *
-                     </label>
-                     <Textarea
-                       name="message"
-                       value={formData.message}
-                       onChange={handleInputChange}
-                       placeholder={language === "ar" ? "الرسالة" : "Message"}
-                       rows={5}
-                       className="border-[#4a90a4]/30 focus:border-[#4a90a4]"
-                       required
-                     />
-                   </div>
-
-                   <Button 
-                     type="submit"
-                     disabled={isSubmitting}
-                     className="w-full bg-gradient-to-r from-[#1e3a5f] to-[#4a90a4] hover:from-[#1e3a5f]/90 hover:to-[#4a90a4]/90 text-white border-0 shadow-lg disabled:opacity-50"
-                   >
-                     <Send className="h-4 w-4 mr-2 rtl:mr-0 rtl:ml-2" />
-                     {isSubmitting 
-                       ? (language === "ar" ? "جاري الإرسال..." : "Sending...")
-                       : (language === "ar" ? "إرسال الرسالة" : "Send Message")
-                     }
-                   </Button>
-                 </CardContent>
-               </form>
-             </Card>
-
-            {/* Contact Information */}
-            <div className="space-y-8">
-                             <div className="flex items-start gap-6 p-6 bg-white rounded-2xl card-glow border border-[#4a90a4]/20 relative">
-                 <div className="contact-icon-container bg-gradient-to-br from-[#4a90a4] to-[#6bb6c7] rounded-2xl flex items-center justify-center flex-shrink-0 shadow-lg">
-                   <Mail className="contact-icon text-white" />
-                 </div>
-                 <div className="flex-1">
-                   <h3 className="font-semibold text-lg mb-2 text-[#1e3a5f]">
-                     {language === "ar" ? "البريد الإلكتروني" : "Email"}
-                   </h3>
-                   <p className="text-gray-600">{currentContent.contact.info.email}</p>
-                 </div>
-               </div>
-
-                             <div className="flex items-start gap-6 p-6 bg-white rounded-2xl card-glow border border-[#4a90a4]/20 relative">
-                 <div className="contact-icon-container bg-gradient-to-br from-[#4a90a4] to-[#6bb6c7] rounded-2xl flex items-center justify-center flex-shrink-0 shadow-lg">
-                   <Phone className="contact-icon text-white" />
-                 </div>
-                 <div className="flex-1">
-                   <h3 className="font-semibold text-lg mb-2 text-[#1e3a5f]">
-                     {language === "ar" ? "الهاتف" : "Phone"}
-                   </h3>
-                   <p className="text-gray-600">{currentContent.contact.info.phone}</p>
-                 </div>
-               </div>
-
-                             <div className="flex items-start gap-6 p-6 bg-white rounded-2xl card-glow border border-[#4a90a4]/20 relative">
-                 <div className="contact-icon-container bg-gradient-to-br from-[#4a90a4] to-[#6bb6c7] rounded-2xl flex items-center justify-center flex-shrink-0 shadow-lg">
-                   <MapPin className="contact-icon text-white" />
-                 </div>
-                 <div className="flex-1">
-                   <h3 className="font-semibold text-lg mb-2 text-[#1e3a5f]">
-                     {language === "ar" ? "العنوان" : "Address"}
-                   </h3>
-                   <p className="text-gray-600">{currentContent.contact.info.address}</p>
-                 </div>
-               </div>
+          <div className="text-center mt-16">
+            <div className="relative group inline-block">
+              <div className="absolute inset-0 bg-gradient-to-r from-[#1e3a5f] to-[#4a90a4] rounded-full blur-lg opacity-30 group-hover:opacity-50 transition-opacity duration-300"></div>
+              <Link href="/services">
+                <Button className="relative bg-gradient-to-r from-[#1e3a5f] to-[#4a90a4] hover:from-[#1e3a5f]/90 hover:to-[#4a90a4]/90 text-white px-10 py-4 text-lg rounded-full shadow-xl hover:shadow-2xl transition-all duration-300 hover:scale-105 group overflow-hidden">
+                  <div className="absolute inset-0 bg-gradient-to-r from-white/0 via-white/20 to-white/0 translate-x-[-100%] group-hover:translate-x-[100%] transition-transform duration-500"></div>
+                  <span className="relative z-10">{language === "ar" ? "عرض جميع الخدمات" : "View All Services"}</span>
+                  <ChevronRight className="relative z-10 ml-2 h-5 w-5 rtl:ml-0 rtl:mr-2 rtl:rotate-180 group-hover:translate-x-1 transition-transform duration-300" />
+                </Button>
+              </Link>
             </div>
           </div>
         </div>
       </section>
 
-      <footer className="bg-[#1e3a5f] text-white py-12 relative">
-        <div className="container mx-auto px-4 sm:px-6 lg:px-8">
-          <div className="text-center">
-                            <img
-                  src="/images/depth-logo-horizontal.png"
-                  alt="Depth Logo"
-                  className="h-16 w-auto mx-auto mb-4 brightness-0 invert"
-                />
-            <p className="text-white/80">
-              {language === "ar" ? "© 2024 عمق - جميع الحقوق محفوظة" : "© 2024 Depth - All rights reserved"}
-            </p>
+      <section id="cases" className="py-24 bg-gradient-to-br from-slate-900 via-[#1e3a5f] to-slate-900 relative overflow-hidden">
+        {/* Background elements */}
+        <div className="absolute inset-0 opacity-10">
+          <div className="absolute top-32 left-20 w-64 h-64 bg-gradient-to-r from-[#4a90a4] to-[#6bb6c7] rounded-full blur-3xl"></div>
+          <div className="absolute bottom-32 right-20 w-80 h-80 bg-gradient-to-r from-[#6bb6c7] to-[#4a90a4] rounded-full blur-3xl"></div>
+        </div>
+        
+        <div className="container mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
+          <div className="text-center mb-20">
+            <div className="inline-flex items-center justify-center p-2 bg-gradient-to-r from-[#4a90a4]/20 to-[#6bb6c7]/20 rounded-full mb-6">
+              <span className="px-4 py-2 bg-white/10 backdrop-blur-sm rounded-full text-white font-medium border border-white/20">
+                {language === "ar" ? "قصص نجاحنا" : "Our Success Stories"}
+              </span>
+            </div>
+            <h2 className="text-3xl md:text-4xl font-bold text-white mb-6 drop-shadow-lg">
+              {currentContent.cases.title}
+            </h2>
+            <div className="w-24 h-1 bg-gradient-to-r from-[#4a90a4] to-[#6bb6c7] mx-auto mb-6 rounded-full"></div>
+            <p className="text-xl text-white/90 max-w-3xl mx-auto leading-relaxed">{currentContent.cases.subtitle}</p>
+          </div>
+
+          <div className="grid md:grid-cols-2 gap-10 max-w-6xl mx-auto">
+            {(currentContent.cases.items || []).map((cs: any, idx: number) => {
+              const gradient = idx % 2 ? 'from-[#6bb6c7] to-[#4a90a4]' : 'from-[#4a90a4] to-[#6bb6c7]';
+              return (
+                <div key={idx} className="group relative">
+                  <div className={`absolute inset-0 bg-gradient-to-br ${gradient} rounded-3xl blur-2xl opacity-0 group-hover:opacity-30 transition-opacity duration-500`}></div>
+                  <Card className="relative overflow-hidden bg-white/95 backdrop-blur-sm border border-white/60 shadow-2xl group-hover:shadow-3xl transition-all duration-500 hover:-translate-y-3 rounded-3xl">
+                    <div className={`h-64 bg-gradient-to-br ${gradient.replace('from-', 'from-').replace('to-', 'to-')} relative overflow-hidden`}>
+                      <div className="absolute inset-0 bg-gradient-to-r from-transparent via-white/20 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-500"></div>
+                      <div className="absolute inset-0 bg-black/10"></div>
+                      
+                      {/* Floating result badge */}
+                      <div className="absolute top-6 right-6">
+                        <Badge className={`bg-gradient-to-r ${gradient} text-white border-0 px-4 py-2 text-sm font-semibold shadow-lg backdrop-blur-sm`}>
+                          {cs.result}
+                        </Badge>
+                      </div>
+                      
+                      {/* Decorative elements */}
+                      <div className="absolute bottom-0 left-0 w-full h-32 bg-gradient-to-t from-black/20 to-transparent"></div>
+                      <div className="absolute top-4 left-4 w-16 h-16 bg-white/10 rounded-full backdrop-blur-sm"></div>
+                      <div className="absolute bottom-4 right-4 w-12 h-12 bg-white/10 rounded-full backdrop-blur-sm"></div>
+                    </div>
+                    
+                    <CardHeader className="p-8">
+                      <CardTitle className="text-2xl text-[#1e3a5f] mb-4 font-bold leading-tight group-hover:text-[#4a90a4] transition-colors duration-300">
+                        {cs.title}
+                      </CardTitle>
+                    </CardHeader>
+                    
+                    <CardContent className="px-8 pb-8">
+                      <CardDescription className="text-lg text-gray-700 leading-relaxed">
+                        {cs.description}
+                      </CardDescription>
+                      
+                      {/* Hover indicator line */}
+                      <div className={`mt-6 h-1 bg-gradient-to-r ${gradient} transform scale-x-0 group-hover:scale-x-100 transition-transform duration-500 origin-left rounded-full`}></div>
+                    </CardContent>
+                  </Card>
+                </div>
+              );
+            })}
           </div>
         </div>
+      </section>
+
+      <section id="blog" className="py-24 bg-gradient-to-br from-gray-50 via-white to-blue-50/30 relative overflow-hidden">
+        {/* Background decorative elements */}
+        <div className="absolute inset-0 opacity-5">
+          <div className="absolute top-40 left-1/4 w-48 h-48 bg-gradient-to-r from-[#4a90a4] to-[#6bb6c7] rounded-full blur-3xl"></div>
+          <div className="absolute bottom-40 right-1/4 w-64 h-64 bg-gradient-to-r from-[#1e3a5f] to-[#4a90a4] rounded-full blur-3xl"></div>
+        </div>
+        
+        <div className="container mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
+          <div className="text-center mb-20">
+            <div className="inline-flex items-center justify-center p-2 bg-gradient-to-r from-[#4a90a4]/10 to-[#6bb6c7]/10 rounded-full mb-6">
+              <span className="px-4 py-2 bg-white rounded-full text-[#4a90a4] font-medium shadow-sm">
+                {language === "ar" ? "رؤى ومقالات" : "Insights & Articles"}
+              </span>
+            </div>
+            <h2 className="text-3xl md:text-4xl font-bold bg-gradient-to-r from-[#1e3a5f] to-[#4a90a4] bg-clip-text text-transparent mb-6">
+              {currentContent.blog.title}
+            </h2>
+            <div className="w-24 h-1 bg-gradient-to-r from-[#1e3a5f] to-[#4a90a4] mx-auto mb-6 rounded-full"></div>
+            <p className="text-xl text-gray-600 max-w-3xl mx-auto leading-relaxed">{currentContent.blog.subtitle}</p>
+          </div>
+
+          <div className="grid md:grid-cols-2 gap-10 max-w-5xl mx-auto">
+            {(currentContent.blog.items || []).slice(0,2).map((post: any, idx: number) => {
+              const gradient = idx % 2 ? 'from-[#4a90a4]/10 to-[#6bb6c7]/20' : 'from-[#1e3a5f]/10 to-[#4a90a4]/20';
+              return (
+                <div key={post.id || idx} className="group relative">
+                  <div className="absolute inset-0 bg-gradient-to-br from-[#4a90a4]/5 to-[#6bb6c7]/5 rounded-3xl blur-xl opacity-0 group-hover:opacity-100 transition-opacity duration-300"></div>
+                  <Card className="relative bg-white/90 backdrop-blur-sm border border-white/60 shadow-xl group-hover:shadow-2xl transition-all duration-300 hover:-translate-y-2 rounded-3xl overflow-hidden">
+                    <div className={`h-56 bg-gradient-to-br ${gradient} relative overflow-hidden`}>
+                      <div className="absolute inset-0 bg-gradient-to-r from-transparent via-white/20 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-500"></div>
+                      
+                      {/* Date badge */}
+                      <div className="absolute top-4 left-4">
+                        <div className="px-3 py-1 bg-white/90 backdrop-blur-sm rounded-full text-[#4a90a4] text-sm font-medium shadow-sm">
+                          {post.date}
+                        </div>
+                      </div>
+                      
+                      {/* Decorative elements */}
+                      <div className="absolute bottom-0 right-0 w-32 h-32 bg-gradient-to-tl from-white/10 to-transparent rounded-tl-full"></div>
+                      <div className="absolute top-1/2 right-4 w-8 h-8 bg-white/20 rounded-full backdrop-blur-sm"></div>
+                      <div className="absolute top-1/4 right-8 w-4 h-4 bg-white/30 rounded-full backdrop-blur-sm"></div>
+                    </div>
+                    
+                    <CardHeader className="p-8">
+                      <CardTitle className="text-2xl text-[#1e3a5f] font-bold leading-tight group-hover:text-[#4a90a4] transition-colors duration-300">
+                        {post.title}
+                      </CardTitle>
+                    </CardHeader>
+                    
+                    <CardContent className="px-8 pb-8">
+                      <CardDescription className="text-lg text-gray-700 leading-relaxed">
+                        {post.excerpt}
+                      </CardDescription>
+                      
+                      {/* Read more indicator */}
+                      <div className="mt-6 flex items-center text-[#4a90a4] font-medium group-hover:text-[#1e3a5f] transition-colors duration-300">
+                        <span>{language === "ar" ? "اقرأ المزيد" : "Read More"}</span>
+                        <ChevronRight className="ml-2 h-4 w-4 rtl:ml-0 rtl:mr-2 rtl:rotate-180 group-hover:translate-x-1 transition-transform duration-300" />
+                      </div>
+                      
+                      {/* Hover indicator line */}
+                      <div className="mt-4 h-1 bg-gradient-to-r from-[#4a90a4] to-[#6bb6c7] transform scale-x-0 group-hover:scale-x-100 transition-transform duration-500 origin-left rounded-full"></div>
+                    </CardContent>
+                  </Card>
+                </div>
+              );
+            })}
+          </div>
+        </div>
+      </section>
+
+      <section
+        id="contact"
+        className="py-24 bg-gradient-to-br from-slate-900 via-[#1e3a5f] to-slate-900 relative overflow-hidden"
+      >
+        {/* Background decorative elements */}
+        <div className="absolute inset-0 opacity-10">
+          <div className="absolute top-20 right-10 w-72 h-72 bg-gradient-to-r from-[#4a90a4] to-[#6bb6c7] rounded-full blur-3xl"></div>
+          <div className="absolute bottom-20 left-10 w-96 h-96 bg-gradient-to-r from-[#6bb6c7] to-[#4a90a4] rounded-full blur-3xl"></div>
+        </div>
+        
+        <div className="container mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
+          <div className="text-center mb-20">
+            <div className="inline-flex items-center justify-center p-2 bg-gradient-to-r from-[#4a90a4]/20 to-[#6bb6c7]/20 rounded-full mb-6">
+              <span className="px-4 py-2 bg-white/10 backdrop-blur-sm rounded-full text-white font-medium border border-white/20">
+                {language === "ar" ? "تواصل معنا" : "Get In Touch"}
+              </span>
+            </div>
+            <h2 className="text-3xl md:text-4xl font-bold text-white mb-6 drop-shadow-lg">
+              {currentContent.contact.title}
+            </h2>
+            <div className="w-24 h-1 bg-gradient-to-r from-[#4a90a4] to-[#6bb6c7] mx-auto mb-6 rounded-full"></div>
+            <p className="text-xl text-white/90 max-w-3xl mx-auto leading-relaxed">{currentContent.contact.subtitle}</p>
+          </div>
+
+          <div className="grid lg:grid-cols-2 gap-12 max-w-6xl mx-auto">
+            {/* Contact Form */}
+            <div className="group relative">
+              <div className="absolute inset-0 bg-gradient-to-br from-[#4a90a4]/20 to-[#6bb6c7]/20 rounded-3xl blur-xl opacity-0 group-hover:opacity-100 transition-opacity duration-300"></div>
+              <Card className="relative bg-white/95 backdrop-blur-sm border border-white/60 shadow-2xl group-hover:shadow-3xl transition-all duration-300 rounded-3xl overflow-hidden">
+                <div className="h-2 bg-gradient-to-r from-[#1e3a5f] to-[#4a90a4]"></div>
+                <CardHeader className="p-8">
+                  <div className="flex items-center mb-4">
+                    <div className="w-12 h-12 bg-gradient-to-br from-[#4a90a4] to-[#6bb6c7] rounded-2xl flex items-center justify-center mr-4 rtl:mr-0 rtl:ml-4">
+                      <MessageSquare className="h-6 w-6 text-white" />
+                    </div>
+                    <div>
+                      <CardTitle className="text-2xl text-[#1e3a5f] font-bold">
+                        {language === "ar" ? "إرسال رسالة" : "Send Message"}
+                      </CardTitle>
+                    </div>
+                  </div>
+                  <p className="text-gray-600 leading-relaxed">{language === "ar" ? "املأ النموذج وسنتواصل معك في أقرب وقت ممكن" : "Fill out the form and we will contact you as soon as possible"}</p>
+                </CardHeader>
+                <form onSubmit={handleSubmit}>
+                  <CardContent className="space-y-6 p-8">
+                    {/* Status Messages */}
+                    {submitStatus === 'success' && (
+                      <div className="p-4 bg-gradient-to-r from-green-50 to-emerald-50 border border-green-200 rounded-2xl shadow-sm">
+                        <p className="text-green-800 text-center font-medium">
+                          {language === "ar" ? "تم إرسال رسالتك بنجاح! سنتواصل معك قريباً." : "Your message has been sent successfully! We'll contact you soon."}
+                        </p>
+                      </div>
+                    )}
+                    {submitStatus === 'error' && (
+                      <div className="p-4 bg-gradient-to-r from-red-50 to-rose-50 border border-red-200 rounded-2xl shadow-sm">
+                        <p className="text-red-800 text-center font-medium">
+                          {language === "ar" ? "حدث خطأ في إرسال الرسالة. يرجى المحاولة مرة أخرى." : "An error occurred while sending your message. Please try again."}
+                        </p>
+                      </div>
+                    )}
+
+                    <div className="grid md:grid-cols-2 gap-6">
+                      <div className="space-y-2">
+                        <label className="block text-sm font-semibold mb-3 text-[#1e3a5f]">
+                          {language === "ar" ? "الاسم الكامل" : "Full Name"} *
+                        </label>
+                        <Input
+                          name="name"
+                          value={formData.name}
+                          onChange={handleInputChange}
+                          placeholder={language === "ar" ? "الاسم الكامل" : "Full Name"}
+                          className="h-12 border-2 border-gray-200 focus:border-[#4a90a4] focus:ring-4 focus:ring-[#4a90a4]/10 rounded-xl transition-all duration-300 hover:border-[#4a90a4]/50 bg-white/80 backdrop-blur-sm"
+                          required
+                        />
+                      </div>
+                      <div className="space-y-2">
+                        <label className="block text-sm font-semibold mb-3 text-[#1e3a5f]">
+                          {language === "ar" ? "البريد الإلكتروني" : "Email Address"} *
+                        </label>
+                        <Input
+                          name="email"
+                          type="email"
+                          value={formData.email}
+                          onChange={handleInputChange}
+                          placeholder={language === "ar" ? "البريد الإلكتروني" : "Email Address"}
+                          className="h-12 border-2 border-gray-200 focus:border-[#4a90a4] focus:ring-4 focus:ring-[#4a90a4]/10 rounded-xl transition-all duration-300 hover:border-[#4a90a4]/50 bg-white/80 backdrop-blur-sm"
+                          required
+                        />
+                      </div>
+                    </div>
+
+                    <div className="grid md:grid-cols-2 gap-6">
+                      <div className="space-y-2">
+                        <label className="block text-sm font-semibold mb-3 text-[#1e3a5f]">
+                          {language === "ar" ? "رقم الهاتف" : "Phone Number"}
+                        </label>
+                        <Input
+                          name="phone"
+                          value={formData.phone}
+                          onChange={handleInputChange}
+                          placeholder={language === "ar" ? "رقم الهاتف" : "Phone Number"}
+                          className="h-12 border-2 border-gray-200 focus:border-[#4a90a4] focus:ring-4 focus:ring-[#4a90a4]/10 rounded-xl transition-all duration-300 hover:border-[#4a90a4]/50 bg-white/80 backdrop-blur-sm"
+                        />
+                      </div>
+                      <div className="space-y-2">
+                        <label className="block text-sm font-semibold mb-3 text-[#1e3a5f]">
+                          {language === "ar" ? "اسم الشركة" : "Company Name"}
+                        </label>
+                        <Input
+                          name="company"
+                          value={formData.company}
+                          onChange={handleInputChange}
+                          placeholder={language === "ar" ? "اسم الشركة" : "Company Name"}
+                          className="h-12 border-2 border-gray-200 focus:border-[#4a90a4] focus:ring-4 focus:ring-[#4a90a4]/10 rounded-xl transition-all duration-300 hover:border-[#4a90a4]/50 bg-white/80 backdrop-blur-sm"
+                        />
+                      </div>
+                    </div>
+
+                    <div className="space-y-2">
+                      <label className="block text-sm font-semibold mb-3 text-[#1e3a5f]">
+                        {language === "ar" ? "الخدمة المطلوبة" : "Required Service"}
+                      </label>
+                      <select 
+                        name="service"
+                        value={formData.service}
+                        onChange={handleInputChange}
+                        className="w-full h-12 px-4 border-2 border-gray-200 focus:border-[#4a90a4] focus:ring-4 focus:ring-[#4a90a4]/10 rounded-xl transition-all duration-300 hover:border-[#4a90a4]/50 bg-white/80 backdrop-blur-sm appearance-none"
+                      >
+                        <option value="">{language === "ar" ? "اختر الخدمة المطلوبة" : "Select Required Service"}</option>
+                        <option value="consulting">{language === "ar" ? "الاستشارات الإدارية" : "Management Consulting"}</option>
+                        <option value="strategy">{language === "ar" ? "التخطيط الاستراتيجي" : "Strategic Planning"}</option>
+                        <option value="digital">{language === "ar" ? "التحول الرقمي" : "Digital Transformation"}</option>
+                        <option value="training">{language === "ar" ? "التدريب والتطوير" : "Training & Development"}</option>
+                        <option value="other">{language === "ar" ? "أخرى" : "Other"}</option>
+                      </select>
+                    </div>
+
+                    <div className="space-y-2">
+                      <label className="block text-sm font-semibold mb-3 text-[#1e3a5f]">
+                        {language === "ar" ? "الرسالة" : "Message"} *
+                      </label>
+                      <Textarea
+                        name="message"
+                        value={formData.message}
+                        onChange={handleInputChange}
+                        placeholder={language === "ar" ? "أخبرنا عن متطلباتك ومشروعك" : "Tell us about your requirements and project"}
+                        rows={6}
+                        className="border-2 border-gray-200 focus:border-[#4a90a4] focus:ring-4 focus:ring-[#4a90a4]/10 rounded-xl transition-all duration-300 hover:border-[#4a90a4]/50 bg-white/80 backdrop-blur-sm resize-none"
+                        required
+                      />
+                    </div>
+
+                    <div className="relative group">
+                      <div className="absolute inset-0 bg-gradient-to-r from-[#1e3a5f] to-[#4a90a4] rounded-2xl blur-lg opacity-30 group-hover:opacity-50 transition-opacity duration-300"></div>
+                      <Button 
+                        type="submit"
+                        disabled={isSubmitting}
+                        className="relative w-full h-14 bg-gradient-to-r from-[#1e3a5f] to-[#4a90a4] hover:from-[#1e3a5f]/90 hover:to-[#4a90a4]/90 text-white text-lg font-semibold rounded-2xl shadow-xl hover:shadow-2xl transition-all duration-300 hover:scale-105 disabled:opacity-50 disabled:hover:scale-100 border-0 group overflow-hidden"
+                      >
+                        <div className="absolute inset-0 bg-gradient-to-r from-white/0 via-white/20 to-white/0 translate-x-[-100%] group-hover:translate-x-[100%] transition-transform duration-500"></div>
+                        <span className="relative z-10 flex items-center justify-center">
+                          <Send className="h-5 w-5 mr-3 rtl:mr-0 rtl:ml-3 group-hover:translate-x-1 transition-transform duration-300" />
+                          {isSubmitting 
+                            ? (language === "ar" ? "جاري الإرسال..." : "Sending...")
+                            : (language === "ar" ? "إرسال الرسالة" : "Send Message")
+                          }
+                        </span>
+                      </Button>
+                    </div>
+                 </CardContent>
+               </form>
+             </Card>
+            </div>
+
+            {/* Contact Information */}
+            <div className="space-y-8">
+              {/* Contact info cards with enhanced design */}
+              <div className="group relative">
+                <div className="absolute inset-0 bg-gradient-to-br from-[#4a90a4]/10 to-[#6bb6c7]/10 rounded-3xl blur-xl opacity-0 group-hover:opacity-100 transition-opacity duration-300"></div>
+                <div className="relative flex items-start gap-6 p-8 bg-white/95 backdrop-blur-sm rounded-3xl shadow-xl group-hover:shadow-2xl border border-white/60 transition-all duration-300 hover:-translate-y-1">
+                  <div className="w-16 h-16 bg-gradient-to-br from-[#4a90a4] to-[#6bb6c7] rounded-2xl flex items-center justify-center flex-shrink-0 shadow-xl group-hover:scale-110 transition-transform duration-300">
+                    <Mail className="h-7 w-7 text-white" />
+                  </div>
+                  <div className="flex-1">
+                    <h3 className="font-bold text-xl mb-3 text-[#1e3a5f] group-hover:text-[#4a90a4] transition-colors duration-300">
+                      {language === "ar" ? "البريد الإلكتروني" : "Email"}
+                    </h3>
+                    <p className="text-gray-700 text-lg leading-relaxed">{currentContent.contact.info.email}</p>
+                    <div className="mt-3 h-1 w-20 bg-gradient-to-r from-[#4a90a4] to-[#6bb6c7] rounded-full transform scale-x-0 group-hover:scale-x-100 transition-transform duration-500 origin-left"></div>
+                  </div>
+                </div>
+              </div>
+
+              <div className="group relative">
+                <div className="absolute inset-0 bg-gradient-to-br from-[#6bb6c7]/10 to-[#4a90a4]/10 rounded-3xl blur-xl opacity-0 group-hover:opacity-100 transition-opacity duration-300"></div>
+                <div className="relative flex items-start gap-6 p-8 bg-white/95 backdrop-blur-sm rounded-3xl shadow-xl group-hover:shadow-2xl border border-white/60 transition-all duration-300 hover:-translate-y-1">
+                  <div className="w-16 h-16 bg-gradient-to-br from-[#6bb6c7] to-[#4a90a4] rounded-2xl flex items-center justify-center flex-shrink-0 shadow-xl group-hover:scale-110 transition-transform duration-300">
+                    <Phone className="h-7 w-7 text-white" />
+                  </div>
+                  <div className="flex-1">
+                    <h3 className="font-bold text-xl mb-3 text-[#1e3a5f] group-hover:text-[#4a90a4] transition-colors duration-300">
+                      {language === "ar" ? "الهاتف" : "Phone"}
+                    </h3>
+                    <p className="text-gray-700 text-lg leading-relaxed">{currentContent.contact.info.phone}</p>
+                    <div className="mt-3 h-1 w-20 bg-gradient-to-r from-[#6bb6c7] to-[#4a90a4] rounded-full transform scale-x-0 group-hover:scale-x-100 transition-transform duration-500 origin-left"></div>
+                  </div>
+                </div>
+              </div>
+
+              <div className="group relative">
+                <div className="absolute inset-0 bg-gradient-to-br from-[#1e3a5f]/10 to-[#4a90a4]/10 rounded-3xl blur-xl opacity-0 group-hover:opacity-100 transition-opacity duration-300"></div>
+                <div className="relative flex items-start gap-6 p-8 bg-white/95 backdrop-blur-sm rounded-3xl shadow-xl group-hover:shadow-2xl border border-white/60 transition-all duration-300 hover:-translate-y-1">
+                  <div className="w-16 h-16 bg-gradient-to-br from-[#1e3a5f] to-[#4a90a4] rounded-2xl flex items-center justify-center flex-shrink-0 shadow-xl group-hover:scale-110 transition-transform duration-300">
+                    <MapPin className="h-7 w-7 text-white" />
+                  </div>
+                  <div className="flex-1">
+                    <h3 className="font-bold text-xl mb-3 text-[#1e3a5f] group-hover:text-[#4a90a4] transition-colors duration-300">
+                      {language === "ar" ? "العنوان" : "Address"}
+                    </h3>
+                    <p className="text-gray-700 text-lg leading-relaxed">{currentContent.contact.info.address}</p>
+                    <div className="mt-3 h-1 w-20 bg-gradient-to-r from-[#1e3a5f] to-[#4a90a4] rounded-full transform scale-x-0 group-hover:scale-x-100 transition-transform duration-500 origin-left"></div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <footer className="relative bg-gradient-to-br from-[#1e3a5f] via-[#0f1419] to-[#1e3a5f] text-white py-16 overflow-hidden">
+        {/* Background decorative elements */}
+        <div className="absolute inset-0 opacity-10">
+          <div className="absolute top-10 left-20 w-64 h-64 bg-gradient-to-r from-[#4a90a4] to-[#6bb6c7] rounded-full blur-3xl"></div>
+          <div className="absolute bottom-10 right-20 w-80 h-80 bg-gradient-to-r from-[#6bb6c7] to-[#4a90a4] rounded-full blur-3xl"></div>
+        </div>
+        
+        <div className="container mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
+          <div className="text-center">
+            <div className="group inline-block mb-8">
+              <div className="relative">
+                <div className="absolute inset-0 bg-gradient-to-r from-[#4a90a4]/20 to-[#6bb6c7]/20 rounded-2xl blur opacity-0 group-hover:opacity-100 transition-opacity duration-300"></div>
+                <img
+                  src="/images/depth-logo-horizontal.png"
+                  alt="Depth Logo"
+                  className="relative h-20 w-auto mx-auto brightness-0 invert transition-transform duration-300 group-hover:scale-105"
+                />
+              </div>
+            </div>
+            
+            <div className="max-w-2xl mx-auto mb-8">
+              <p className="text-xl text-white/90 mb-4 leading-relaxed font-medium">
+                {language === "ar" 
+                  ? "عمق الخبرة لحلول الأعمال - شريكك في النجاح والتميز" 
+                  : "Depth of Experience for Business Solutions - Your Partner in Success and Excellence"
+                }
+              </p>
+              <div className="w-24 h-1 bg-gradient-to-r from-[#4a90a4] to-[#6bb6c7] mx-auto rounded-full mb-6"></div>
+              <p className="text-white/70 text-lg">
+                {language === "ar" 
+                  ? "نحن نؤمن أن النجاح يتحقق من خلال الشراكة والابتكار والتميز في الخدمة" 
+                  : "We believe success is achieved through partnership, innovation, and excellence in service"
+                }
+              </p>
+            </div>
+            
+            <div className="border-t border-white/20 pt-8">
+              <p className="text-white/60 text-lg">
+                {language === "ar" ? "© 2024 عمق - جميع الحقوق محفوظة" : "© 2024 Depth - All rights reserved"}
+              </p>
+            </div>
+          </div>
+        </div>
+        
+        {/* Additional decorative elements */}
+        <div className="absolute bottom-0 left-0 w-full h-32 bg-gradient-to-t from-black/20 to-transparent"></div>
       </footer>
     </div>
   )

@@ -363,12 +363,14 @@ export default function ServicesPage() {
                         <p className="text-sm text-gray-500 mb-1">{language === "ar" ? "السعر:" : "Price:"}</p>
                         <p className="text-lg font-bold text-[#1e3a5f]">{service.data.price}</p>
                       </div>
-                      <Button
-                        className={`bg-gradient-to-r ${service.gradient} hover:opacity-90 text-white border-0 shadow-lg`}
-                      >
-                        {language === "ar" ? "اطلب الخدمة" : "Request Service"}
-                        <ChevronRight className="ml-2 h-4 w-4 rtl:ml-0 rtl:mr-2 rtl:rotate-180" />
-                      </Button>
+                      <Link href={`/request-service?service=${['consulting', 'strategy', 'digital', 'training'][index]}&title=${encodeURIComponent(service.data.title)}`}>
+                        <Button
+                          className={`bg-gradient-to-r ${service.gradient} hover:opacity-90 text-white border-0 shadow-lg`}
+                        >
+                          {language === "ar" ? "اطلب الخدمة" : "Request Service"}
+                          <ChevronRight className="ml-2 h-4 w-4 rtl:ml-0 rtl:mr-2 rtl:rotate-180" />
+                        </Button>
+                      </Link>
                     </div>
                   </CardContent>
                 </Card>

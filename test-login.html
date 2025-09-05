@@ -1,0 +1,126 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>اختبار تسجيل الدخول</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background: linear-gradient(135deg, #0a0f1c, #1e3a5f, #0f1419);
+            color: white;
+            padding: 20px;
+        }
+        .container {
+            max-width: 500px;
+            margin: 0 auto;
+            background: rgba(255, 255, 255, 0.1);
+            padding: 30px;
+            border-radius: 15px;
+            backdrop-filter: blur(10px);
+        }
+        .form-group {
+            margin-bottom: 20px;
+        }
+        label {
+            display: block;
+            margin-bottom: 5px;
+        }
+        input {
+            width: 100%;
+            padding: 10px;
+            border: none;
+            border-radius: 5px;
+            background: rgba(255, 255, 255, 0.9);
+            color: #333;
+        }
+        button {
+            width: 100%;
+            padding: 12px;
+            background: #4a90a4;
+            color: white;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            font-size: 16px;
+        }
+        button:hover {
+            background: #3a7a8a;
+        }
+        .result {
+            margin-top: 20px;
+            padding: 10px;
+            background: rgba(0, 0, 0, 0.3);
+            border-radius: 5px;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h2>اختبار تسجيل الدخول</h2>
+        <form id="loginForm">
+            <div class="form-group">
+                <label>البريد الإلكتروني:</label>
+                <input type="email" id="email" required>
+            </div>
+            <div class="form-group">
+                <label>كلمة المرور:</label>
+                <input type="password" id="password" required>
+            </div>
+            <button type="submit">تسجيل الدخول</button>
+        </form>
+        <div id="result" class="result" style="display: none;"></div>
+    </div>
+
+    <script>
+        const AUTHORIZED_USERS = [
+            { email: "dr.safar7@gmail.com", password: "Dd@112233" },
+            { email: "ahmedcodzero@gmail.com", password: "Asdfahmad@depth" }
+        ];
+
+        document.getElementById('loginForm').addEventListener('submit', function(e) {
+            e.preventDefault();
+            
+            const email = document.getElementById('email').value;
+            const password = document.getElementById('password').value;
+            const resultDiv = document.getElementById('result');
+            
+            console.log('محاولة تسجيل الدخول:', { email, password: '***' });
+            
+            // التحقق من بيانات المستخدم
+            const user = AUTHORIZED_USERS.find(u => u.email === email && u.password === password);
+            
+            if (!user) {
+                resultDiv.style.display = 'block';
+                resultDiv.innerHTML = '❌ بيانات الدخول غير صحيحة';
+                resultDiv.style.background = 'rgba(255, 0, 0, 0.3)';
+                return;
+            }
+            
+            console.log('تم العثور على مستخدم:', user.email);
+            
+            // إنشاء رمز جلسة آمن
+            const sessionToken = btoa(JSON.stringify({
+                email: user.email,
+                timestamp: Date.now(),
+                random: Math.random().toString(36).substring(2)
+            }));
+            
+            console.log('تم إنشاء رمز الجلسة:', sessionToken);
+            
+            // حفظ الرمز في localStorage والكوكيز
+            localStorage.setItem('admin_session', sessionToken);
+            
+            // تعيين الكوكيز
+            document.cookie = `admin_session=${sessionToken}; path=/; max-age=${24 * 60 * 60}; samesite=strict`;
+            
+            console.log('تم حفظ الجلسة');
+            
+            resultDiv.style.display = 'block';
+            resultDiv.innerHTML = '✅ تم تسجيل الدخول بنجاح! يمكنك الآن الانتقال إلى <a href="/admin" style="color: #4a90a4;">لوحة التحكم</a>';
+            resultDiv.style.background = 'rgba(0, 255, 0, 0.3)';
+        });
+    </script>
+</body>
+</html>
+

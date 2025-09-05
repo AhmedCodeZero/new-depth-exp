@@ -3,7 +3,7 @@
     "nav": {
       "home": "الرئيسية",
       "services": "الخدمات",
-      "cases": "دراسات الحالة",
+      "cases": "عملائنا",
       "blog": "المدونة",
       "contact": "اتصل بنا"
     },
@@ -137,7 +137,7 @@
       }
     },
     "cases": {
-      "title": "دراسات الحالة",
+      "title": "عملائنا",
       "subtitle": "قصص نجاح حقيقية من عملائنا",
       "items": [
         {
@@ -186,9 +186,9 @@
       "message": "الرسالة",
       "send": "إرسال",
       "info": {
-        "email": "info@depth-solutions.com",
-        "phone": "+966 11 123 4567",
-        "address": "الرياض، المملكة العربية السعودية"
+        "email": "info@depthexp.sa",
+        "phone": "0573800662",
+        "address": "المملكة العربية السعودية _ أبها"
       }
     }
   },
@@ -196,7 +196,7 @@
     "nav": {
       "home": "Home",
       "services": "Services",
-      "cases": "Case Studies",
+      "cases": "Our Clients",
       "blog": "Blog",
       "contact": "Contact"
     },
@@ -330,7 +330,7 @@
       }
     },
     "cases": {
-      "title": "Case Studies",
+      "title": "Our Clients",
       "subtitle": "Real success stories from our clients",
       "items": [
         {
@@ -379,9 +379,9 @@
       "message": "Message",
       "send": "Send",
       "info": {
-        "email": "info@depth-solutions.com",
-        "phone": "+966 11 123 4567",
-        "address": "Riyadh, Saudi Arabia"
+        "email": "info@depthexp.sa",
+        "phone": "0573800662",
+        "address": "Abha, Saudi Arabia"
       }
     }
   }

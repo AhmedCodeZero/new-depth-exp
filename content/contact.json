@@ -17,7 +17,7 @@
     "contact": {
       "title": "معلومات التواصل",
       "subtitle": "تواصل معنا عبر القنوات التالية",
-      "office": { "title": "المكتب الرئيسي", "address": "شارع الملك فهد، الرياض 12345، المملكة العربية السعودية", "phone": "+966 11 123 4567", "email": "info@depth-solutions.com" },
+      "office": { "title": "المكتب الرئيسي", "address": "المملكة العربية السعودية _ أبها", "phone": "0573800662", "email": "info@depthexp.sa" },
       "hours": { "title": "ساعات العمل", "weekdays": "الأحد - الخميس: 9:00 ص - 6:00 م", "weekend": "الجمعة - السبت: مغلق" },
       "response": { "title": "وقت الاستجابة", "email": "البريد الإلكتروني: خلال 24 ساعة", "phone": "الهاتف: فوري خلال ساعات العمل" }
     },
@@ -45,7 +45,7 @@
     "contact": {
       "title": "Contact Information",
       "subtitle": "Reach us through the following channels",
-      "office": { "title": "Main Office", "address": "King Fahd Street, Riyadh 12345, Saudi Arabia", "phone": "+966 11 123 4567", "email": "info@depth-solutions.com" },
+      "office": { "title": "Main Office", "address": "Abha, Saudi Arabia", "phone": "0573800662", "email": "info@depthexp.sa" },
       "hours": { "title": "Working Hours", "weekdays": "Sunday - Thursday: 9:00 AM - 6:00 PM", "weekend": "Friday - Saturday: Closed" },
       "response": { "title": "Response Time", "email": "Email: Within 24 hours", "phone": "Phone: Immediate during working hours" }
     },
