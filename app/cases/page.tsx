@@ -36,12 +36,12 @@ export default function CaseStudiesPage() {
       nav: {
         home: "الرئيسية",
         services: "الخدمات",
-        cases: "دراسات الحالة",
+        cases: "عملاؤنا",
         blog: "المدونة",
         contact: "اتصل بنا",
       },
       hero: {
-        title: "دراسات الحالة",
+        title: "عملاؤنا",
         subtitle: "قصص نجاح حقيقية وإنجازات ملموسة حققناها مع عملائنا",
         backToHome: "العودة للرئيسية",
       },

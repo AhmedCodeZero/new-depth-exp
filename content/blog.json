@@ -1,6 +1,6 @@
 {
   "ar": {
-    "nav": { "home": "الرئيسية", "services": "الخدمات", "cases": "دراسات الحالة", "blog": "المدونة", "contact": "اتصل بنا" },
+    "nav": { "home": "الرئيسية", "services": "الخدمات", "cases": "عملاؤنا", "blog": "المدونة", "contact": "اتصل بنا" },
     "hero": { "title": "مدونة عمق", "subtitle": "آخر الأخبار والمقالات والمقالات في عالم الأعمال والتطوير", "backToHome": "العودة للرئيسية", "searchPlaceholder": "ابحث في المقالات..." },
     "categories": { "all": "الكل", "strategy": "الاستراتيجية", "digital": "التحول الرقمي", "leadership": "القيادة", "innovation": "الابتكار", "trends": "الاتجاهات" },
     "readMore": "اقرأ المزيد",

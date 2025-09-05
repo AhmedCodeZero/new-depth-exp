@@ -76,7 +76,7 @@ export default function CasesManager({ cases, onSave, lang }: CasesManagerProps)
       {/* Header */}
       <div className="flex justify-between items-center">
         <h3 className="text-xl font-semibold text-gray-800">
-          {lang === "ar" ? "إدارة دراسات الحالة" : "Case Studies Management"}
+          {lang === "ar" ? "إدارة عملاؤنا" : "Our Clients Management"}
         </h3>
         <Button 
           onClick={() => setShowAddForm(true)}

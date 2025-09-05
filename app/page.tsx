@@ -147,10 +147,10 @@ interface ContentData {
 // Default fallback content
 const defaultContent: ContentData = {
   ar: {
-    nav: { home: "الرئيسية", services: "الخدمات", cases: "دراسات الحالة", blog: "المدونة", contact: "اتصل بنا" },
+    nav: { home: "الرئيسية", services: "الخدمات", cases: "عملاؤنا", blog: "المدونة", contact: "اتصل بنا" },
     hero: { title: "عمق الخبرة لحلول الأعمال", subtitle: "نقدم حلولاً مبتكرة ومتخصصة لتطوير أعمالكم وتحقيق أهدافكم الاستراتيجية", cta: "ابدأ رحلتك معنا" },
     services: { title: "خدماتنا", subtitle: "نقدم مجموعة شاملة من الخدمات المصممة لتلبية احتياجات عملك", items: [] },
-    cases: { title: "دراسات الحالة", subtitle: "قصص نجاح عملائنا تروي كيف ساعدناهم في تحقيق أهدافهم", items: [] },
+    cases: { title: "عملاؤنا", subtitle: "قصص نجاح عملائنا تروي كيف ساعدناهم في تحقيق أهدافهم", items: [] },
     blog: { title: "أحدث المقالات", subtitle: "أحدث الأفكار والاتجاهات في عالم الأعمال", items: [] },
     contact: { 
       title: "تواصل معنا", 

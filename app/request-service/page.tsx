@@ -238,7 +238,7 @@ const ServiceRequestContent = () => {
                 <div className="absolute inset-0 bg-gradient-to-r from-[#4a90a4]/0 to-[#6bb6c7]/0 group-hover:from-[#4a90a4]/20 group-hover:to-[#6bb6c7]/20 rounded-full transition-all duration-300"></div>
               </Link>
               <Link href="/cases" className="relative px-6 py-3 text-gray-800 hover:text-[#1e3a5f] font-medium transition-all duration-300 rounded-full hover:bg-gradient-to-r hover:from-[#4a90a4]/10 hover:to-[#6bb6c7]/10 hover:shadow-md group">
-                <span className="relative z-10 font-semibold">{language === 'ar' ? 'دراسات الحالة' : 'Case Studies'}</span>
+                <span className="relative z-10 font-semibold">{language === 'ar' ? 'عملاؤنا' : 'Our Clients'}</span>
                 <div className="absolute inset-0 bg-gradient-to-r from-[#4a90a4]/0 to-[#6bb6c7]/0 group-hover:from-[#4a90a4]/20 group-hover:to-[#6bb6c7]/20 rounded-full transition-all duration-300"></div>
               </Link>
               <Link href="/blog" className="relative px-6 py-3 text-gray-800 hover:text-[#1e3a5f] font-medium transition-all duration-300 rounded-full hover:bg-gradient-to-r hover:from-[#4a90a4]/10 hover:to-[#6bb6c7]/10 hover:shadow-md group">

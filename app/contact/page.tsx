@@ -107,7 +107,7 @@ export default function ContactPage() {
       nav: {
         home: "الرئيسية",
         services: "الخدمات",
-        cases: "دراسات الحالة",
+        cases: "عملاؤنا",
         blog: "المدونة",
         contact: "اتصل بنا",
       },

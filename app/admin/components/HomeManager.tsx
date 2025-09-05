@@ -678,7 +678,7 @@ export default function HomeManager() {
               <div className="flex items-center justify-between">
                 <CardTitle className="flex items-center gap-2">
                   <Users className="h-5 w-5" />
-                  دراسات الحالة
+                  عملاؤنا
                 </CardTitle>
                 <Button onClick={addCase} size="sm" className="bg-gradient-to-r from-[#1e3a5f] to-[#4a90a4]">
                   <Plus className="h-4 w-4 mr-2" />
@@ -702,7 +702,7 @@ export default function HomeManager() {
                         }
                       }
                     })}
-                    placeholder="عنوان قسم دراسات الحالة"
+                    placeholder="عنوان قسم عملاؤنا"
                   />
                 </div>
                 
@@ -720,13 +720,13 @@ export default function HomeManager() {
                         }
                       }
                     })}
-                    placeholder="وصف قسم دراسات الحالة"
+                    placeholder="وصف قسم عملاؤنا"
                   />
                 </div>
               </div>
 
               <div className="space-y-4">
-                <h4 className="font-medium">قائمة دراسات الحالة</h4>
+                <h4 className="font-medium">قائمة عملاؤنا</h4>
                 {(currentContent.cases?.items || []).map((caseItem, index) => (
                   <Card key={index} className="border-2 border-gray-100">
                     <CardContent className="p-4">

@@ -41,7 +41,7 @@ export default function BlogPage() {
       nav: {
         home: "الرئيسية",
         services: "الخدمات",
-        cases: "دراسات الحالة",
+        cases: "عملاؤنا",
         blog: "المدونة",
         contact: "اتصل بنا",
       },
