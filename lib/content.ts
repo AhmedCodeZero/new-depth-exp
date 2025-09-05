@@ -1,7 +1,7 @@
 import fs from "fs"
 import path from "path"
 
-type SupportedPageKey = "home" | "services" | "cases" | "blog" | "contact"
+type SupportedPageKey = "home" | "about" | "services" | "cases" | "blog" | "contact"
 
 const CONTENT_DIR = path.join(process.cwd(), "content")
 
@@ -22,7 +22,7 @@ export function writePageContent(page: SupportedPageKey, data: unknown): void {
 }
 
 export function listPages(): SupportedPageKey[] {
-  return ["home", "services", "cases", "blog", "contact"]
+  return ["home", "about", "services", "cases", "blog", "contact"]
 }
 
 

@@ -1,0 +1,64 @@
+{
+  "ar": {
+    "nav": {
+      "home": "الرئيسية",
+      "about": "من نحن",
+      "services": "الخدمات",
+      "cases": "عملاؤنا",
+      "blog": "المدونة",
+      "contact": "اتصل بنا"
+    },
+    "hero": {
+      "title": "من نحن",
+      "subtitle": "مؤسسة متخصصة في تقديم حلول استراتيجية وإدارية متكاملة، تجمع بين الاستشارات الإدارية، البحث والتطوير، التدريب وبناء القدرات، وتنظيم الفعاليات والمعارض.",
+      "cta": "ابدأ رحلتك معنا",
+      "vision": "أن نكون المرجع الأول في حلول الأعمال المتكاملة التي تصنع التميز والاستدامة.",
+      "mission": "نبتكر حلول أعمال متكاملة تمكّن المنظمات من النمو وتحقيق الاستدامة.",
+      "values": {
+        "innovation": "الابتكار: تقديم حلول جديدة وفعالة",
+        "excellence": "التميز: الالتزام بأعلى معايير الجودة",
+        "sustainability": "الاستدامة: التركيز على الأثر طويل المدى",
+        "reliability": "الموثوقية: بناء علاقات قائمة على الثقة والمصداقية",
+        "partnership": "الشراكة: التعاون لتحقيق النجاح المشترك"
+      },
+      "objectives": [
+        "الريادة في تقديم حلول أعمال متكاملة ومبتكرة",
+        "تمكين المنظمات من تحقيق النمو والتميز المؤسسي",
+        "إثراء المعرفة عبر البحث والتطوير وصناعة الدراسات التطبيقية",
+        "صناعة منصات معرفية للتأثير وبناء الشراكات",
+        "تعزيز الاستدامة من خلال الابتكار والكفاءة التشغيلية"
+      ]
+    }
+  },
+  "en": {
+    "nav": {
+      "home": "Home",
+      "about": "About Us",
+      "services": "Services",
+      "cases": "Our Clients",
+      "blog": "Blog",
+      "contact": "Contact"
+    },
+    "hero": {
+      "title": "About Us",
+      "subtitle": "A specialized institution providing integrated strategic and administrative solutions, combining management consulting, research and development, training and capacity building, and organizing events and exhibitions.",
+      "cta": "Start Your Journey",
+      "vision": "To be the first reference in integrated business solutions that create excellence and sustainability.",
+      "mission": "We innovate integrated business solutions that enable organizations to grow and achieve sustainability.",
+      "values": {
+        "innovation": "Innovation: Providing new and effective solutions",
+        "excellence": "Excellence: Commitment to the highest quality standards",
+        "sustainability": "Sustainability: Focus on long-term impact",
+        "reliability": "Reliability: Building relationships based on trust and credibility",
+        "partnership": "Partnership: Collaboration to achieve mutual success"
+      },
+      "objectives": [
+        "Leadership in providing integrated and innovative business solutions",
+        "Enabling organizations to achieve growth and institutional excellence",
+        "Enriching knowledge through research, development and creating applied studies",
+        "Creating knowledge platforms for influence and building partnerships",
+        "Enhancing sustainability through innovation and operational efficiency"
+      ]
+    }
+  }
+}

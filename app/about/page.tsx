@@ -88,7 +88,7 @@ const AboutPage = () => {
   useEffect(() => {
     const fetchContent = async () => {
       try {
-        const response = await fetch('/api/content/home');
+        const response = await fetch('/api/content/about');
         const data = await response.json();
         setCurrentContent(data[language]);
       } catch (error) {
