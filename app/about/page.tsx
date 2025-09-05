@@ -90,7 +90,7 @@ const AboutPage = () => {
       try {
         const response = await fetch('/api/content/about');
         const data = await response.json();
-        setCurrentContent(data[language]);
+        setCurrentContent(data.data[language]);
       } catch (error) {
         console.error('Error fetching content:', error);
       }
