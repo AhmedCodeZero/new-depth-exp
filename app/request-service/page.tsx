@@ -1,6 +1,6 @@
 "use client";
 
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, Suspense } from 'react';
 import { useSearchParams } from 'next/navigation';
 import Link from 'next/link';
 import { Button } from '@/components/ui/button';
@@ -38,7 +38,7 @@ interface FormData {
   previousExperience: string;
 }
 
-const ServiceRequestPage = () => {
+const ServiceRequestContent = () => {
   const searchParams = useSearchParams();
   const serviceParam = searchParams.get('service');
   
@@ -597,6 +597,21 @@ const ServiceRequestPage = () => {
         <div className="absolute bottom-0 left-0 w-full h-32 bg-gradient-to-t from-black/20 to-transparent"></div>
       </footer>
     </div>
+  );
+};
+
+const ServiceRequestPage = () => {
+  return (
+    <Suspense fallback={
+      <div className="min-h-screen bg-gradient-to-br from-gray-50 via-white to-blue-50/30 flex items-center justify-center">
+        <div className="text-center">
+          <div className="animate-spin rounded-full h-32 w-32 border-b-2 border-[#4a90a4] mx-auto"></div>
+          <p className="mt-4 text-lg text-gray-600">جاري التحميل...</p>
+        </div>
+      </div>
+    }>
+      <ServiceRequestContent />
+    </Suspense>
   );
 };
 
