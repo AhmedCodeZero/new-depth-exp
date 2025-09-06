@@ -1,0 +1,29 @@
+[
+  {
+    "id": "1757092880459",
+    "fullName": "ewdc",
+    "email": "qe@alkawthar.org.sa",
+    "phone": "0531415333",
+    "company": "",
+    "position": "",
+    "serviceTitle": "حلول الأعمال والاستشارات الإدارية",
+    "serviceDescription": "استشارات متخصصة لتطوير استراتيجيات العمل وتحسين الأداء التشغيلي",
+    "projectDescription": "efcasdcawef",
+    "timeline": "",
+    "budget": "",
+    "specificRequirements": "",
+    "expectedDelivery": "",
+    "previousExperience": "",
+    "submittedAt": "2025-09-05T17:21:20.459Z",
+    "status": "pending"
+  },
+  {
+    "id": "1757093208763",
+    "fullName": "أحمد محمد",
+    "email": "ahmed@test.com",
+    "phone": "0501234567",
+    "projectDescription": "مشروع تجريبي جديد",
+    "submittedAt": "2025-09-05T17:26:48.763Z",
+    "status": "pending"
+  }
+]

@@ -4,6 +4,7 @@ import React, { useState, useEffect } from 'react';
 import Link from 'next/link';
 import { Button } from '@/components/ui/button';
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
+import Header from '@/components/Header';
 import { 
   Eye, 
   Heart, 
@@ -104,69 +105,22 @@ const AboutPage = () => {
   };
 
   const valueIcons = [
-    { key: 'innovation', icon: TrendingUp, color: 'from-blue-500 to-cyan-500' },
-    { key: 'excellence', icon: Award, color: 'from-yellow-500 to-orange-500' },
-    { key: 'sustainability', icon: Target, color: 'from-green-500 to-emerald-500' },
-    { key: 'reliability', icon: CheckCircle, color: 'from-purple-500 to-pink-500' },
-    { key: 'partnership', icon: Users, color: 'from-indigo-500 to-blue-500' }
+    { key: 'innovation', icon: TrendingUp, color: 'from-[#4a90a4] to-[#6bb6c7]' },
+    { key: 'excellence', icon: Award, color: 'from-[#1e3a5f] to-[#4a90a4]' },
+    { key: 'sustainability', icon: Target, color: 'from-[#6bb6c7] to-[#4a90a4]' },
+    { key: 'reliability', icon: CheckCircle, color: 'from-[#4a90a4] to-[#1e3a5f]' },
+    { key: 'partnership', icon: Users, color: 'from-[#1e3a5f] to-[#6bb6c7]' }
   ];
 
   return (
     <div className={`min-h-screen ${language === "ar" ? "font-arabic" : "font-sans"}`} dir={language === "ar" ? "rtl" : "ltr"}>
       {/* Header */}
-      <header className="sticky top-0 z-50 bg-white/95 backdrop-blur-xl supports-[backdrop-filter]:bg-white/90 border-b border-gray-200/30 shadow-lg">
-        <div className="container mx-auto px-6 sm:px-8 lg:px-12">
-          <div className="flex items-center justify-between h-24">
-            {/* Logo */}
-            <div className="flex items-center">
-              <div className="relative group">
-                <div className="absolute inset-0 bg-gradient-to-r from-[#4a90a4]/20 to-[#6bb6c7]/20 rounded-2xl blur opacity-0 group-hover:opacity-100 transition-opacity duration-300"></div>
-                <img src="/images/depth-logo-horizontal.png" alt="Depth Logo" className="relative h-16 w-auto transition-transform duration-300 group-hover:scale-105 filter drop-shadow-sm" />
-              </div>
-            </div>
-
-            {/* Desktop Navigation */}
-            <nav className="hidden md:flex items-center bg-white/80 backdrop-blur-sm border border-gray-200/50 rounded-full px-2 py-2 shadow-lg">
-              <Link href="/" className="relative px-6 py-3 text-gray-800 hover:text-[#1e3a5f] font-medium transition-all duration-300 rounded-full hover:bg-gradient-to-r hover:from-[#4a90a4]/10 hover:to-[#6bb6c7]/10 hover:shadow-md group">
-                <span className="relative z-10 font-semibold">{currentContent?.nav?.home}</span>
-                <div className="absolute inset-0 bg-gradient-to-r from-[#4a90a4]/0 to-[#6bb6c7]/0 group-hover:from-[#4a90a4]/20 group-hover:to-[#6bb6c7]/20 rounded-full transition-all duration-300"></div>
-              </Link>
-              <Link href="/about" className="relative px-6 py-3 text-[#1e3a5f] font-medium bg-gradient-to-r from-[#4a90a4]/20 to-[#6bb6c7]/20 rounded-full shadow-md">
-                <span className="relative z-10 font-semibold">{currentContent?.nav?.about || (language === 'ar' ? 'من نحن' : 'About Us')}</span>
-                <div className="absolute inset-0 bg-gradient-to-r from-[#4a90a4]/0 to-[#6bb6c7]/0 group-hover:from-[#4a90a4]/20 group-hover:to-[#6bb6c7]/20 rounded-full transition-all duration-300"></div>
-              </Link>
-              <Link href="/services" className="relative px-6 py-3 text-gray-800 hover:text-[#1e3a5f] font-medium transition-all duration-300 rounded-full hover:bg-gradient-to-r hover:from-[#4a90a4]/10 hover:to-[#6bb6c7]/10 hover:shadow-md group">
-                <span className="relative z-10 font-semibold">{currentContent?.nav?.services}</span>
-                <div className="absolute inset-0 bg-gradient-to-r from-[#4a90a4]/0 to-[#6bb6c7]/0 group-hover:from-[#4a90a4]/20 group-hover:to-[#6bb6c7]/20 rounded-full transition-all duration-300"></div>
-              </Link>
-              <Link href="/cases" className="relative px-6 py-3 text-gray-800 hover:text-[#1e3a5f] font-medium transition-all duration-300 rounded-full hover:bg-gradient-to-r hover:from-[#4a90a4]/10 hover:to-[#6bb6c7]/10 hover:shadow-md group">
-                <span className="relative z-10 font-semibold">{currentContent?.nav?.cases}</span>
-                <div className="absolute inset-0 bg-gradient-to-r from-[#4a90a4]/0 to-[#6bb6c7]/0 group-hover:from-[#4a90a4]/20 group-hover:to-[#6bb6c7]/20 rounded-full transition-all duration-300"></div>
-              </Link>
-              <Link href="/blog" className="relative px-6 py-3 text-gray-800 hover:text-[#1e3a5f] font-medium transition-all duration-300 rounded-full hover:bg-gradient-to-r hover:from-[#4a90a4]/10 hover:to-[#6bb6c7]/10 hover:shadow-md group">
-                <span className="relative z-10 font-semibold">{currentContent?.nav?.blog}</span>
-                <div className="absolute inset-0 bg-gradient-to-r from-[#4a90a4]/0 to-[#6bb6c7]/0 group-hover:from-[#4a90a4]/20 group-hover:to-[#6bb6c7]/20 rounded-full transition-all duration-300"></div>
-              </Link>
-              <Link href="/contact" className="relative px-6 py-3 text-gray-800 hover:text-[#1e3a5f] font-medium transition-all duration-300 rounded-full hover:bg-gradient-to-r hover:from-[#4a90a4]/10 hover:to-[#6bb6c7]/10 hover:shadow-md group">
-                <span className="relative z-10 font-semibold">{currentContent?.nav?.contact}</span>
-                <div className="absolute inset-0 bg-gradient-to-r from-[#4a90a4]/0 to-[#6bb6c7]/0 group-hover:from-[#4a90a4]/20 group-hover:to-[#6bb6c7]/20 rounded-full transition-all duration-300"></div>
-              </Link>
-            </nav>
-
-            {/* Language Toggle & Mobile Menu */}
-            <div className="flex items-center space-x-4 rtl:space-x-reverse">
-              <Button
-                variant="outline"
-                size="sm"
-                onClick={toggleLanguage}
-                className="flex items-center space-x-2 rtl:space-x-reverse bg-gradient-to-r from-[#4a90a4]/10 to-[#6bb6c7]/10 border-[#4a90a4]/40 hover:from-[#4a90a4]/20 hover:to-[#6bb6c7]/20 hover:border-[#4a90a4]/60 transition-all duration-300 hover:scale-105 rounded-full px-4 py-2 font-medium text-[#1e3a5f] hover:text-[#4a90a4] shadow-md hover:shadow-lg"
-              >
-                <span className="font-semibold">{language === "ar" ? "EN" : "عربي"}</span>
-              </Button>
-            </div>
-          </div>
-        </div>
-      </header>
+      <Header 
+        language={language}
+        onLanguageToggle={toggleLanguage}
+        currentContent={currentContent}
+        currentPage="about"
+      />
 
       {/* Hero Section */}
       <section className="py-24 bg-gradient-to-br from-[#1e3a5f] via-[#4a90a4] to-[#6bb6c7] text-white relative overflow-hidden">
@@ -209,21 +163,21 @@ const AboutPage = () => {
                 <div className="absolute top-0 left-0 w-full h-2 bg-gradient-to-r from-[#1e3a5f] to-[#4a90a4] rounded-t-3xl"></div>
 
                 {/* Floating icon */}
-                <div className="relative mb-8">
-                  <div className="absolute inset-0 bg-gradient-to-r from-[#4a90a4] to-[#6bb6c7] rounded-2xl blur-lg opacity-30"></div>
-                  <div className="relative w-20 h-20 bg-gradient-to-br from-[#4a90a4] to-[#6bb6c7] rounded-2xl flex items-center justify-center shadow-xl">
-                    <Eye className="h-10 w-10 text-white" />
+                <div className="relative mb-6">
+                  <div className="absolute inset-0 bg-gradient-to-r from-[#4a90a4] to-[#6bb6c7] rounded-xl blur-lg opacity-30"></div>
+                  <div className="relative w-16 h-16 bg-gradient-to-br from-[#4a90a4] to-[#6bb6c7] rounded-xl flex items-center justify-center shadow-lg">
+                    <Eye className="h-8 w-8 text-white" />
                   </div>
                 </div>
 
-                <div className="mb-6">
-                  <h3 className="text-3xl font-bold bg-gradient-to-r from-[#1e3a5f] to-[#4a90a4] bg-clip-text text-transparent mb-4">
+                <div className="mb-4">
+                  <h3 className="text-2xl font-bold bg-gradient-to-r from-[#1e3a5f] to-[#4a90a4] bg-clip-text text-transparent mb-3">
                     {language === "ar" ? "🎯 الرؤية" : "🎯 Vision"}
                   </h3>
-                  <div className="w-16 h-1 bg-gradient-to-r from-[#4a90a4] to-[#6bb6c7] rounded-full"></div>
+                  <div className="w-12 h-1 bg-gradient-to-r from-[#4a90a4] to-[#6bb6c7] rounded-full"></div>
                 </div>
 
-                <p className="text-xl text-gray-700 leading-relaxed font-medium">
+                <p className="text-lg text-gray-700 leading-relaxed font-medium">
                   {currentContent.hero?.vision || (language === "ar" ? "أن نكون المرجع الأول في حلول الأعمال المتكاملة التي تصنع التميز والاستدامة." : "To be the first reference in integrated business solutions that create excellence and sustainability.")}
                 </p>
 
@@ -239,21 +193,21 @@ const AboutPage = () => {
                 <div className="absolute top-0 left-0 w-full h-2 bg-gradient-to-r from-[#6bb6c7] to-[#4a90a4] rounded-t-3xl"></div>
 
                 {/* Floating icon */}
-                <div className="relative mb-8">
-                  <div className="absolute inset-0 bg-gradient-to-r from-[#6bb6c7] to-[#1e3a5f] rounded-2xl blur-lg opacity-30"></div>
-                  <div className="relative w-20 h-20 bg-gradient-to-br from-[#6bb6c7] to-[#1e3a5f] rounded-2xl flex items-center justify-center shadow-xl">
-                    <Target className="h-10 w-10 text-white" />
+                <div className="relative mb-6">
+                  <div className="absolute inset-0 bg-gradient-to-r from-[#6bb6c7] to-[#1e3a5f] rounded-xl blur-lg opacity-30"></div>
+                  <div className="relative w-16 h-16 bg-gradient-to-br from-[#6bb6c7] to-[#1e3a5f] rounded-xl flex items-center justify-center shadow-lg">
+                    <Target className="h-8 w-8 text-white" />
                   </div>
                 </div>
 
-                <div className="mb-6">
-                  <h3 className="text-3xl font-bold bg-gradient-to-r from-[#6bb6c7] to-[#1e3a5f] bg-clip-text text-transparent mb-4">
+                <div className="mb-4">
+                  <h3 className="text-2xl font-bold bg-gradient-to-r from-[#6bb6c7] to-[#1e3a5f] bg-clip-text text-transparent mb-3">
                     {language === "ar" ? "📝 الرسالة" : "📝 Mission"}
                   </h3>
-                  <div className="w-16 h-1 bg-gradient-to-r from-[#6bb6c7] to-[#1e3a5f] rounded-full"></div>
+                  <div className="w-12 h-1 bg-gradient-to-r from-[#6bb6c7] to-[#1e3a5f] rounded-full"></div>
                 </div>
 
-                <p className="text-xl text-gray-700 leading-relaxed font-medium">
+                <p className="text-lg text-gray-700 leading-relaxed font-medium">
                   {currentContent.hero?.mission || (language === "ar" ? "نبتكر حلول أعمال متكاملة تمكّن المنظمات من النمو وتحقيق الاستدامة." : "We innovate integrated business solutions that enable organizations to grow and achieve sustainability.")}
                 </p>
 
@@ -265,16 +219,16 @@ const AboutPage = () => {
 
           {/* Values Section */}
           <div className="mb-24">
-            <div className="text-center mb-16">
-              <div className="inline-flex items-center justify-center p-2 bg-gradient-to-r from-[#4a90a4]/10 to-[#6bb6c7]/10 rounded-full mb-6">
+            <div className="text-center mb-12">
+              <div className="inline-flex items-center justify-center p-2 bg-gradient-to-r from-[#4a90a4]/10 to-[#6bb6c7]/10 rounded-full mb-4">
                 <span className="px-4 py-2 bg-white rounded-full text-[#4a90a4] font-medium shadow-sm">
                   {language === "ar" ? "قيمنا المؤسسية" : "Our Core Values"}
                 </span>
               </div>
-              <h3 className="text-4xl font-bold bg-gradient-to-r from-[#1e3a5f] to-[#4a90a4] bg-clip-text text-transparent mb-4">
+              <h3 className="text-3xl font-bold bg-gradient-to-r from-[#1e3a5f] to-[#4a90a4] bg-clip-text text-transparent mb-3">
                 {language === "ar" ? "🌟 القيم التي تحركنا" : "🌟 Values That Drive Us"}
               </h3>
-              <p className="text-xl text-gray-600 max-w-3xl mx-auto">
+              <p className="text-lg text-gray-600 max-w-3xl mx-auto">
                 {language === "ar" 
                   ? "نؤمن بقيم أساسية تشكل أساس عملنا وتحدد طريقة تفاعلنا مع عملائنا وشركائنا"
                   : "We believe in core values that form the foundation of our work and define how we interact with our clients and partners"
@@ -290,15 +244,15 @@ const AboutPage = () => {
                 return (
                   <div key={value.key} className="group relative">
                     <div className={`absolute inset-0 bg-gradient-to-br ${value.color} rounded-3xl blur-xl opacity-0 group-hover:opacity-20 transition-opacity duration-300`}></div>
-                    <div className="relative bg-white/90 backdrop-blur-sm rounded-3xl p-8 border border-white/40 shadow-xl group-hover:shadow-2xl transition-all duration-300 hover:-translate-y-2">
-                      <div className={`w-16 h-16 bg-gradient-to-br ${value.color} rounded-2xl flex items-center justify-center mb-6 shadow-lg group-hover:scale-110 transition-transform duration-300`}>
-                        <IconComponent className="h-8 w-8 text-white" />
+                    <div className="relative bg-white/90 backdrop-blur-sm rounded-2xl p-6 border border-white/40 shadow-lg group-hover:shadow-xl transition-all duration-300 hover:-translate-y-1">
+                      <div className={`w-12 h-12 bg-gradient-to-br ${value.color} rounded-xl flex items-center justify-center mb-4 shadow-md group-hover:scale-105 transition-transform duration-300`}>
+                        <IconComponent className="h-6 w-6 text-white" />
                       </div>
                       
-                      <h4 className="text-xl font-bold text-[#1e3a5f] mb-3">
+                      <h4 className="text-lg font-bold text-[#1e3a5f] mb-2">
                         {valueText.split(':')[0]}
                       </h4>
-                      <p className="text-gray-600 leading-relaxed">
+                      <p className="text-gray-600 leading-relaxed text-sm">
                         {valueText.split(':')[1]?.trim() || valueText}
                       </p>
                       
@@ -313,16 +267,16 @@ const AboutPage = () => {
 
           {/* Strategic Objectives */}
           <div>
-            <div className="text-center mb-16">
-              <div className="inline-flex items-center justify-center p-2 bg-gradient-to-r from-[#1e3a5f]/10 to-[#4a90a4]/10 rounded-full mb-6">
+            <div className="text-center mb-12">
+              <div className="inline-flex items-center justify-center p-2 bg-gradient-to-r from-[#1e3a5f]/10 to-[#4a90a4]/10 rounded-full mb-4">
                 <span className="px-4 py-2 bg-white rounded-full text-[#1e3a5f] font-medium shadow-sm">
                   {language === "ar" ? "أهدافنا الاستراتيجية" : "Our Strategic Objectives"}
                 </span>
               </div>
-              <h3 className="text-4xl font-bold bg-gradient-to-r from-[#1e3a5f] to-[#4a90a4] bg-clip-text text-transparent mb-4">
+              <h3 className="text-3xl font-bold bg-gradient-to-r from-[#1e3a5f] to-[#4a90a4] bg-clip-text text-transparent mb-3">
                 {language === "ar" ? "🎯 الأهداف التي نسعى لتحقيقها" : "🎯 Goals We Strive to Achieve"}
               </h3>
-              <p className="text-xl text-gray-600 max-w-3xl mx-auto">
+              <p className="text-lg text-gray-600 max-w-3xl mx-auto">
                 {language === "ar" 
                   ? "خارطة طريق واضحة نحو التميز والريادة في مجال حلول الأعمال"
                   : "A clear roadmap towards excellence and leadership in the field of business solutions"

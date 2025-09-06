@@ -85,14 +85,17 @@ export async function POST(request: NextRequest) {
 
 export async function GET(request: NextRequest) {
   try {
+    console.log('GET /api/service-requests called');
+    
     const { searchParams } = new URL(request.url);
     const page = parseInt(searchParams.get('page') || '1');
     const limit = parseInt(searchParams.get('limit') || '10');
     const status = searchParams.get('status');
     
+    console.log('Querying service_requests table...');
     let query = supabase
       .from('service_requests')
-      .select('*')
+      .select('*', { count: 'exact' })
       .order('created_at', { ascending: false });
 
     // فلترة حسب الحالة
@@ -109,10 +112,12 @@ export async function GET(request: NextRequest) {
     if (error) {
       console.error('Supabase error:', error);
       return NextResponse.json(
-        { error: 'Failed to fetch service requests' },
+        { error: 'Failed to fetch service requests', details: error.message },
         { status: 500 }
       );
     }
+
+    console.log('Successfully fetched data:', data?.length || 0, 'records');
 
     return NextResponse.json({
       success: true,
@@ -128,7 +133,7 @@ export async function GET(request: NextRequest) {
   } catch (error) {
     console.error('Error fetching service requests:', error);
     return NextResponse.json(
-      { error: 'Internal server error' },
+      { error: 'Internal server error', details: error.message },
       { status: 500 }
     );
   }

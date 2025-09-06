@@ -132,7 +132,7 @@ const ServiceRequestContent = () => {
 
       console.log('Submitting service request:', requestData);
 
-      const response = await fetch('/api/service-requests-simple', {
+      const response = await fetch('/api/service-requests', {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
